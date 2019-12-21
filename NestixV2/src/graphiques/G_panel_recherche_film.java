@@ -2,9 +2,12 @@ package graphiques;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class G_panel_recherche_film extends JPanel {
 
+	bdd.C_requetes mes_requetes_recherche_film_combobox = new bdd.C_requetes();
+	
     JPanel p_recherche_film_criteres = new JPanel();
     JPanel p_recherche_film_resultats = new JPanel();
     JPanel p_recherche_film_boutons = new JPanel();
@@ -108,13 +111,13 @@ public class G_panel_recherche_film extends JPanel {
         b_recherche_film_supprimer.setBounds(315,5,150,40);
         p_recherche_film_boutons.add(b_recherche_film_supprimer);
     }
-/*
-    public void affichageComboBoxModificationFilm() throws SQLException {
-        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT pc_name FROM production_company", "pc_name", cb_modification_film_studio_production);
-        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_modification_film_artiste);
-        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_modification_film_genres);
-        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_modification_film_tags);
-        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_modification_film_ceremonie);
-        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_modification_film_award);
-    }*/
+
+    public void affichageComboBoxRechercheFilm() throws SQLException {
+        mes_requetes_recherche_film_combobox.rechercheValeursComboBox("(SELECT * FROM media WHERE media_type = 'film' AND media_title IN (SELECT media_title FROM media WHERE media_type = 'film' ))", "media_title", cb_recherche_film_titre);
+        mes_requetes_recherche_film_combobox.rechercheValeursComboBox("SELECT DISTINCT artist_nickname FROM artist JOIN take_part_in ON artist.human_id=take_part_in.human_id WHERE work_id=4", "artist_nickname", cb_recherche_film_surnom_realisateur);
+        mes_requetes_recherche_film_combobox.rechercheValeursComboBox("SELECT DISTINCT artist_nickname FROM artist JOIN take_part_in ON artist.human_id=take_part_in.human_id WHERE work_id=1", "artist_nickname", cb_recherche_film_surnom_acteur);
+        mes_requetes_recherche_film_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre","genre_name", cb_recherche_film_genre);
+        mes_requetes_recherche_film_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_recherche_film_tag);
+        mes_requetes_recherche_film_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_recherche_film_annee);
+    }
 }

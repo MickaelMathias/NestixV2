@@ -1,11 +1,15 @@
 package graphiques;
 
 import java.awt.*;
+import java.sql.SQLException;
+
 import javax.swing.*;
 
 
 public class G_panel_recherche_artiste extends JPanel {
 
+	bdd.C_requetes mes_requetes_recherche_artiste_combobox = new bdd.C_requetes();
+	
     JPanel p_recherche_artiste_criteres = new JPanel();
     JPanel p_recherche_artiste_resultats = new JPanel();
     JPanel p_recherche_artiste_boutons = new JPanel();
@@ -102,12 +106,13 @@ public class G_panel_recherche_artiste extends JPanel {
         b_recherche_artiste_supprimer.setBounds(315,5,150,40);
         p_recherche_artiste_boutons.add(b_recherche_artiste_supprimer);
     }
-/*
+
     public void affichageComboBoxRechercheArtiste() throws SQLException {
 
-        mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_creation_artiste_groupe);
-        mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT country_name FROM country", "country_name", cb_creation_artiste_pays);
-        mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_creation_artiste_ceremonie);
-        mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_artiste_award);
-    }*/
+        mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT DISTINCT human_sex FROM human", "human_sex", cb_recherche_artiste_sexe);
+        mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT human_lastname FROM human WHERE human_id IN (SELECT human_id FROM artist)", "human_lastname", cb_recherche_artiste_nom);
+        mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT human_firstname FROM human WHERE human_id IN (SELECT human_id FROM artist)", "human_firstname", cb_recherche_artiste_prenom);
+        mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_recherche_artiste_surnom);
+        mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT country_name FROM country", "country_name", cb_recherche_artiste_pays);
+    }
 }

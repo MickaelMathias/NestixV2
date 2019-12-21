@@ -1,10 +1,14 @@
 package graphiques;
 
 import java.awt.*;
+import java.sql.SQLException;
+
 import javax.swing.*;
 
 public class G_panel_recherche_chanson extends JPanel {
 
+	bdd.C_requetes mes_requetes_recherche_chanson_combobox = new bdd.C_requetes();
+	
     JPanel p_recherche_chanson_criteres = new JPanel();
     JPanel p_recherche_chanson_resultats = new JPanel();
     JPanel p_recherche_chanson_boutons = new JPanel();
@@ -108,14 +112,13 @@ public class G_panel_recherche_chanson extends JPanel {
         b_recherche_chanson_supprimer.setBounds(315,5,150,40);
         p_recherche_chanson_boutons.add(b_recherche_chanson_supprimer);
     }
-/*
-    public void affichageComboBoxModificationChanson() throws SQLException {
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM production_company", "pc_name", cb_modification_chanson_studio_production);
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_modification_chanson_groupe);
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_modification_chanson_artiste);
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_modification_chanson_genres);
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_modification_chanson_tags);
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_modification_chanson_ceremonie);
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_modification_chanson_award);
-    }*/
+
+    public void affichageComboBoxRechercheChanson() throws SQLException {
+        mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("(SELECT * FROM media WHERE media_type = 'chanson' AND media_title IN (SELECT media_title FROM media WHERE media_type = 'chanson' ))", "media_title", cb_recherche_chanson_titre);
+        mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("SELECT DISTINCT artist_nickname FROM artist JOIN take_part_in ON artist.human_id=take_part_in.human_id WHERE work_id=2", "artist_nickname", cb_recherche_chanson_surnom_interprete);
+        mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_recherche_chanson_album);
+        mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_recherche_chanson_genre);
+        mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_recherche_chanson_tag);
+        mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_recherche_chanson_annee);
+    }
 }

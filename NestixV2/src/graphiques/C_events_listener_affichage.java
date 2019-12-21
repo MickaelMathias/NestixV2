@@ -153,13 +153,13 @@ public class C_events_listener_affichage{
                 mon_panel_container_recherche.get_panel_recherche_film().setVisible(true);
                 mon_panel_container_recherche.get_panel_recherche_livre().setVisible(false);
                 mon_panel_container_recherche.get_panel_recherche_chanson().setVisible(false);
-                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(false);    }
-            /*    try{
+                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(false);    
+                try{
                     mon_panel_container_recherche.mon_panel_recherche_film.affichageComboBoxRechercheFilm();}
                     catch (SQLException e){
                         e.printStackTrace();
                     }
-                }*/
+                }
         });
 
         mon_panel_container_recherche.mon_panel_choix_recherche.get_rb_choix_chanson().addActionListener(new java.awt.event.ActionListener() {
@@ -167,13 +167,13 @@ public class C_events_listener_affichage{
                 mon_panel_container_recherche.get_panel_recherche_film().setVisible(false);
                 mon_panel_container_recherche.get_panel_recherche_livre().setVisible(false);
                 mon_panel_container_recherche.get_panel_recherche_chanson().setVisible(true);
-                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(false);    }
-     /*           try{
+                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(false);    
+           try{
                    mon_panel_container_recherche.mon_panel_recherche_chanson.affichageComboBoxRechercheChanson();}
                     catch (SQLException e){
                         e.printStackTrace();
                     }
-                }*/
+                }
         });
 
         mon_panel_container_recherche.mon_panel_choix_recherche.get_rb_choix_livre().addActionListener(new java.awt.event.ActionListener() {
@@ -181,13 +181,13 @@ public class C_events_listener_affichage{
                 mon_panel_container_recherche.get_panel_recherche_film().setVisible(false);
                 mon_panel_container_recherche.get_panel_recherche_livre().setVisible(true);
                 mon_panel_container_recherche.get_panel_recherche_chanson().setVisible(false);
-                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(false);    }
-              /*  try{
+                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(false);    
+                try{
                     mon_panel_container_recherche.mon_panel_recherche_livre.affichageComboBoxRechercheLivre();}
                     catch (SQLException e){
                         e.printStackTrace();
                     }
-                }*/
+                }
         });
 
         mon_panel_container_recherche.mon_panel_choix_recherche.get_rb_choix_artiste().addActionListener(new java.awt.event.ActionListener() {
@@ -195,13 +195,13 @@ public class C_events_listener_affichage{
                 mon_panel_container_recherche.get_panel_recherche_film().setVisible(false);
                 mon_panel_container_recherche.get_panel_recherche_livre().setVisible(false);
                 mon_panel_container_recherche.get_panel_recherche_chanson().setVisible(false);
-                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(true);    }
-          /*      try{
+                mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(true);    
+                try{
                     mon_panel_container_recherche.mon_panel_recherche_artiste.affichageComboBoxRechercheArtiste();}
                     catch (SQLException e){
                         e.printStackTrace();
                     }
-                }*/
+                }
         });
     }
 
