@@ -1,10 +1,16 @@
 package objets;
 
-import java.util.*;
-
 public class C_PRODC extends C_CARACTERISTIQUES{
     int prodc_id;
     String prodc_nom;
+
+    public C_PRODC(){}
+    
+    
+    public C_PRODC(String nom){
+        this.prodc_nom = nom;
+        this.prodc_id = recupererIdParNom(this, "pc", this.prodc_nom);
+    }
 
     @Override
     public String toString() {

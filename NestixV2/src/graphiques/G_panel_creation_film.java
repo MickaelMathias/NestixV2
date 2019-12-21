@@ -273,17 +273,37 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         
         sp_creation_film_tab_recompenses.setViewportView(tab_creation_film_tab_recompenses);
         p_creation_film_infos_ceremonie.add(sp_creation_film_tab_recompenses);
-        Object [][] o_creation_film_donnees_test = {{"test","test","test"},{"test","test","test"}};
-        this.ajouterDonneesDansTabRecompenses(o_creation_film_donnees_test, tab_creation_film_tab_recompenses);
     }
 
     public void affichageComboBoxCreationFilm() throws SQLException {
-        mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT pc_name FROM production_company", "pc_name", cb_creation_film_studio_production);
+        mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_creation_film_studio_production);
         mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_creation_film_artiste);
         mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_creation_film_genres);
         mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_creation_film_tags);
         mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_creation_film_ceremonie);
         mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_film_award);
+        mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_creation_film_annee_award);
+    }
+
+    public objets.C_FILM creerFilmAvecDonnees(){
+        // Crée un objet film et le rempli avec les informations du panel.
+        objets.C_FILM mon_film_cree = new objets.C_FILM();
+        mon_film_cree.setFilm_visa(recupererValeurTF(tf_creation_film_visa));
+        mon_film_cree.setMedia_titre(recupererValeurTF(tf_creation_film_titre));
+        mon_film_cree.setMedia_annee(recupererValeurTF(tf_creation_film_annee));
+        mon_film_cree.setFilm_duree(recupererValeurTF(tf_creation_film_duree));
+        mon_film_cree.setFilm_trailer(recupererValeurTF(tf_creation_film_trailer));
+        mon_film_cree.setMedia_lien(recupererValeurTF(tf_creation_film_lien));
+        mon_film_cree.setFilm_budget(recupererValeurTF(tf_creation_film_budget));
+        mon_film_cree.setFilm_saga(recupererValeurTF(tf_creation_film_saga));
+        mon_film_cree.setFilm_synop(recupererValeurTA(ta_creation_film_synop));
+        if(!isCBVide(cb_creation_film_studio_production)){
+            mon_film_cree.setfilm_studio_production(new objets.C_PRODC(cb_creation_film_studio_production.getSelectedItem().toString()));}
+
+        System.out.println(mon_film_cree.toString());
+
+        return mon_film_cree;
+
     }
 
 }

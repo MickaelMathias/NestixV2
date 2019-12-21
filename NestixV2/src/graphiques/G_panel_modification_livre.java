@@ -235,7 +235,7 @@ public class G_panel_modification_livre extends A_panel_creation_modification {
     }
 
     public void affichageComboBoxModificationLivre() throws SQLException {
-        mes_requetes_modification_livre_combobox.rechercheValeursComboBox("SELECT pc_name FROM production_company", "pc_name", cb_modification_livre_studio_production);
+        mes_requetes_modification_livre_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_livre_studio_production);
         mes_requetes_modification_livre_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_modification_livre_artiste);
         mes_requetes_modification_livre_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_modification_livre_genres);
         mes_requetes_modification_livre_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_modification_livre_tags);

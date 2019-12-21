@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
-public class G_panel_creation_chanson extends JPanel {
+public class G_panel_creation_chanson extends A_panel_creation_modification {
 
     bdd.C_requetes mes_requetes_creation_chanson_combobox = new bdd.C_requetes();
 
@@ -217,19 +217,20 @@ public class G_panel_creation_chanson extends JPanel {
 
         // LISTE CEREMONIE
         tab_creation_chanson_tab_recompenses.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{null, null, null}},new String [] {"Cérémonie", "Récompense", "Année"}));
+            new Object [][] {{}},new String [] {"Cérémonie", "Récompense", "Année"}));
         sp_creation_chanson_tab_recompenses.setBounds(5,150,315,190);
         sp_creation_chanson_tab_recompenses.setViewportView(tab_creation_chanson_tab_recompenses);
         p_creation_chanson_infos_ceremonie.add(sp_creation_chanson_tab_recompenses);
     }
 
     public void affichageComboBoxCreationChanson() throws SQLException {
-        mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM production_company", "pc_name", cb_creation_chanson_studio_production);
+        mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_creation_chanson_studio_production);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_creation_chanson_groupe);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_creation_chanson_artiste);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_creation_chanson_genres);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_creation_chanson_tags);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_creation_chanson_ceremonie);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_chanson_award);
+        mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_creation_chanson_annee_award);
     }
 }

@@ -169,6 +169,7 @@ public class G_panel_creation_artiste extends A_panel_creation_modification {
         mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT country_name FROM country", "country_name", cb_creation_artiste_pays);
         mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_creation_artiste_ceremonie);
         mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_artiste_award);
+        mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_creation_artiste_annee_award);
     }
 
 }

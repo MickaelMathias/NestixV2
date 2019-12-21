@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
-public class G_panel_creation_livre extends JPanel {
+public class G_panel_creation_livre extends A_panel_creation_modification {
 
     bdd.C_requetes mes_requetes_creation_livre_combobox = new bdd.C_requetes();
 
@@ -235,11 +235,12 @@ public class G_panel_creation_livre extends JPanel {
     }
 
     public void affichageComboBoxCreationLivre() throws SQLException {
-        mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT pc_name FROM production_company", "pc_name", cb_creation_livre_studio_production);
+        mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_creation_livre_studio_production);
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_creation_livre_artiste);
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_creation_livre_genres);
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_creation_livre_tags);
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_creation_livre_ceremonie);
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_livre_award);
+        
     }
 }

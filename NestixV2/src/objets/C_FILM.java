@@ -13,7 +13,8 @@ public class C_FILM extends C_MEDIA {
     ArrayList <C_TAG> film_tags = new ArrayList<>(); 
     ArrayList <C_CEREMONIE> artiste_ceremonies = new ArrayList<>();
     ArrayList <C_AWARD> artiste_award = new ArrayList<>();
-    C_PRODC film_studio_production = new C_PRODC();
+    C_PRODC film_studio_production;
+
 
     @Override
     public String toString() {

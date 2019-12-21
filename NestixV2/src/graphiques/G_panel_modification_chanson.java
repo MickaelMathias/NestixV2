@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
-public class G_panel_modification_chanson extends JPanel {
+public class G_panel_modification_chanson extends A_panel_creation_modification {
 
     bdd.C_requetes mes_requetes_modification_chanson_combobox = new bdd.C_requetes();
 
@@ -224,7 +224,7 @@ public class G_panel_modification_chanson extends JPanel {
     }
 
     public void affichageComboBoxModificationChanson() throws SQLException {
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM production_company", "pc_name", cb_modification_chanson_studio_production);
+        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_chanson_studio_production);
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_modification_chanson_groupe);
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_modification_chanson_artiste);
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_modification_chanson_genres);
