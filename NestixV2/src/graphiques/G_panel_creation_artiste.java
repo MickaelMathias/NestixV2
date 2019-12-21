@@ -2,7 +2,11 @@ package graphiques;
 
 import java.awt.Color;
 import javax.swing.*;
+
+import objets.C_ARTISTE;
+
 import java.sql.*;
+import java.util.*;
 
 
 public class G_panel_creation_artiste extends A_panel_creation_modification {

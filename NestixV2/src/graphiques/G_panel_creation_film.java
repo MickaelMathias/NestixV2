@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.*;
 
 public class G_panel_creation_film extends A_panel_creation_modification {
 
@@ -299,11 +300,16 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         mon_film_cree.setFilm_synop(recupererValeurTA(ta_creation_film_synop));
         if(!isCBVide(cb_creation_film_studio_production)){
             mon_film_cree.setfilm_studio_production(new objets.C_PRODC(cb_creation_film_studio_production.getSelectedItem().toString()));}
+        if(li_creation_film_liste_acteurs.getModel().getSize() > 0){
+            mon_film_cree.setFilm_acteurs(recupererTousArtistDeList(li_creation_film_liste_acteurs));
+        }
 
         System.out.println(mon_film_cree.toString());
 
         return mon_film_cree;
 
     }
+
+
 
 }

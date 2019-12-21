@@ -4,6 +4,8 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import objets.C_CARACTERISTIQUES;
+
 abstract class A_panel_creation_modification extends JPanel{
     private static final long serialVersionUID = -2313359782920101526L;
 
@@ -41,11 +43,13 @@ abstract class A_panel_creation_modification extends JPanel{
         }
     }
 
-    protected String [] recupererToutesValeursList(JList ma_list){
-        String [] mes_valeurs = new String[ma_list.getModel().getSize()];
+    protected ArrayList<objets.C_ARTISTE> recupererTousArtistDeList(JList ma_list){
+        ArrayList<objets.C_ARTISTE> mes_valeurs = new ArrayList<>();
         for (int i = 0; i < ma_list.getModel().getSize() ;i++){
-            mes_valeurs[i] = ma_list.getModel().getElementAt(i).toString();
-
+            objets.C_ARTISTE mon_artiste = new objets.C_ARTISTE();
+            mon_artiste.setArtiste_nickname(ma_list.getModel().getElementAt(i).toString());
+            mon_artiste.recupererIdParNom();
+            mes_valeurs.add(mon_artiste);
         }
         return mes_valeurs;
     }
@@ -120,7 +124,7 @@ abstract class A_panel_creation_modification extends JPanel{
 
     protected String recupererValeurCB(JComboBox cb){
         String valeur_retour = "NULL";
-        // Si l'utilisateur choisit autre chose que "Choisissez"
+        // Si l'utilisateur choisit autre chose  que "Choisissez"
         if(!cb.getSelectedItem().equals("Choisissez")){
             valeur_retour = cb.getSelectedItem().toString();
         }
