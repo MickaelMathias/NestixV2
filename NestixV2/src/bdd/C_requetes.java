@@ -66,8 +66,8 @@ public class C_requetes extends C_connexion{
         int i = 0;
         while(resultat.next())
             {
-                tabObj[i][0] = resultat.getString("media_title");
-                tabObj[i][1] = resultat.getString("media_type");
+                tabObj[i][0] = resultat.getString("media_id");
+                tabObj[i][1] = resultat.getString("media_title");
                 tabObj[i][2] = resultat.getString("media_year");
                 tabObj[i][3] = resultat.getString("media_cover");
                 tabObj[i][4] = resultat.getString("media_link");
