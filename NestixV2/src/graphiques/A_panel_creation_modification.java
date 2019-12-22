@@ -5,12 +5,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import objets.C_CARACTERISTIQUES;
+import objets.C_CEREMONIE;
+import objets.C_GENRE;
 
 abstract class A_panel_creation_modification extends JPanel{
     private static final long serialVersionUID = -2313359782920101526L;
 
     protected void ajouterElementList(JList list, String valeur) {
-        DefaultListModel<String> mon_model = new DefaultListModel<>();
+        DefaultListModel mon_model = (DefaultListModel)list.getModel();
         mon_model.addElement(valeur);
         list.setModel(mon_model);
     }
@@ -54,6 +56,63 @@ abstract class A_panel_creation_modification extends JPanel{
         return mes_valeurs;
     }
 
+    protected ArrayList<objets.C_GENRE> recupererTousGenreDeList(JList ma_list){
+        ArrayList<objets.C_GENRE> mes_valeurs = new ArrayList<>();
+        for (int i = 0; i < ma_list.getModel().getSize() ;i++){
+            objets.C_GENRE mon_genre = new objets.C_GENRE();
+            mon_genre.setGenre_nom(ma_list.getModel().getElementAt(i).toString());
+            mon_genre.setGenre_id(mon_genre.recupererIdParNom("genre", mon_genre.getGenre_nom()));
+            mes_valeurs.add(mon_genre);
+        }
+        return mes_valeurs;
+    }
+
+    protected ArrayList<objets.C_CEREMONIE> recupererTousCeremonieDeArrayList(ArrayList <String> liste_ceremonie){
+        ArrayList<objets.C_CEREMONIE> mes_valeurs = new ArrayList<>();
+        for (int i = 0; i < liste_ceremonie.size() ;i++){
+            objets.C_CEREMONIE ma_ceremonie = new objets.C_CEREMONIE();
+            ma_ceremonie.setCeremonie_nom(liste_ceremonie.get(i));
+            ma_ceremonie.setCeremonie_id(ma_ceremonie.recupererIdParNom("ceremony", ma_ceremonie.getCeremonie_nom()));
+            mes_valeurs.add(ma_ceremonie);
+        }
+        return mes_valeurs;
+    }
+
+    protected ArrayList<objets.C_AWARD> recupererTousAwardDeArrayList(ArrayList <String> liste_award){
+        ArrayList<objets.C_AWARD> mes_valeurs = new ArrayList<>();
+        for (int i = 0; i < liste_award.size() ;i++){
+            objets.C_AWARD mon_award = new objets.C_AWARD();
+            mon_award.setAward_nom(liste_award.get(i));
+            mon_award.setAward_id(mon_award.recupererIdParNom("award", mon_award.getAward_nom()));
+            mes_valeurs.add(mon_award);
+        }
+        return mes_valeurs;
+    }
+
+    protected ArrayList<String> recupererTousAnneeAwardDeArrayList(ArrayList <String> liste_annee_award){
+        ArrayList<String> mes_valeurs = new ArrayList<>();
+        for (int i = 0; i < liste_annee_award.size() ;i++){
+            if (liste_annee_award.get(i).equals("")){
+                mes_valeurs.add("NULL");
+            }
+            else{
+                mes_valeurs.add(liste_annee_award.get(i));
+            }
+        }
+        return mes_valeurs;
+    }
+
+    protected ArrayList<objets.C_TAG> recupererTousTagDeList(JList ma_list){
+        ArrayList<objets.C_TAG> mes_valeurs = new ArrayList<>();
+        for (int i = 0; i < ma_list.getModel().getSize() ;i++){
+            objets.C_TAG mon_tag = new objets.C_TAG();
+            mon_tag.setTag_nom(ma_list.getModel().getElementAt(i).toString());
+            mon_tag.setTag_id(mon_tag.recupererIdParNom("tag", mon_tag.getTag_nom()));
+            mes_valeurs.add(mon_tag);
+        }
+        return mes_valeurs;
+    }
+
     protected Object[][] recupererToutesValeursTableau(JTable mon_tableau){
         Object[][] mes_donnees_de_base = new Object[mon_tableau.getRowCount()][mon_tableau.getColumnCount()];
         for (int i = 0; i < mon_tableau.getRowCount(); i++){
@@ -63,6 +122,21 @@ abstract class A_panel_creation_modification extends JPanel{
         }
         return mes_donnees_de_base;
     }
+
+    protected ArrayList<String> recupererValeursColonneTableau(JTable mon_tableau, int colonne){
+        System.out.println(mon_tableau.getRowCount());
+        ArrayList<String> mes_donnees_de_base = new ArrayList<>();
+        for (int i = 1; i < mon_tableau.getRowCount(); i++){
+                if (mon_tableau.getValueAt(i,colonne).equals("")){
+                    mes_donnees_de_base.add("NULL");
+                }
+                else{
+                    mes_donnees_de_base.add(mon_tableau.getValueAt(i,colonne).toString());
+                }
+            }
+        return mes_donnees_de_base;
+    }
+
     protected void retirerElementDansTabRecompenses(JTable mon_tableau){
         ((DefaultTableModel)mon_tableau.getModel()).removeRow(mon_tableau.getSelectedRow());
     }
@@ -85,6 +159,16 @@ abstract class A_panel_creation_modification extends JPanel{
         String [] nom_colonnes = {"Ceremonie", "Award", "Année"};
         mon_tableau.setModel(new DefaultTableModel(mes_donnees_a_ajouter, nom_colonnes));
     }
+/*
+    protected void ajouterDonneesDansTabRecompenses(Object[] mes_donnees, JTable mon_tableau){
+        DefaultTableModel mon_model = (DefaultTableModel)mon_tableau.getModel();
+        System.out.println(mes_donnees[1]);
+        for (int i = 0 ; i < mes_donnees.length ; i++){
+            mon_model.addRow(mes_donnees);
+        }
+
+        mon_tableau.setModel(mon_model);
+    }*/
 
     protected String recupererValeurTF(JTextField tf){
         String valeur = tf.getText();

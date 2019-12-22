@@ -72,7 +72,7 @@ public class C_ARTISTE extends C_HUMAN{
     }
 
     public int recupererIdParNom(){
-        String ma_requete_id = "SELECT artist_id FROM artist WHERE artist_name = \""+this.artiste_nickname+"\"";
+        String ma_requete_id = "SELECT human_id FROM artist WHERE artist_nickname = \""+this.artiste_nickname+"\"";
         int id = bdd.C_requetes.rechercheId(ma_requete_id);
         return id;
     }

@@ -9,7 +9,7 @@ public class C_PRODC extends C_CARACTERISTIQUES{
     
     public C_PRODC(String nom){
         this.prodc_nom = nom;
-        this.prodc_id = recupererIdParNom(this, "pc", this.prodc_nom);
+        this.prodc_id = recupererIdParNom("pc", this.prodc_nom);
     }
 
     @Override

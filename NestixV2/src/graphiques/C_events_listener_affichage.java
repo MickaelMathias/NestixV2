@@ -1,6 +1,7 @@
 package graphiques;
 
 import java.sql.SQLException;
+import java.awt.*;
 
 public class C_events_listener_affichage{
 
@@ -209,8 +210,17 @@ public class C_events_listener_affichage{
         // Ajout élément aux listes
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_valider_creation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
-                System.out.println("Création d'un film");
-                mon_panel_container_creation.mon_panel_creation_film.creerFilmAvecDonnees();
+
+                if (mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_titre.getText().equals("") || mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_annee.getText().equals("")){
+                    javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation.mon_panel_creation_film, "Titre et année obligatoires.");  
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_titre.setBackground(Color.RED);
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_annee.setBackground(Color.RED);
+                }
+                else{
+                    System.out.println("Création d'un film");
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_titre.setBackground(Color.WHITE);
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_annee.setBackground(Color.WHITE);
+                    mon_panel_container_creation.mon_panel_creation_film.creerFilmAvecDonnees();}
             }         
         });
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_ajouter_acteur.addActionListener(new java.awt.event.ActionListener() {

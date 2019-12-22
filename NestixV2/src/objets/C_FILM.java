@@ -4,21 +4,22 @@ import java.util.*;
 
 public class C_FILM extends C_MEDIA {
 
-    String film_visa, film_duree, film_trailer, film_synop, film_budget, film_saga, annee_recompense;
+    String film_visa, film_duree, film_trailer, film_synop, film_budget, film_saga;
 
     ArrayList <C_ARTISTE> film_acteurs = new ArrayList<>(); 
     ArrayList <C_ARTISTE> film_scenaristes = new ArrayList<>(); 
     ArrayList <C_ARTISTE> film_realisateurs = new ArrayList<>(); 
     ArrayList <C_GENRE> film_genres = new ArrayList<>(); 
     ArrayList <C_TAG> film_tags = new ArrayList<>(); 
-    ArrayList <C_CEREMONIE> artiste_ceremonies = new ArrayList<>();
-    ArrayList <C_AWARD> artiste_award = new ArrayList<>();
+    ArrayList <C_CEREMONIE> film_ceremonies = new ArrayList<>();
+    ArrayList <C_AWARD> film_award = new ArrayList<>();
+    ArrayList <String> film_annees_recompenses = new ArrayList<>();
     C_PRODC film_studio_production;
 
 
     @Override
     public String toString() {
-        return "C_FILM{" + "film_visa=" + film_visa + ", film_duree=" + film_duree + ", film_trailer=" + film_trailer + ", film_synop=" + film_synop + ", film_budget=" + film_budget + ", film_saga=" + film_saga + ", annee_recompense=" + annee_recompense + ", film_acteurs=" + film_acteurs + ", film_scenaristes=" + film_scenaristes + ", film_realisateurs=" + film_realisateurs + ", film_genres=" + film_genres + ", film_tags=" + film_tags + ", artiste_ceremonies=" + artiste_ceremonies + ", artiste_award=" + artiste_award + ", film_studio_production=" + film_studio_production + '}';
+        return "C_FILM{" + "film_visa=" + film_visa + ", film_duree=" + film_duree + ", film_trailer=" + film_trailer + ", film_synop=" + film_synop + ", film_budget=" + film_budget + ", film_saga=" + film_saga + ", annee_recompense=" + film_annees_recompenses + ", film_acteurs=" + film_acteurs + ", film_scenaristes=" + film_scenaristes + ", film_realisateurs=" + film_realisateurs + ", film_genres=" + film_genres + ", film_tags=" + film_tags + ", artiste_ceremonies=" + film_ceremonies + ", artiste_award=" + film_award + ", film_studio_production=" + film_studio_production + '}';
     }
 
     public String getFilm_visa() {
@@ -69,12 +70,12 @@ public class C_FILM extends C_MEDIA {
         this.film_saga = film_saga;
     }
 
-    public String getAnnee_recompense() {
-        return annee_recompense;
+    public ArrayList<String> getFilm_annee_recompense() {
+        return film_annees_recompenses;
     }
 
-    public void setAnnee_recompense(String annee_recompense) {
-        this.annee_recompense = annee_recompense;
+    public void setFilm_annee_recompense(ArrayList<String> film_annees_recompenses) {
+        this.film_annees_recompenses = film_annees_recompenses;
     }
 
     public ArrayList<C_ARTISTE> getFilm_acteurs() {
@@ -117,20 +118,20 @@ public class C_FILM extends C_MEDIA {
         this.film_tags = film_tags;
     }
 
-    public ArrayList<C_CEREMONIE> getArtiste_ceremonies() {
-        return artiste_ceremonies;
+    public ArrayList<C_CEREMONIE> getFilm_ceremonies() {
+        return film_ceremonies;
     }
 
-    public void setArtiste_ceremonies(ArrayList<C_CEREMONIE> artiste_ceremonies) {
-        this.artiste_ceremonies = artiste_ceremonies;
+    public void setFilm_ceremonies(ArrayList<C_CEREMONIE> film_ceremonies) {
+        this.film_ceremonies = film_ceremonies;
     }
 
-    public ArrayList<C_AWARD> getArtiste_award() {
-        return artiste_award;
+    public ArrayList<C_AWARD> getFilm_award() {
+        return film_award;
     }
 
-    public void setArtiste_award(ArrayList<C_AWARD> artiste_award) {
-        this.artiste_award = artiste_award;
+    public void setFilm_award(ArrayList<C_AWARD> film_award) {
+        this.film_award = film_award;
     }
 
     public C_PRODC getfilm_studio_production() {
