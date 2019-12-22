@@ -61,7 +61,7 @@ public class C_requetes extends C_connexion{
         try{ 
         ResultSetMetaData rsmd = resultat.getMetaData();
         resultat.last();
-        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()+1];
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()];
         resultat.beforeFirst();
         int i = 0;
         while(resultat.next())
@@ -77,6 +77,59 @@ public class C_requetes extends C_connexion{
         catch (SQLException e){
             e.printStackTrace();
             System.out.println("Problème requete rechercheMedia");
+        }
+        return tabObj;
+    }
+
+    public static String[][] rechercheFilm(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("visa");
+                tabObj[i][1] = resultat.getString("movie_runtime");
+                tabObj[i][2] = resultat.getString("movie_trailer");
+                tabObj[i][3] = resultat.getString("movie_synop");
+                tabObj[i][4] = resultat.getString("movie_budget");
+                tabObj[i][5] = resultat.getString("movie_saga");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Problème requete rechercheFilm");
+        }
+        return tabObj;
+    }
+
+    public static String[][] rechercheMediaPourAffichage(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()+1];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("media_id");
+                tabObj[i][1] = resultat.getString("media_title");
+                tabObj[i][2] = resultat.getString("media_year");
+                tabObj[i][3] = resultat.getString("media_cover");
+                tabObj[i][4] = resultat.getString("media_link");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheMediaPourAffichage");
         }
         return tabObj;
     }

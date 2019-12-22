@@ -169,8 +169,8 @@ public class C_events_listener_affichage{
                 mon_panel_container_recherche.get_panel_recherche_livre().setVisible(false);
                 mon_panel_container_recherche.get_panel_recherche_chanson().setVisible(true);
                 mon_panel_container_recherche.get_panel_recherche_artiste().setVisible(false);    
-           try{
-                   mon_panel_container_recherche.mon_panel_recherche_chanson.affichageComboBoxRechercheChanson();}
+                try{
+                    mon_panel_container_recherche.mon_panel_recherche_chanson.affichageComboBoxRechercheChanson();}
                     catch (SQLException e){
                         e.printStackTrace();
                     }

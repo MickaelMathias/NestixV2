@@ -243,5 +243,4 @@ public class G_panel_modification_livre extends A_panel_creation_modification {
         mes_requetes_modification_livre_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_modification_livre_award);
     }
 
-
 }

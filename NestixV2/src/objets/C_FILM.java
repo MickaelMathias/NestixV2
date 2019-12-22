@@ -149,14 +149,21 @@ public class C_FILM extends C_MEDIA {
         C_FILM mon_film_cree_avec_id = new C_FILM();
         mon_film_cree_avec_id.setMedia_id(id);
         String [][] mes_donnes_medias = bdd.C_requetes.rechercheMedia("SELECT * FROM media WHERE media_id = "+mon_film_cree_avec_id.media_id+"");
-        System.out.println("ici : "+mes_donnes_medias[0][1]+" "+mes_donnes_medias[0][2]);
+
         mon_film_cree_avec_id.setMedia_titre(mes_donnes_medias[0][0]);
         mon_film_cree_avec_id.setMedia_type(mes_donnes_medias[0][1]);
         mon_film_cree_avec_id.setMedia_annee(mes_donnes_medias[0][2]);
         mon_film_cree_avec_id.setMedia_cover(mes_donnes_medias[0][3]);
         mon_film_cree_avec_id.setMedia_lien(mes_donnes_medias[0][4]);
 
-        System.out.println(mon_film_cree_avec_id.getMedia_type());
+        String [][] mes_donnes_film = bdd.C_requetes.rechercheFilm("SELECT * FROM movie WHERE movie_id = "+mon_film_cree_avec_id.media_id+"");
+ 
+        mon_film_cree_avec_id.setFilm_visa(mes_donnes_film[0][0]);
+        mon_film_cree_avec_id.setFilm_duree(mes_donnes_film[0][1]);
+        mon_film_cree_avec_id.setFilm_trailer(mes_donnes_film[0][2]);
+        mon_film_cree_avec_id.setFilm_synop(mes_donnes_film[0][3]);
+        mon_film_cree_avec_id.setFilm_budget(mes_donnes_film[0][4]);
+        mon_film_cree_avec_id.setFilm_saga(mes_donnes_film[0][5]);
 
         System.out.println(mon_film_cree_avec_id.toString());
         return mon_film_cree_avec_id;

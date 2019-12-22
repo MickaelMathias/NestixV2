@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-public class G_panel_recherche_livre extends JPanel {
+public class G_panel_recherche_livre extends A_panel_recherche {
 
-	bdd.C_requetes mes_requetes_recherche_livre_combobox = new bdd.C_requetes();
+	bdd.C_requetes mes_requetes_recherche_livre = new bdd.C_requetes();
 	
     JPanel p_recherche_livre_criteres = new JPanel();
     JPanel p_recherche_livre_resultats = new JPanel();
@@ -111,14 +111,18 @@ public class G_panel_recherche_livre extends JPanel {
         p_recherche_livre_boutons.add(b_recherche_livre_bloquer);
         b_recherche_livre_supprimer.setBounds(315,5,150,40);
         p_recherche_livre_boutons.add(b_recherche_livre_supprimer);
+
+        this.AfficheInfosMediaTableau("Livre", tab_recherche_livre_tab_resultats);
     }
 
     public void affichageComboBoxRechercheLivre() throws SQLException {
-        mes_requetes_recherche_livre_combobox.rechercheValeursComboBox("(SELECT * FROM media WHERE media_type = 'livre' AND media_title IN (SELECT media_title FROM media WHERE media_type = 'livre' ))", "media_title", cb_recherche_livre_titre);
-        mes_requetes_recherche_livre_combobox.rechercheValeursComboBox("SELECT DISTINCT artist_nickname FROM artist JOIN take_part_in ON artist.human_id=take_part_in.human_id WHERE work_id=3", "artist_nickname", cb_recherche_livre_surnom_ecrivain);
-        mes_requetes_recherche_livre_combobox.rechercheValeursComboBox("SELECT ISBN FROM book", "ISBN", cb_recherche_livre_isbn);
-        mes_requetes_recherche_livre_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_recherche_livre_genre);
-        mes_requetes_recherche_livre_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_recherche_livre_tag);
-        mes_requetes_recherche_livre_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_recherche_livre_annee);
+        mes_requetes_recherche_livre.rechercheValeursComboBox("(SELECT * FROM media WHERE media_type = 'livre' AND media_title IN (SELECT media_title FROM media WHERE media_type = 'livre' ))", "media_title", cb_recherche_livre_titre);
+        mes_requetes_recherche_livre.rechercheValeursComboBox("SELECT DISTINCT artist_nickname FROM artist JOIN take_part_in ON artist.human_id=take_part_in.human_id WHERE work_id=3", "artist_nickname", cb_recherche_livre_surnom_ecrivain);
+        mes_requetes_recherche_livre.rechercheValeursComboBox("SELECT ISBN FROM book", "ISBN", cb_recherche_livre_isbn);
+        mes_requetes_recherche_livre.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_recherche_livre_genre);
+        mes_requetes_recherche_livre.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_recherche_livre_tag);
+        mes_requetes_recherche_livre.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_recherche_livre_annee);
     }
+
 }
+

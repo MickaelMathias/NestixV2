@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 
-public class G_panel_recherche_artiste extends JPanel {
+public class G_panel_recherche_artiste extends A_panel_recherche {
 
 	bdd.C_requetes mes_requetes_recherche_artiste_combobox = new bdd.C_requetes();
 	
@@ -105,6 +105,9 @@ public class G_panel_recherche_artiste extends JPanel {
         p_recherche_artiste_boutons.add(b_recherche_artiste_bloquer);
         b_recherche_artiste_supprimer.setBounds(315,5,150,40);
         p_recherche_artiste_boutons.add(b_recherche_artiste_supprimer);
+
+        // AFFICHAGE TABLEAU RECHERCHE DE BASE
+
     }
 
     public void affichageComboBoxRechercheArtiste() throws SQLException {

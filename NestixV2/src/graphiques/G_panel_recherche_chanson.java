@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-public class G_panel_recherche_chanson extends JPanel {
+public class G_panel_recherche_chanson extends A_panel_recherche {
 
 	bdd.C_requetes mes_requetes_recherche_chanson_combobox = new bdd.C_requetes();
 	
@@ -111,6 +111,10 @@ public class G_panel_recherche_chanson extends JPanel {
         p_recherche_chanson_boutons.add(b_recherche_chanson_bloquer);
         b_recherche_chanson_supprimer.setBounds(315,5,150,40);
         p_recherche_chanson_boutons.add(b_recherche_chanson_supprimer);
+
+        // INITIALISATION TABLEAU RECHERCHE
+        
+        this.AfficheInfosMediaTableau("Chanson", tab_recherche_chanson_tab_resultats);
     }
 
     public void affichageComboBoxRechercheChanson() throws SQLException {
@@ -121,4 +125,5 @@ public class G_panel_recherche_chanson extends JPanel {
         mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_recherche_chanson_tag);
         mes_requetes_recherche_chanson_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_recherche_chanson_annee);
     }
+
 }

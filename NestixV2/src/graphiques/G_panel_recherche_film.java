@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class G_panel_recherche_film extends JPanel {
+public class G_panel_recherche_film extends A_panel_recherche {
 
 	bdd.C_requetes mes_requetes_recherche_film_combobox = new bdd.C_requetes();
 	
@@ -110,6 +110,8 @@ public class G_panel_recherche_film extends JPanel {
         p_recherche_film_boutons.add(b_recherche_film_bloquer);
         b_recherche_film_supprimer.setBounds(315,5,150,40);
         p_recherche_film_boutons.add(b_recherche_film_supprimer);
+
+        this.AfficheInfosMediaTableau("Film", tab_recherche_film_tab_resultats);
     }
 
     public void affichageComboBoxRechercheFilm() throws SQLException {
@@ -120,4 +122,5 @@ public class G_panel_recherche_film extends JPanel {
         mes_requetes_recherche_film_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_recherche_film_tag);
         mes_requetes_recherche_film_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_recherche_film_annee);
     }
+
 }
