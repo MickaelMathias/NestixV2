@@ -66,34 +66,34 @@ abstract class A_panel_creation_modification extends JPanel{
         return mes_valeurs;
     }
 
-    protected ArrayList<objets.C_GENRE> recupererTousGenreDeList(JList ma_list){
-        ArrayList<objets.C_GENRE> mes_valeurs = new ArrayList<>();
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererTousGenreDeList(JList ma_list){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
         for (int i = 0; i < ma_list.getModel().getSize() ;i++){
-            objets.C_GENRE mon_genre = new objets.C_GENRE();
-            mon_genre.setGenre_nom(ma_list.getModel().getElementAt(i).toString());
-            mon_genre.setGenre_id(mon_genre.recupererIdParNom("genre", mon_genre.getGenre_nom()));
+            objets.C_CARACTERISTIQUES mon_genre = new objets.C_CARACTERISTIQUES();
+            mon_genre.setCaracteristiquesNom(ma_list.getModel().getElementAt(i).toString());
+            mon_genre.setCaracteristiquesId(mon_genre.recupererIdParNom("genre", mon_genre.getCaracteristiquesNom()));
             mes_valeurs.add(mon_genre);
         }
         return mes_valeurs;
     }
 
-    protected ArrayList<objets.C_CEREMONIE> recupererTousCeremonieDeArrayList(ArrayList <String> liste_ceremonie){
-        ArrayList<objets.C_CEREMONIE> mes_valeurs = new ArrayList<>();
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererTousCeremonieDeArrayList(ArrayList <String> liste_ceremonie){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
         for (int i = 0; i < liste_ceremonie.size() ;i++){
-            objets.C_CEREMONIE ma_ceremonie = new objets.C_CEREMONIE();
-            ma_ceremonie.setCeremonie_nom(liste_ceremonie.get(i));
-            ma_ceremonie.setCeremonie_id(ma_ceremonie.recupererIdParNom("ceremony", ma_ceremonie.getCeremonie_nom()));
+            objets.C_CARACTERISTIQUES ma_ceremonie = new objets.C_CARACTERISTIQUES();
+            ma_ceremonie.setCaracteristiquesNom(liste_ceremonie.get(i));
+            ma_ceremonie.setCaracteristiquesId(ma_ceremonie.recupererIdParNom("ceremony", ma_ceremonie.getCaracteristiquesNom()));
             mes_valeurs.add(ma_ceremonie);
         }
         return mes_valeurs;
     }
 
-    protected ArrayList<objets.C_AWARD> recupererTousAwardDeArrayList(ArrayList <String> liste_award){
-        ArrayList<objets.C_AWARD> mes_valeurs = new ArrayList<>();
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererTousAwardDeArrayList(ArrayList <String> liste_award){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
         for (int i = 0; i < liste_award.size() ;i++){
             objets.C_AWARD mon_award = new objets.C_AWARD();
-            mon_award.setAward_nom(liste_award.get(i));
-            mon_award.setAward_id(mon_award.recupererIdParNom("award", mon_award.getAward_nom()));
+            mon_award.setCaracteristiquesNom(liste_award.get(i));
+            mon_award.setCaracteristiquesId(mon_award.recupererIdParNom("award", mon_award.getCaracteristiquesNom()));
             mes_valeurs.add(mon_award);
         }
         return mes_valeurs;
@@ -112,12 +112,12 @@ abstract class A_panel_creation_modification extends JPanel{
         return mes_valeurs;
     }
 
-    protected ArrayList<objets.C_TAG> recupererTousTagDeList(JList ma_list){
-        ArrayList<objets.C_TAG> mes_valeurs = new ArrayList<>();
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererTousTagDeList(JList ma_list){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
         for (int i = 0; i < ma_list.getModel().getSize() ;i++){
-            objets.C_TAG mon_tag = new objets.C_TAG();
-            mon_tag.setTag_nom(ma_list.getModel().getElementAt(i).toString());
-            mon_tag.setTag_id(mon_tag.recupererIdParNom("tag", mon_tag.getTag_nom()));
+            objets.C_CARACTERISTIQUES mon_tag = new objets.C_CARACTERISTIQUES();
+            mon_tag.setCaracteristiquesNom(ma_list.getModel().getElementAt(i).toString());
+            mon_tag.setCaracteristiquesId(mon_tag.recupererIdParNom("tag", mon_tag.getCaracteristiquesNom()));
             mes_valeurs.add(mon_tag);
         }
         return mes_valeurs;

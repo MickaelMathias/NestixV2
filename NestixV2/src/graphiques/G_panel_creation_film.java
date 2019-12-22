@@ -281,7 +281,8 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         sp_creation_film_tab_recompenses.setViewportView(tab_creation_film_tab_recompenses);
         p_creation_film_infos_ceremonie.add(sp_creation_film_tab_recompenses);
         objets.C_FILM mon_film = new objets.C_FILM();
-        mon_film = mon_film.creerFilmAvecId(18);
+        
+        mon_film = mon_film.creerFilmAvecId(17);
     }
 
     public void affichageComboBoxCreationFilm() throws SQLException {

@@ -3,29 +3,14 @@ package objets;
 import java.util.*;
 
 public class C_TAG extends C_CARACTERISTIQUES{
-    int tag_id;
-    String tag_nom;
 
+    public C_TAG(){}
+    public C_TAG(int id){
+        this.id = id;
+    }
     @Override
     public String toString() {
-        return "C_TAG{" + "tag_id=" + tag_id + ", tag_nom=" + tag_nom + '}';
+        return "C_TAG{" + "tag_id=" + id + ", tag_nom=" + nom + '}';
     }
-
-    public int getTag_id() {
-        return tag_id;
-    }
-
-    public void setTag_id(int tag_id) {
-        this.tag_id = tag_id;
-    }
-
-    public String getTag_nom() {
-        return tag_nom;
-    }
-
-    public void setTag_nom(String tag_nom) {
-        this.tag_nom = tag_nom;
-    }
-
     
 }

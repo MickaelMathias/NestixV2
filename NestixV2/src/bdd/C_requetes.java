@@ -2,6 +2,7 @@ package bdd;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class C_requetes extends C_connexion{
 
@@ -66,8 +67,8 @@ public class C_requetes extends C_connexion{
         int i = 0;
         while(resultat.next())
             {
-                tabObj[i][0] = resultat.getString("media_title");
-                tabObj[i][1] = resultat.getString("media_type");
+                tabObj[i][0] = resultat.getString("media_id");
+                tabObj[i][1] = resultat.getString("media_title");
                 tabObj[i][2] = resultat.getString("media_year");
                 tabObj[i][3] = resultat.getString("media_cover");
                 tabObj[i][4] = resultat.getString("media_link");
@@ -130,6 +131,75 @@ public class C_requetes extends C_connexion{
         catch (SQLException e){
             e.printStackTrace();
             System.out.println("Probleme requete rechercheMediaPourAffichage");
+        }
+        return tabObj;
+    }
+
+    public static int[] rechercheIdsArtiste(String requete){
+		int[] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        resultat.last();
+        tabObj = new int[resultat.getRow()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i] = resultat.getInt("human_id");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheIdsArtiste");
+        }
+        return tabObj;
+    }
+
+    public static int[] rechercheIdsCaracteristique(String champ, String table, int media_id){
+        int[] tabObj = null;
+        String requete = "SELECT "+champ+"."+champ+"_id FROM "+champ+" join "+table+" ON "+champ+"."+champ+"_id="+table+"."+champ+"_id "+
+        "WHERE media_id IN ( SELECT "+table+".media_id from "+table+" JOIN media ON media.media_id="+table+".media_id WHERE media.media_id="+media_id+")";
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        resultat.last();
+        tabObj = new int[resultat.getRow()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i] = resultat.getInt(1);
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheIdsCaracteristique");
+        }
+        return tabObj;
+    }
+
+    public static ArrayList<String> rechercheAnneesRecompenses(String requete){
+        ArrayList<String> tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        resultat.last();
+        tabObj = new ArrayList<>();
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                if (resultat.getString("year") == null){
+                    tabObj.add("");
+                }
+                else{
+                    tabObj.add(resultat.getString("year"));}
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheIdsArtiste");
         }
         return tabObj;
     }

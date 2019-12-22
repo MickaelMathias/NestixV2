@@ -4,6 +4,34 @@ import java.util.*;
 
 public class C_CARACTERISTIQUES{
 
+    public C_CARACTERISTIQUES(){}
+    public C_CARACTERISTIQUES(int id){
+        this.id = id;
+    }
+
+    int id;
+    String nom;
+    @Override
+
+    public String toString() {
+        return "C_CARACTERISTIQUES{" + "c_id = " + id + ", c_nom = " + nom + '}';
+    }
+
+    public int getCaracteristiquesId() {
+        return id;
+    }
+
+    public void setCaracteristiquesId(int id) {
+        this.id = id;
+    }
+
+    public String getCaracteristiquesNom() {
+        return nom;
+    }
+
+    public void setCaracteristiquesNom(String nom) {
+        this.nom = nom;
+    }
 
     public int recupererIdParNom(String champ, String nom){
         String ma_requete_id = "SELECT "+champ+"_id FROM "+champ+" WHERE "+champ+"_name = \""+nom+"\"";
@@ -31,5 +59,7 @@ public class C_CARACTERISTIQUES{
         }
         return tab_nom;
     }
+
+
 
 }

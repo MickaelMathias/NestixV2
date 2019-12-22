@@ -12,12 +12,12 @@ public class C_FILM extends C_MEDIA {
     ArrayList <C_ARTISTE> film_acteurs = new ArrayList<>(); 
     ArrayList <C_ARTISTE> film_scenaristes = new ArrayList<>(); 
     ArrayList <C_ARTISTE> film_realisateurs = new ArrayList<>(); 
-    ArrayList <C_GENRE> film_genres = new ArrayList<>(); 
-    ArrayList <C_TAG> film_tags = new ArrayList<>(); 
-    ArrayList <C_CEREMONIE> film_ceremonies = new ArrayList<>();
-    ArrayList <C_AWARD> film_award = new ArrayList<>();
+    ArrayList <C_CARACTERISTIQUES> film_genres = new ArrayList<>(); 
+    ArrayList <C_CARACTERISTIQUES> film_tags = new ArrayList<>(); 
+    ArrayList <C_CARACTERISTIQUES> film_ceremonies = new ArrayList<>();
+    ArrayList <C_CARACTERISTIQUES> film_award = new ArrayList<>();
     ArrayList <String> film_annees_recompenses = new ArrayList<>();
-    C_PRODC film_studio_production;
+    C_CARACTERISTIQUES film_studio_production;
 
 
     @Override
@@ -105,39 +105,39 @@ public class C_FILM extends C_MEDIA {
         this.film_realisateurs = film_realisateurs;
     }
 
-    public ArrayList<C_GENRE> getFilm_genres() {
+    public ArrayList<C_CARACTERISTIQUES> getFilm_genres() {
         return film_genres;
     }
 
-    public void setFilm_genres(ArrayList<C_GENRE> film_genres) {
+    public void setFilm_genres(ArrayList<C_CARACTERISTIQUES> film_genres) {
         this.film_genres = film_genres;
     }
 
-    public ArrayList<C_TAG> getFilm_tags() {
+    public ArrayList<C_CARACTERISTIQUES> getFilm_tags() {
         return film_tags;
     }
 
-    public void setFilm_tags(ArrayList<C_TAG> film_tags) {
+    public void setFilm_tags(ArrayList<C_CARACTERISTIQUES> film_tags) {
         this.film_tags = film_tags;
     }
 
-    public ArrayList<C_CEREMONIE> getFilm_ceremonies() {
+    public ArrayList<C_CARACTERISTIQUES> getFilm_ceremonies() {
         return film_ceremonies;
     }
 
-    public void setFilm_ceremonies(ArrayList<C_CEREMONIE> film_ceremonies) {
+    public void setFilm_ceremonies(ArrayList<C_CARACTERISTIQUES> film_ceremonies) {
         this.film_ceremonies = film_ceremonies;
     }
 
-    public ArrayList<C_AWARD> getFilm_award() {
+    public ArrayList<C_CARACTERISTIQUES> getFilm_award() {
         return film_award;
     }
 
-    public void setFilm_award(ArrayList<C_AWARD> film_award) {
+    public void setFilm_award(ArrayList<C_CARACTERISTIQUES> film_award) {
         this.film_award = film_award;
     }
 
-    public C_PRODC getfilm_studio_production() {
+    public C_CARACTERISTIQUES getfilm_studio_production() {
         return film_studio_production;
     }
 
@@ -164,6 +164,22 @@ public class C_FILM extends C_MEDIA {
         mon_film_cree_avec_id.setFilm_synop(mes_donnes_film[0][3]);
         mon_film_cree_avec_id.setFilm_budget(mes_donnes_film[0][4]);
         mon_film_cree_avec_id.setFilm_saga(mes_donnes_film[0][5]);
+
+        int [] mes_id_acteurs = bdd.C_requetes.rechercheIdsArtiste("SELECT human.human_id FROM human JOIN take_part_in ON human.human_id=take_part_in.human_id WHERE take_part_in.media_id="+mon_film_cree_avec_id.media_id+" AND take_part_in.work_id = 1");
+        mon_film_cree_avec_id.setFilm_acteurs(creerTableauArtistes(mes_id_acteurs));
+        int [] mes_id_realisateurs = bdd.C_requetes.rechercheIdsArtiste("SELECT human.human_id FROM human JOIN take_part_in ON human.human_id=take_part_in.human_id WHERE take_part_in.media_id="+mon_film_cree_avec_id.media_id+" AND take_part_in.work_id = 4");
+        mon_film_cree_avec_id.setFilm_realisateurs(creerTableauArtistes(mes_id_realisateurs));
+        int [] mes_id_scenaristes = bdd.C_requetes.rechercheIdsArtiste("SELECT human.human_id FROM human JOIN take_part_in ON human.human_id=take_part_in.human_id WHERE take_part_in.media_id="+mon_film_cree_avec_id.media_id+" AND take_part_in.work_id = 5");
+        mon_film_cree_avec_id.setFilm_scenaristes(creerTableauArtistes(mes_id_scenaristes));
+        int [] mes_id_tags = bdd.C_requetes.rechercheIdsCaracteristique("tag","is_associated_with",mon_film_cree_avec_id.media_id);
+        mon_film_cree_avec_id.setFilm_tags(creerTableauCaracteristiques(mes_id_tags, "tag"));
+        int [] mes_id_genres = bdd.C_requetes.rechercheIdsCaracteristique("genre","categorized_by",mon_film_cree_avec_id.media_id);
+        mon_film_cree_avec_id.setFilm_genres(creerTableauCaracteristiques(mes_id_genres, "genre"));
+        int [] mes_id_ceremonies = bdd.C_requetes.rechercheIdsCaracteristique("ceremony","competed_in",mon_film_cree_avec_id.media_id);
+        mon_film_cree_avec_id.setFilm_ceremonies(creerTableauCaracteristiques(mes_id_ceremonies, "ceremony"));
+        int [] mes_id_award = bdd.C_requetes.rechercheIdsCaracteristique("award","competed_in",mon_film_cree_avec_id.media_id);
+        mon_film_cree_avec_id.setFilm_award(creerTableauCaracteristiques(mes_id_award, "award"));
+        mon_film_cree_avec_id.setFilm_annee_recompense(bdd.C_requetes.rechercheAnneesRecompenses("SELECT year FROM award join competed_in ON competed_in.award_id=award.award_id WHERE media_id IN ( SELECT competed_in.media_id from competed_in JOIN media ON media.media_id=competed_in.media_id WHERE media.media_id="+mon_film_cree_avec_id.media_id+")"));
 
         System.out.println(mon_film_cree_avec_id.toString());
         return mon_film_cree_avec_id;

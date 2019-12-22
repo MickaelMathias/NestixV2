@@ -10,6 +10,11 @@ public class C_ARTISTE extends C_HUMAN{
     ArrayList <C_CEREMONIE> artiste_ceremonies = new ArrayList<>();
     ArrayList <C_AWARD> artiste_award = new ArrayList<>();
 
+    public C_ARTISTE(){}
+
+    public C_ARTISTE(int id){
+        this.human_id = id;
+    }
     @Override
     public String toString() {
         return "C_ARTISTE{" + "artiste_dod=" + artiste_dod + ", artiste_nickname=" + artiste_nickname + ", artiste_asv=" + artiste_asv + ", artiste_groupes=" + artiste_groupes + ", artiste_metiers=" + artiste_metiers + ", artiste_ceremonies=" + artiste_ceremonies + ", artiste_award=" + artiste_award + '}';
@@ -77,8 +82,8 @@ public class C_ARTISTE extends C_HUMAN{
         return id;
     }
 
-    public String recupererNomParId(C_CARACTERISTIQUES objet, String champ, int id){
-        String ma_requete_nom = "SELECT artist_name FROM artist WHERE artist_id = \""+this.human_id+"\"";
+    public String recupererNomParId(){
+        String ma_requete_nom = "SELECT artist_nickname FROM artist WHERE human_id = \""+this.human_id+"\"";
         String nom = bdd.C_requetes.rechercheNom(ma_requete_nom);
         return nom;
     }

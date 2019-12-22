@@ -1,6 +1,8 @@
 package objets;
 
-public class C_MEDIA{
+import java.util.*;
+
+public class C_MEDIA {
 
     int media_id;
     String media_titre, media_type, media_annee, media_cover, media_lien, media_asv;
@@ -63,5 +65,24 @@ public class C_MEDIA{
         this.media_asv = media_asv;
     }
 
-    
+    protected ArrayList <C_ARTISTE> creerTableauArtistes(int [] mes_id){
+        ArrayList <C_ARTISTE> mes_artistes = new ArrayList<>();
+        for (int i = 0; i < mes_id.length; i++){
+            C_ARTISTE mon_artiste = new C_ARTISTE(mes_id[i]);
+            mon_artiste.setArtiste_nickname(mon_artiste.recupererNomParId());
+            mes_artistes.add(mon_artiste);
+        }
+        return mes_artistes;
+    }
+
+    protected ArrayList <C_CARACTERISTIQUES> creerTableauCaracteristiques(int [] mes_id, String champ){
+        ArrayList <C_CARACTERISTIQUES> mes_caracteristiques = new ArrayList<>();
+        for (int i = 0; i < mes_id.length; i++){
+            C_CARACTERISTIQUES ma_carac = new C_CARACTERISTIQUES(mes_id[i]);
+            ma_carac.setCaracteristiquesNom(ma_carac.recupererNomParId(champ, ma_carac.getCaracteristiquesId()));
+            mes_caracteristiques.add(ma_carac);
+        }
+        return mes_caracteristiques;
+    }
+  
 }
