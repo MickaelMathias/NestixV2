@@ -136,7 +136,7 @@ abstract class A_panel_creation_modification extends JPanel{
     protected ArrayList<String> recupererValeursColonneTableau(JTable mon_tableau, int colonne){
         System.out.println(mon_tableau.getRowCount());
         ArrayList<String> mes_donnees_de_base = new ArrayList<>();
-        for (int i = 1; i < mon_tableau.getRowCount(); i++){
+        for (int i = 0; i < mon_tableau.getRowCount(); i++){
                 if (mon_tableau.getValueAt(i,colonne).equals("")){
                     mes_donnees_de_base.add("NULL");
                 }
@@ -150,6 +150,7 @@ abstract class A_panel_creation_modification extends JPanel{
     protected void retirerElementDansTabRecompenses(JTable mon_tableau){
         ((DefaultTableModel)mon_tableau.getModel()).removeRow(mon_tableau.getSelectedRow());
     }
+
     protected void ajouterDonneesDansTabRecompenses(Object[][] mes_donnees, JTable mon_tableau){
         int nombre_ligne_mon_tableau = mon_tableau.getRowCount();
         Object[][] mes_donnees_de_base = recupererToutesValeursTableau(mon_tableau);

@@ -55,5 +55,33 @@ public class C_requetes extends C_connexion{
         return ma_variable_retour;
     }
 
+	public static String[][] rechercheMedia(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()+1];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("media_title");
+                tabObj[i][1] = resultat.getString("media_type");
+                tabObj[i][2] = resultat.getString("media_year");
+                tabObj[i][3] = resultat.getString("media_cover");
+                tabObj[i][4] = resultat.getString("media_link");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Problème requete rechercheMedia");
+        }
+        return tabObj;
+    }
+
+
+
     
 }

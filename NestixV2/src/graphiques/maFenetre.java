@@ -1,9 +1,12 @@
 package graphiques;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 public class maFenetre extends JPanel{
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
+
+        UIManager.setLookAndFeel(new NimbusLookAndFeel()); 
         
         G_fenetre ma_fenetre = new G_fenetre();
         JPanel mon_panel_general = new JPanel(null);

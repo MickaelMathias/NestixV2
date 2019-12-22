@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import objets.C_CEREMONIE;
+import objets.C_FILM;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -83,7 +84,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
     JScrollPane sp_creation_film_liste_tags = new JScrollPane();
     JList li_creation_film_liste_tags = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_creation_film_tab_recompenses = new JScrollPane();
-    Object[][] o_creation_film_donnees_recompenses = {{null,null,null}};
+    Object[][] o_creation_film_donnees_recompenses = null;
     
     JTable tab_creation_film_tab_recompenses = new JTable();
 
@@ -100,6 +101,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         this.add(p_creation_film_infos_base);
 
         l_creation_film_visa.setBounds(5,5,75,30);
+        l_creation_film_visa.setForeground(Color.WHITE);
         tf_creation_film_visa.setBounds(80,5,150,30);
         l_creation_film_titre.setBounds(5,40,75,30);
         tf_creation_film_titre.setBounds(80,40,150,30);
@@ -278,6 +280,8 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         
         sp_creation_film_tab_recompenses.setViewportView(tab_creation_film_tab_recompenses);
         p_creation_film_infos_ceremonie.add(sp_creation_film_tab_recompenses);
+        objets.C_FILM mon_film = new objets.C_FILM();
+        mon_film = mon_film.creerFilmAvecId(18);
     }
 
     public void affichageComboBoxCreationFilm() throws SQLException {
@@ -323,16 +327,12 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         ArrayList <String>  film_ceremonie = recupererValeursColonneTableau(tab_creation_film_tab_recompenses, 0);
         ArrayList <String>  film_award = recupererValeursColonneTableau(tab_creation_film_tab_recompenses, 1);
         ArrayList <String>  film_annee_award = recupererValeursColonneTableau(tab_creation_film_tab_recompenses, 2);
-
-        if(film_ceremonie.size() >= 1){ // 
-            mon_film_cree.setFilm_ceremonies(recupererTousCeremonieDeArrayList(film_ceremonie));
-        }
-        if(film_award.size() >= 1){ // 
-            mon_film_cree.setFilm_award(recupererTousAwardDeArrayList(film_award));
-        }  
-        if(film_annee_award.size() >= 1){ // 
-            mon_film_cree.setFilm_annee_recompense(recupererTousAnneeAwardDeArrayList(film_annee_award));
-        }
+        if(film_ceremonie.size() > 0){
+            mon_film_cree.setFilm_ceremonies(recupererTousCeremonieDeArrayList(film_ceremonie));}
+        if(film_award.size() > 0){
+            mon_film_cree.setFilm_award(recupererTousAwardDeArrayList(film_award));}  
+        if(film_annee_award.size() > 0){
+            mon_film_cree.setFilm_annee_recompense(recupererTousAnneeAwardDeArrayList(film_annee_award));}
 
         System.out.println(mon_film_cree.toString());
 

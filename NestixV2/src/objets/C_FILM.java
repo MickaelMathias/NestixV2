@@ -1,6 +1,9 @@
 package objets;
 
+import java.sql.SQLException;
 import java.util.*;
+
+import bdd.C_requetes;
 
 public class C_FILM extends C_MEDIA {
 
@@ -19,7 +22,7 @@ public class C_FILM extends C_MEDIA {
 
     @Override
     public String toString() {
-        return "C_FILM{" + "film_visa=" + film_visa + ", film_duree=" + film_duree + ", film_trailer=" + film_trailer + ", film_synop=" + film_synop + ", film_budget=" + film_budget + ", film_saga=" + film_saga + ", annee_recompense=" + film_annees_recompenses + ", film_acteurs=" + film_acteurs + ", film_scenaristes=" + film_scenaristes + ", film_realisateurs=" + film_realisateurs + ", film_genres=" + film_genres + ", film_tags=" + film_tags + ", artiste_ceremonies=" + film_ceremonies + ", artiste_award=" + film_award + ", film_studio_production=" + film_studio_production + '}';
+        return "C_FILM{"+ super.toString() + "film_visa=" + film_visa + ", film_duree=" + film_duree + ", film_trailer=" + film_trailer + ", film_synop=" + film_synop + ", film_budget=" + film_budget + ", film_saga=" + film_saga + ", film_annee_recompense=" + film_annees_recompenses + ", film_acteurs=" + film_acteurs + ", film_scenaristes=" + film_scenaristes + ", film_realisateurs=" + film_realisateurs + ", film_genres=" + film_genres + ", film_tags=" + film_tags + ", film_ceremonies=" + film_ceremonies + ", film_award=" + film_award + ", film_studio_production=" + film_studio_production + '}';
     }
 
     public String getFilm_visa() {
@@ -140,5 +143,23 @@ public class C_FILM extends C_MEDIA {
 
     public void setfilm_studio_production(C_PRODC film_studio_production) {
         this.film_studio_production = film_studio_production;
+    }
+
+    public C_FILM creerFilmAvecId(int id){
+        C_FILM mon_film_cree_avec_id = new C_FILM();
+        mon_film_cree_avec_id.setMedia_id(id);
+        String [][] mes_donnes_medias = bdd.C_requetes.rechercheMedia("SELECT * FROM media WHERE media_id = "+mon_film_cree_avec_id.media_id+"");
+        System.out.println("ici : "+mes_donnes_medias[0][1]+" "+mes_donnes_medias[0][2]);
+        mon_film_cree_avec_id.setMedia_titre(mes_donnes_medias[0][0]);
+        mon_film_cree_avec_id.setMedia_type(mes_donnes_medias[0][1]);
+        mon_film_cree_avec_id.setMedia_annee(mes_donnes_medias[0][2]);
+        mon_film_cree_avec_id.setMedia_cover(mes_donnes_medias[0][3]);
+        mon_film_cree_avec_id.setMedia_lien(mes_donnes_medias[0][4]);
+
+        System.out.println(mon_film_cree_avec_id.getMedia_type());
+
+        System.out.println(mon_film_cree_avec_id.toString());
+        return mon_film_cree_avec_id;
+
     }
 }
