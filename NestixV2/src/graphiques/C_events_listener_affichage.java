@@ -225,33 +225,49 @@ public class C_events_listener_affichage{
         });
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_ajouter_acteur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
+                if (!mon_panel_container_creation.mon_panel_creation_film.verifierPresenceStringDansList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_acteurs, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste)){
                 System.out.println("Ajout d'un acteur");
-                mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_acteurs, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste.getSelectedItem().toString());
-            }         
+                mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_acteurs, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste.getSelectedItem().toString());}
+                else{
+                    javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Erreur : Impossible d'ajouter 2 acteurs identiques.");}
+            }
+                     
         });
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_ajouter_realisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
-                System.out.println("Ajout d'un realisateur");
-                mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_realisateurs, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste.getSelectedItem().toString());
-            }         
+                if (!mon_panel_container_creation.mon_panel_creation_film.verifierPresenceStringDansList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_realisateurs, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste)){
+                    System.out.println("Ajout d'un realisateur");
+                    mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_realisateurs, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste.getSelectedItem().toString());}
+                    else{
+                        javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Erreur : Impossible d'ajouter 2 realisateurs identiques.");}
+                }
         });
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_ajouter_scenariste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
-                System.out.println("Ajout d'un scenariste");
-                mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_scenaristes, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste.getSelectedItem().toString());
-            }         
+                if (!mon_panel_container_creation.mon_panel_creation_film.verifierPresenceStringDansList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_scenaristes, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste)){
+                    System.out.println("Ajout d'un scenariste");
+                    mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_scenaristes, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste.getSelectedItem().toString());}
+                    else{
+                        javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Erreur : Impossible d'ajouter 2 scenaristes identiques.");}
+                }    
         });
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_ajouter_genre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
-                System.out.println("Ajout d'un genre");
-                mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_genres, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_genres.getSelectedItem().toString());
-            }         
+                if (!mon_panel_container_creation.mon_panel_creation_film.verifierPresenceStringDansList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_genres, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_genres)){
+                    System.out.println("Ajout d'un genre");
+                    mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_genres, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_genres.getSelectedItem().toString());}
+                    else{
+                        javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Erreur : Impossible d'ajouter 2 genres identiques.");}
+                }    
         });
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_ajouter_tag.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
-                System.out.println("Ajout d'un tag");
-                mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_tags, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_tags.getSelectedItem().toString());
-            }         
+                if (!mon_panel_container_creation.mon_panel_creation_film.verifierPresenceStringDansList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_tags, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_tags)){
+                    System.out.println("Ajout d'un tag");
+                    mon_panel_container_creation.mon_panel_creation_film.ajouterElementList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_tags, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_tags.getSelectedItem().toString());}
+                    else{
+                        javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Erreur : Impossible d'ajouter 2 tags identiques.");}
+                }     
         });
 
         // Suppression d'un élément des listes

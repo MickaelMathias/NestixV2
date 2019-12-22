@@ -45,6 +45,16 @@ abstract class A_panel_creation_modification extends JPanel{
         }
     }
 
+    protected boolean verifierPresenceStringDansList(JList ma_list, JComboBox cb ){
+        boolean flag = false;
+        for (int i =0; i < ma_list.getModel().getSize(); i++){
+            if (cb.getSelectedItem().toString().equals(ma_list.getModel().getElementAt(i).toString())){
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
     protected ArrayList<objets.C_ARTISTE> recupererTousArtistDeList(JList ma_list){
         ArrayList<objets.C_ARTISTE> mes_valeurs = new ArrayList<>();
         for (int i = 0; i < ma_list.getModel().getSize() ;i++){
