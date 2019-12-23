@@ -84,5 +84,25 @@ public class C_MEDIA {
         }
         return mes_caracteristiques;
     }
+
+
+    public String VDE(String value){
+        // verificationDonneesEntrees
+        if (!value.equals("")){
+            value="'"+value+"'";
+        }
+        return value;
+
+    }
+    public void creationMediaBdd(int statut){
+        String requete_creation_media = "INSERT INTO media (media_title, media_type, media_year, media_cover, media_link) VALUES ("+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")";
+        bdd.C_connexion.ex_Update(requete_creation_media);
+
+        String requete_recup_id = "SELECT media_id FROM media ORDER BY media_id DESC LIMIT 1";
+        this.media_id = bdd.C_requetes.rechercheId(requete_recup_id);
+
+        String requete_asv = "INSERT INTO status (media_id, asv_id, asv_date_creat, asv_date_modif) VALUES ("+this.media_id+","+statut+",CURRENT_DATE(),CURRENT_DATE())";
+        bdd.C_connexion.ex_Update(requete_asv);
+    }
   
 }

@@ -280,9 +280,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         
         sp_creation_film_tab_recompenses.setViewportView(tab_creation_film_tab_recompenses);
         p_creation_film_infos_ceremonie.add(sp_creation_film_tab_recompenses);
-       /* 
-       objets.C_FILM mon_film = new objets.C_FILM();
-       mon_film = mon_film.creerFilmAvecId(18);*/
+
     }
 
     public void affichageComboBoxCreationFilm() throws SQLException {
@@ -298,6 +296,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
     public objets.C_FILM creerFilmAvecDonneesCreation(){
         // Crée un objet film et le rempli avec les informations du panel.
         objets.C_FILM mon_film_cree = new objets.C_FILM();
+        mon_film_cree.setMedia_type("Film");
 
         mon_film_cree.setFilm_visa(recupererValeurTF(tf_creation_film_visa));
         mon_film_cree.setMedia_titre(recupererValeurTF(tf_creation_film_titre));

@@ -68,7 +68,16 @@ public class C_events_listener_affichage{
                     catch (SQLException e){
                         e.printStackTrace();
                     }
+                
                 }
+        });
+
+        mon_panel_container_creation.mon_panel_creation_film.b_creation_film_valider_creation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                objets.C_FILM mon_film_a_creer = new objets.C_FILM();
+                mon_film_a_creer = mon_panel_container_creation.mon_panel_creation_film.creerFilmAvecDonneesCreation();
+                mon_film_a_creer.creationMediaBdd(1);
+            }
         });
         mon_panel_container_creation.mon_panel_choix_creation.get_rb_choix_livre().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
