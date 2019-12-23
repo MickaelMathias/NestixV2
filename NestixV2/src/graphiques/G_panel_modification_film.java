@@ -7,6 +7,7 @@ import java.sql.*;
 public class G_panel_modification_film extends A_panel_creation_modification{
 
     bdd.C_requetes mes_requetes_modification_film_combobox = new bdd.C_requetes();
+    objets.C_FILM mon_film_a_modifier = new objets.C_FILM();
 
 	JPanel p_modification_film_infos_base = new JPanel();
     JPanel p_modification_film_infos_artistes = new JPanel();
@@ -263,10 +264,13 @@ public class G_panel_modification_film extends A_panel_creation_modification{
 
         // LISTE CEREMONIE
         tab_modification_film_tab_recompenses.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{null, null, null}},new String [] {"Cérémonie", "Récompense", "Année"}));
+            null,new String [] {"Cérémonie", "Récompense", "Année"}));
         sp_modification_film_tab_recompenses.setBounds(5,150,315,190);
         sp_modification_film_tab_recompenses.setViewportView(tab_modification_film_tab_recompenses);
         p_modification_film_infos_ceremonie.add(sp_modification_film_tab_recompenses);
+/*
+        mon_film_a_modifier = mon_film_a_modifier.creerFilmAvecId(18);
+        this.affichageFilmAModifier(mon_film_a_modifier);*/
     }
 
     public void affichageComboBoxModificationFilm() throws SQLException {
@@ -277,4 +281,33 @@ public class G_panel_modification_film extends A_panel_creation_modification{
         mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_modification_film_ceremonie);
         mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_modification_film_award);
     }
+
+    public void affichageFilmAModifier(objets.C_FILM mon_film_a_afficher){
+        // Rempli les composants avec les infos d'un film
+        tf_modification_film_visa.setText(mon_film_a_afficher.getFilm_visa());
+        tf_modification_film_titre.setText(mon_film_a_afficher.getMedia_titre());
+        tf_modification_film_annee.setText(mon_film_a_afficher.getMedia_annee());
+        tf_modification_film_duree.setText(mon_film_a_afficher.getFilm_duree());
+        tf_modification_film_trailer.setText(mon_film_a_afficher.getFilm_trailer());
+        tf_modification_film_lien.setText(mon_film_a_afficher.getMedia_lien());
+        tf_modification_film_budget.setText(mon_film_a_afficher.getFilm_budget());
+        tf_modification_film_saga.setText(mon_film_a_afficher.getFilm_saga());
+        ta_modification_film_synop.setText(mon_film_a_afficher.getFilm_synop());
+        if (mon_film_a_afficher.getfilm_studio_production().size() > 0){
+            cb_modification_film_studio_production.setSelectedItem(mon_film_a_afficher.getfilm_studio_production().get(0).getCaracteristiquesNom());}
+        if (mon_film_a_afficher.getFilm_acteurs().size()>0){
+            this.afficherTabDansList(li_modification_film_liste_acteurs,recupererTousNomsArtiste(mon_film_a_afficher.getFilm_acteurs()));}
+        if (mon_film_a_afficher.getFilm_realisateurs().size()>0){
+            this.afficherTabDansList(li_modification_film_liste_realisateurs,recupererTousNomsArtiste(mon_film_a_afficher.getFilm_realisateurs()));}
+        if (mon_film_a_afficher.getFilm_scenaristes().size()>0){
+            this.afficherTabDansList(li_modification_film_liste_scenaristes,recupererTousNomsArtiste(mon_film_a_afficher.getFilm_scenaristes()));}
+        if (mon_film_a_afficher.getFilm_genres().size()>0){
+            this.afficherTabDansList(li_modification_film_liste_genres,recupererTousNomsCaracteristique(mon_film_a_afficher.getFilm_genres()));}
+        if (mon_film_a_afficher.getFilm_tags().size()>0){
+            this.afficherTabDansList(li_modification_film_liste_tags,recupererTousNomsCaracteristique(mon_film_a_afficher.getFilm_tags()));}
+        if (mon_film_a_afficher.getFilm_ceremonies().size()>0){
+        Object [][] mes_recompenses = this.creerDonnesCeremonies(mon_film_a_afficher.getFilm_ceremonies(), mon_film_a_afficher.getFilm_award(), mon_film_a_afficher.getFilm_annee_recompense());
+        this.ajouterDonneesDansTabRecompenses(mes_recompenses, tab_modification_film_tab_recompenses);}
+    }
+
 }

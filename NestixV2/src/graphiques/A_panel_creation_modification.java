@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import objets.C_ARTISTE;
 import objets.C_CARACTERISTIQUES;
 import objets.C_CEREMONIE;
 import objets.C_GENRE;
@@ -21,6 +22,22 @@ abstract class A_panel_creation_modification extends JPanel{
         DefaultListModel<String> mon_model = (DefaultListModel)list.getModel();
         mon_model.remove(index);
         list.setModel(mon_model);
+    }
+
+    protected ArrayList <String> recupererTousNomsArtiste(ArrayList<C_ARTISTE> mes_artistes){
+        ArrayList <String> mes_noms = new ArrayList<>();
+        for (int i=0; i < mes_artistes.size(); i++){
+            mes_noms.add(mes_artistes.get(i).getArtiste_nickname());
+        }
+        return mes_noms;
+    }
+
+    protected ArrayList <String> recupererTousNomsCaracteristique(ArrayList<C_CARACTERISTIQUES> mes_caracteristiques){
+        ArrayList <String> mes_noms = new ArrayList<>();
+        for (int i=0; i < mes_caracteristiques.size(); i++){
+            mes_noms.add(mes_caracteristiques.get(i).getCaracteristiquesNom());
+        }
+        return mes_noms;
     }
 
     protected void afficherTabDansList(JList list, ArrayList<String> tab){
@@ -74,6 +91,15 @@ abstract class A_panel_creation_modification extends JPanel{
             mon_genre.setCaracteristiquesId(mon_genre.recupererIdParNom("genre", mon_genre.getCaracteristiquesNom()));
             mes_valeurs.add(mon_genre);
         }
+        return mes_valeurs;
+    }
+
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererStudioProductionDeComboBox(JComboBox ma_cb){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
+        objets.C_CARACTERISTIQUES mon_sp = new objets.C_CARACTERISTIQUES();
+        mon_sp.setCaracteristiquesNom(ma_cb.getSelectedItem().toString());
+        mon_sp.setCaracteristiquesId(mon_sp.recupererIdParNom("ceremony", mon_sp.getCaracteristiquesNom()));
+        mes_valeurs.add(mon_sp);
         return mes_valeurs;
     }
 
@@ -151,6 +177,17 @@ abstract class A_panel_creation_modification extends JPanel{
         ((DefaultTableModel)mon_tableau.getModel()).removeRow(mon_tableau.getSelectedRow());
     }
 
+    protected Object [][] creerDonnesCeremonies(ArrayList<C_CARACTERISTIQUES> mes_ceremonies, ArrayList <C_CARACTERISTIQUES> mes_awards, ArrayList<String> mes_annees){
+        Object[][] mes_recompenses = new Object[mes_ceremonies.size()][3];
+
+        for (int i = 0; i < mes_ceremonies.size() ; i++){
+            mes_recompenses[i][0] = mes_ceremonies.get(i).getCaracteristiquesNom();
+            mes_recompenses[i][1] = mes_awards.get(i).getCaracteristiquesNom();
+            mes_recompenses[i][2] = mes_annees.get(i);
+        }
+        return mes_recompenses;
+
+    }
     protected void ajouterDonneesDansTabRecompenses(Object[][] mes_donnees, JTable mon_tableau){
         int nombre_ligne_mon_tableau = mon_tableau.getRowCount();
         Object[][] mes_donnees_de_base = recupererToutesValeursTableau(mon_tableau);
@@ -170,16 +207,7 @@ abstract class A_panel_creation_modification extends JPanel{
         String [] nom_colonnes = {"Ceremonie", "Award", "Année"};
         mon_tableau.setModel(new DefaultTableModel(mes_donnees_a_ajouter, nom_colonnes));
     }
-/*
-    protected void ajouterDonneesDansTabRecompenses(Object[] mes_donnees, JTable mon_tableau){
-        DefaultTableModel mon_model = (DefaultTableModel)mon_tableau.getModel();
-        System.out.println(mes_donnees[1]);
-        for (int i = 0 ; i < mes_donnees.length ; i++){
-            mon_model.addRow(mes_donnees);
-        }
 
-        mon_tableau.setModel(mon_model);
-    }*/
 
     protected String recupererValeurTF(JTextField tf){
         String valeur = tf.getText();

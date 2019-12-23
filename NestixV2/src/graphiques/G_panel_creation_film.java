@@ -280,9 +280,9 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         
         sp_creation_film_tab_recompenses.setViewportView(tab_creation_film_tab_recompenses);
         p_creation_film_infos_ceremonie.add(sp_creation_film_tab_recompenses);
-        objets.C_FILM mon_film = new objets.C_FILM();
-        
-        mon_film = mon_film.creerFilmAvecId(17);
+       /* 
+       objets.C_FILM mon_film = new objets.C_FILM();
+       mon_film = mon_film.creerFilmAvecId(18);*/
     }
 
     public void affichageComboBoxCreationFilm() throws SQLException {
@@ -295,7 +295,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         mes_requetes_creation_film_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_creation_film_annee_award);
     }
 
-    public objets.C_FILM creerFilmAvecDonnees(){
+    public objets.C_FILM creerFilmAvecDonneesCreation(){
         // Crée un objet film et le rempli avec les informations du panel.
         objets.C_FILM mon_film_cree = new objets.C_FILM();
 
@@ -309,7 +309,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         mon_film_cree.setFilm_saga(recupererValeurTF(tf_creation_film_saga));
         mon_film_cree.setFilm_synop(recupererValeurTA(ta_creation_film_synop));
         if(!isCBVide(cb_creation_film_studio_production)){
-            mon_film_cree.setfilm_studio_production(new objets.C_PRODC(cb_creation_film_studio_production.getSelectedItem().toString()));}
+            mon_film_cree.setfilm_studio_production(recupererStudioProductionDeComboBox(cb_creation_film_studio_production));}
         if(li_creation_film_liste_acteurs.getModel().getSize() > 0){
             mon_film_cree.setFilm_acteurs(recupererTousArtistDeList(li_creation_film_liste_acteurs));
         }
@@ -335,7 +335,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         if(film_annee_award.size() > 0){
             mon_film_cree.setFilm_annee_recompense(recupererTousAnneeAwardDeArrayList(film_annee_award));}
 
-        System.out.println(mon_film_cree.toString());
+        System.out.println("Film cree avec données" +mon_film_cree.toString());
 
         return mon_film_cree;
     }

@@ -17,7 +17,7 @@ public class C_FILM extends C_MEDIA {
     ArrayList <C_CARACTERISTIQUES> film_ceremonies = new ArrayList<>();
     ArrayList <C_CARACTERISTIQUES> film_award = new ArrayList<>();
     ArrayList <String> film_annees_recompenses = new ArrayList<>();
-    C_CARACTERISTIQUES film_studio_production;
+    ArrayList <C_CARACTERISTIQUES> film_studio_production = new ArrayList<>();
 
 
     @Override
@@ -137,11 +137,11 @@ public class C_FILM extends C_MEDIA {
         this.film_award = film_award;
     }
 
-    public C_CARACTERISTIQUES getfilm_studio_production() {
+    public ArrayList<C_CARACTERISTIQUES> getfilm_studio_production() {
         return film_studio_production;
     }
 
-    public void setfilm_studio_production(C_PRODC film_studio_production) {
+    public void setfilm_studio_production(ArrayList<C_CARACTERISTIQUES> film_studio_production) {
         this.film_studio_production = film_studio_production;
     }
 
@@ -150,21 +150,23 @@ public class C_FILM extends C_MEDIA {
         mon_film_cree_avec_id.setMedia_id(id);
         String [][] mes_donnes_medias = bdd.C_requetes.rechercheMedia("SELECT * FROM media WHERE media_id = "+mon_film_cree_avec_id.media_id+"");
 
-        mon_film_cree_avec_id.setMedia_titre(mes_donnes_medias[0][0]);
-        mon_film_cree_avec_id.setMedia_type(mes_donnes_medias[0][1]);
-        mon_film_cree_avec_id.setMedia_annee(mes_donnes_medias[0][2]);
-        mon_film_cree_avec_id.setMedia_cover(mes_donnes_medias[0][3]);
-        mon_film_cree_avec_id.setMedia_lien(mes_donnes_medias[0][4]);
+        mon_film_cree_avec_id.setMedia_titre(mes_donnes_medias[0][1]);
+        mon_film_cree_avec_id.setMedia_type(mes_donnes_medias[0][2]);
+        mon_film_cree_avec_id.setMedia_annee(mes_donnes_medias[0][3]);
+        mon_film_cree_avec_id.setMedia_cover(mes_donnes_medias[0][4]);
+        mon_film_cree_avec_id.setMedia_lien(mes_donnes_medias[0][5]);
 
         String [][] mes_donnes_film = bdd.C_requetes.rechercheFilm("SELECT * FROM movie WHERE movie_id = "+mon_film_cree_avec_id.media_id+"");
- 
+        if (mes_donnes_film.length > 0){
         mon_film_cree_avec_id.setFilm_visa(mes_donnes_film[0][0]);
         mon_film_cree_avec_id.setFilm_duree(mes_donnes_film[0][1]);
         mon_film_cree_avec_id.setFilm_trailer(mes_donnes_film[0][2]);
         mon_film_cree_avec_id.setFilm_synop(mes_donnes_film[0][3]);
         mon_film_cree_avec_id.setFilm_budget(mes_donnes_film[0][4]);
-        mon_film_cree_avec_id.setFilm_saga(mes_donnes_film[0][5]);
+        mon_film_cree_avec_id.setFilm_saga(mes_donnes_film[0][5]);}
 
+        int [] mes_id_studio_production = bdd.C_requetes.rechercheIdsCaracteristique("pc","produced_by",mon_film_cree_avec_id.media_id);
+        mon_film_cree_avec_id.setfilm_studio_production(creerTableauCaracteristiques(mes_id_studio_production, "pc"));
         int [] mes_id_acteurs = bdd.C_requetes.rechercheIdsArtiste("SELECT human.human_id FROM human JOIN take_part_in ON human.human_id=take_part_in.human_id WHERE take_part_in.media_id="+mon_film_cree_avec_id.media_id+" AND take_part_in.work_id = 1");
         mon_film_cree_avec_id.setFilm_acteurs(creerTableauArtistes(mes_id_acteurs));
         int [] mes_id_realisateurs = bdd.C_requetes.rechercheIdsArtiste("SELECT human.human_id FROM human JOIN take_part_in ON human.human_id=take_part_in.human_id WHERE take_part_in.media_id="+mon_film_cree_avec_id.media_id+" AND take_part_in.work_id = 4");
