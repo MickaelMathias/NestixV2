@@ -12,6 +12,9 @@ public class C_events_listener_affichage{
 
     G_panel_modification_film mon_panel_modification_film = new G_panel_modification_film();
 
+    int sr_film_a_modifier = 0;
+    int mon_id_film_a_modifier = 0;
+
     public C_events_listener_affichage(){
     }
 
@@ -150,8 +153,14 @@ public class C_events_listener_affichage{
                 }
         });
 
-        /** Affichage lors des clics sur RB pour la recherche **/
+        mon_panel_container_modification.mon_panel_modification_film.b_modification_film_valider_modification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                objets.C_FILM mon_film_modifie = new objets.C_FILM();
+                mon_film_modifie = mon_panel_container_modification.mon_panel_modification_film.creerFilmAvecDonneesModification(mon_id_film_a_modifier);
+            }
+        });
 
+        /** Affichage lors des clics sur RB pour la recherche **/
 
         mon_panel_container_recherche.mon_panel_choix_recherche.get_rb_choix_film().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,10 +178,10 @@ public class C_events_listener_affichage{
 
         mon_panel_container_recherche.mon_panel_recherche_film.b_recherche_film_modifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                int sr = mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow();
-                int mon_id = Integer.valueOf((String)mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getModel().getValueAt(sr, 0));
+                sr_film_a_modifier = mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow();
+                mon_id_film_a_modifier = Integer.valueOf((String)mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getModel().getValueAt(sr_film_a_modifier, 0));
                 objets.C_FILM mon_film = new objets.C_FILM();
-                mon_film = mon_film.creerFilmAvecId(mon_id);
+                mon_film = mon_film.creerFilmAvecId(mon_id_film_a_modifier);
                 mon_panel_container_modification.mon_panel_modification_film.affichageFilmAModifier(mon_film);
             }
         });

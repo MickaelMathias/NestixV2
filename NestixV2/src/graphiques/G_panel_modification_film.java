@@ -3,6 +3,7 @@ package graphiques;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.*;
 
 public class G_panel_modification_film extends A_panel_creation_modification{
 
@@ -33,7 +34,7 @@ public class G_panel_modification_film extends A_panel_creation_modification{
     JButton b_modification_film_creer_award = new JButton("Creer award ?");
     JButton b_modification_film_ajouter_recompense = new JButton("Ajout récompense");
     JButton b_modification_film_suppr_recompense = new JButton("Suppr récompense");
-    JButton b_modification_film_valider_modification = new JButton("Créer film");
+    JButton b_modification_film_valider_modification = new JButton("Mettre à jour film");
     JButton b_modification_film_valider_brouillon = new JButton("Brouillon");
     JButton b_modification_film_creer_studio_production = new JButton("Créer producteur ?");
 
@@ -308,6 +309,46 @@ public class G_panel_modification_film extends A_panel_creation_modification{
         if (mon_film_a_afficher.getFilm_ceremonies().size()>0){
         Object [][] mes_recompenses = this.creerDonnesCeremonies(mon_film_a_afficher.getFilm_ceremonies(), mon_film_a_afficher.getFilm_award(), mon_film_a_afficher.getFilm_annee_recompense());
         this.ajouterDonneesDansTabRecompenses(mes_recompenses, tab_modification_film_tab_recompenses);}
+    }
+
+    public objets.C_FILM creerFilmAvecDonneesModification(int id){
+        // Crée un objet film et le rempli avec les informations du panel.
+        objets.C_FILM mon_film_cree_pour_maj = new objets.C_FILM();
+
+        mon_film_cree_pour_maj.setMedia_id(id);
+        mon_film_cree_pour_maj.setFilm_visa(recupererValeurTF(tf_modification_film_visa));
+        mon_film_cree_pour_maj.setMedia_titre(recupererValeurTF(tf_modification_film_titre));
+        mon_film_cree_pour_maj.setMedia_annee(recupererValeurTF(tf_modification_film_annee));
+        mon_film_cree_pour_maj.setFilm_duree(recupererValeurTF(tf_modification_film_duree));
+        mon_film_cree_pour_maj.setFilm_trailer(recupererValeurTF(tf_modification_film_trailer));
+        mon_film_cree_pour_maj.setMedia_lien(recupererValeurTF(tf_modification_film_lien));
+        mon_film_cree_pour_maj.setFilm_budget(recupererValeurTF(tf_modification_film_budget));
+        mon_film_cree_pour_maj.setFilm_saga(recupererValeurTF(tf_modification_film_saga));
+        mon_film_cree_pour_maj.setFilm_synop(recupererValeurTA(ta_modification_film_synop));
+        if(!isCBVide(cb_modification_film_studio_production)){
+            mon_film_cree_pour_maj.setfilm_studio_production(recupererStudioProductionDeComboBox(cb_modification_film_studio_production));}
+        if(li_modification_film_liste_acteurs.getModel().getSize() > 0){
+            mon_film_cree_pour_maj.setFilm_acteurs(recupererTousArtistDeList(li_modification_film_liste_acteurs));}
+        if(li_modification_film_liste_realisateurs.getModel().getSize() > 0){
+            mon_film_cree_pour_maj.setFilm_realisateurs(recupererTousArtistDeList(li_modification_film_liste_realisateurs));}
+        if(li_modification_film_liste_scenaristes.getModel().getSize() > 0){
+            mon_film_cree_pour_maj.setFilm_scenaristes(recupererTousArtistDeList(li_modification_film_liste_scenaristes));}
+        if(li_modification_film_liste_genres.getModel().getSize() > 0){
+            mon_film_cree_pour_maj.setFilm_genres(recupererTousGenreDeList(li_modification_film_liste_genres));}
+        if(li_modification_film_liste_tags.getModel().getSize() > 0){
+            mon_film_cree_pour_maj.setFilm_tags(recupererTousTagDeList(li_modification_film_liste_tags));}
+        ArrayList <String>  film_ceremonie = recupererValeursColonneTableau(tab_modification_film_tab_recompenses, 0);
+        ArrayList <String>  film_award = recupererValeursColonneTableau(tab_modification_film_tab_recompenses, 1);
+        ArrayList <String>  film_annee_award = recupererValeursColonneTableau(tab_modification_film_tab_recompenses, 2);
+        if(film_ceremonie.size() > 0){
+            mon_film_cree_pour_maj.setFilm_ceremonies(recupererTousCeremonieDeArrayList(film_ceremonie));}
+        if(film_award.size() > 0){
+            mon_film_cree_pour_maj.setFilm_award(recupererTousAwardDeArrayList(film_award));}  
+        if(film_annee_award.size() > 0){
+            mon_film_cree_pour_maj.setFilm_annee_recompense(recupererTousAnneeAwardDeArrayList(film_annee_award));}
+
+        System.out.println("Film cree avec données pour maj " +mon_film_cree_pour_maj.toString());
+        return mon_film_cree_pour_maj;
     }
 
 }

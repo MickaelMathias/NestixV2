@@ -311,20 +311,15 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         if(!isCBVide(cb_creation_film_studio_production)){
             mon_film_cree.setfilm_studio_production(recupererStudioProductionDeComboBox(cb_creation_film_studio_production));}
         if(li_creation_film_liste_acteurs.getModel().getSize() > 0){
-            mon_film_cree.setFilm_acteurs(recupererTousArtistDeList(li_creation_film_liste_acteurs));
-        }
+            mon_film_cree.setFilm_acteurs(recupererTousArtistDeList(li_creation_film_liste_acteurs));}
         if(li_creation_film_liste_realisateurs.getModel().getSize() > 0){
-            mon_film_cree.setFilm_realisateurs(recupererTousArtistDeList(li_creation_film_liste_realisateurs));
-        }
+            mon_film_cree.setFilm_realisateurs(recupererTousArtistDeList(li_creation_film_liste_realisateurs));}
         if(li_creation_film_liste_scenaristes.getModel().getSize() > 0){
-            mon_film_cree.setFilm_scenaristes(recupererTousArtistDeList(li_creation_film_liste_scenaristes));
-        }
+            mon_film_cree.setFilm_scenaristes(recupererTousArtistDeList(li_creation_film_liste_scenaristes));}
         if(li_creation_film_liste_genres.getModel().getSize() > 0){
-            mon_film_cree.setFilm_genres(recupererTousGenreDeList(li_creation_film_liste_genres));
-        }
+            mon_film_cree.setFilm_genres(recupererTousGenreDeList(li_creation_film_liste_genres));}
         if(li_creation_film_liste_tags.getModel().getSize() > 0){
-            mon_film_cree.setFilm_tags(recupererTousTagDeList(li_creation_film_liste_tags));
-        }
+            mon_film_cree.setFilm_tags(recupererTousTagDeList(li_creation_film_liste_tags));}
         ArrayList <String>  film_ceremonie = recupererValeursColonneTableau(tab_creation_film_tab_recompenses, 0);
         ArrayList <String>  film_award = recupererValeursColonneTableau(tab_creation_film_tab_recompenses, 1);
         ArrayList <String>  film_annee_award = recupererValeursColonneTableau(tab_creation_film_tab_recompenses, 2);
@@ -336,7 +331,6 @@ public class G_panel_creation_film extends A_panel_creation_modification {
             mon_film_cree.setFilm_annee_recompense(recupererTousAnneeAwardDeArrayList(film_annee_award));}
 
         System.out.println("Film cree avec données" +mon_film_cree.toString());
-
         return mon_film_cree;
     }
 }
