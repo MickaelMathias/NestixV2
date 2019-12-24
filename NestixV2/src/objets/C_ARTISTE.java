@@ -17,7 +17,7 @@ public class C_ARTISTE extends C_HUMAN{
     }
     @Override
     public String toString() {
-        return "C_ARTISTE{" + "artiste_dod=" + artiste_dod + ", artiste_nickname=" + artiste_nickname + ", artiste_asv=" + artiste_asv + ", artiste_groupes=" + artiste_groupes + ", artiste_metiers=" + artiste_metiers + ", artiste_ceremonies=" + artiste_ceremonies + ", artiste_award=" + artiste_award + '}';
+        return ""+super.toString()+" C_ARTISTE{" + "artiste_dod=" + artiste_dod + ", artiste_nickname=" + artiste_nickname + ", artiste_asv=" + artiste_asv + ", artiste_groupes=" + artiste_groupes + ", artiste_metiers=" + artiste_metiers + ", artiste_ceremonies=" + artiste_ceremonies + ", artiste_award=" + artiste_award + '}';
     }
 
     public String getArtiste_dod() {

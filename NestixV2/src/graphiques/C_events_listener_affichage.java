@@ -1,6 +1,10 @@
 package graphiques;
 
 import java.sql.SQLException;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 
 public class C_events_listener_affichage{
@@ -72,13 +76,7 @@ public class C_events_listener_affichage{
                 }
         });
 
-        mon_panel_container_creation.mon_panel_creation_film.b_creation_film_valider_creation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                objets.C_FILM mon_film_a_creer = new objets.C_FILM();
-                mon_film_a_creer = mon_panel_container_creation.mon_panel_creation_film.creerFilmAvecDonneesCreation();
-                mon_film_a_creer.creationMediaBdd(1);
-            }
-        });
+
         mon_panel_container_creation.mon_panel_choix_creation.get_rb_choix_livre().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mon_panel_container_creation.get_panel_creation_film().setVisible(false);
@@ -185,6 +183,30 @@ public class C_events_listener_affichage{
                 }
         });
 
+        mon_panel_container_recherche.mon_panel_recherche_film.b_recherche_film_supprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {  
+                objets.C_FILM mon_film_a_supprimer = new objets.C_FILM();
+                sr_film_a_modifier = mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow();
+                mon_id_film_a_modifier = Integer.valueOf((String)mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getModel().getValueAt(sr_film_a_modifier, 0));
+                mon_film_a_supprimer.suppressionMediaBdd(mon_id_film_a_modifier);
+                mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow();
+
+                ((DefaultTableModel)mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getModel()).removeRow(mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow());
+                javax.swing.JOptionPane.showMessageDialog(mon_panel_container_recherche, "Le film a bien été supprimé.");
+                }
+        });
+
+        mon_panel_container_recherche.mon_panel_recherche_film.b_recherche_film_bloquer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {  
+                objets.C_FILM mon_film_a_bloquer = new objets.C_FILM();
+                sr_film_a_modifier = mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow();
+                mon_id_film_a_modifier = Integer.valueOf((String)mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getModel().getValueAt(sr_film_a_modifier, 0));
+                mon_film_a_bloquer.blocageMediaBdd(mon_id_film_a_modifier);
+                mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow();
+                javax.swing.JOptionPane.showMessageDialog(mon_panel_container_recherche, "Le film a bien été bloqué.");
+                }
+        });
+
         mon_panel_container_recherche.mon_panel_recherche_film.b_recherche_film_modifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sr_film_a_modifier = mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getSelectedRow();
@@ -252,9 +274,52 @@ public class C_events_listener_affichage{
                     System.out.println("Création d'un film");
                     mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_titre.setBackground(Color.WHITE);
                     mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_annee.setBackground(Color.WHITE);
-                    mon_panel_container_creation.mon_panel_creation_film.creerFilmAvecDonneesCreation();}
+                    objets.C_FILM mon_film_a_creer = new objets.C_FILM();
+                    mon_film_a_creer = mon_panel_container_creation.mon_panel_creation_film.creerFilmAvecDonneesCreation();
+                    mon_film_a_creer.creationMediaBdd(1);
+                    mon_film_a_creer.creationFilmBdd();
+                    mon_film_a_creer.creationArtisteBdd(1, mon_film_a_creer.getFilm_acteurs());
+                    mon_film_a_creer.creationArtisteBdd(4, mon_film_a_creer.getFilm_realisateurs());
+                    mon_film_a_creer.creationArtisteBdd(5, mon_film_a_creer.getFilm_scenaristes());
+                    mon_film_a_creer.creationCaracteristiquesBdd(mon_film_a_creer.getFilm_genres(), "genre", "categorized_by");
+                    mon_film_a_creer.creationCaracteristiquesBdd(mon_film_a_creer.getFilm_tags(), "tag", "is_associated_with");
+                    mon_film_a_creer.creationCaracteristiquesBdd(mon_film_a_creer.getfilm_studio_production(), "pc", "produced_by");
+                    mon_film_a_creer.creationRecompensesBdd(mon_film_a_creer.getFilm_ceremonies(),mon_film_a_creer.getFilm_award(), mon_film_a_creer.getFilm_annee_recompense());
+
+                    javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Le film "+mon_film_a_creer.getMedia_titre()+" a bien été ajouté.");
+                }
             }         
         });
+
+        mon_panel_container_creation.mon_panel_creation_film.b_creation_film_valider_brouillon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                // Verif si année et titre vides
+                if (mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_titre.getText().equals("") || mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_annee.getText().equals("")){
+                    javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation.mon_panel_creation_film, "Titre et année obligatoires.");  
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_titre.setBackground(Color.RED);
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_annee.setBackground(Color.RED);
+                }
+                else{
+                    System.out.println("Création d'un film");
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_titre.setBackground(Color.WHITE);
+                    mon_panel_container_creation.mon_panel_creation_film.tf_creation_film_annee.setBackground(Color.WHITE);
+                    objets.C_FILM mon_film_a_creer = new objets.C_FILM();
+                    mon_film_a_creer = mon_panel_container_creation.mon_panel_creation_film.creerFilmAvecDonneesCreation();
+                    mon_film_a_creer.creationMediaBdd(2);
+                    mon_film_a_creer.creationFilmBdd();
+                    mon_film_a_creer.creationArtisteBdd(1, mon_film_a_creer.getFilm_acteurs());
+                    mon_film_a_creer.creationArtisteBdd(4, mon_film_a_creer.getFilm_realisateurs());
+                    mon_film_a_creer.creationArtisteBdd(5, mon_film_a_creer.getFilm_scenaristes());
+                    mon_film_a_creer.creationCaracteristiquesBdd(mon_film_a_creer.getFilm_genres(), "genre", "categorized_by");
+                    mon_film_a_creer.creationCaracteristiquesBdd(mon_film_a_creer.getFilm_tags(), "tag", "is_associated_with");
+                    mon_film_a_creer.creationCaracteristiquesBdd(mon_film_a_creer.getfilm_studio_production(), "pc", "produced_by");
+                    mon_film_a_creer.creationRecompensesBdd(mon_film_a_creer.getFilm_ceremonies(),mon_film_a_creer.getFilm_award(), mon_film_a_creer.getFilm_annee_recompense());
+
+                    javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Le film "+mon_film_a_creer.getMedia_titre()+" a bien été ajouté aux brouillons.");
+                }
+            }         
+        });
+
         mon_panel_container_creation.mon_panel_creation_film.b_creation_film_ajouter_acteur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt){
                 if (!mon_panel_container_creation.mon_panel_creation_film.verifierPresenceStringDansList(mon_panel_container_creation.mon_panel_creation_film.li_creation_film_liste_acteurs, mon_panel_container_creation.mon_panel_creation_film.cb_creation_film_artiste)){

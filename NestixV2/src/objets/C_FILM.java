@@ -187,4 +187,11 @@ public class C_FILM extends C_MEDIA {
         return mon_film_cree_avec_id;
 
     }
+
+    public void creationFilmBdd(){
+        bdd.C_connexion.ex_Update("INSERT INTO movie (visa, movie_runtime, movie_trailer, movie_synop, movie_budget, movie_saga, movie_id) VALUES ("
+        +this.film_visa+","+this.film_duree+","+VDE(this.film_trailer)+","+VDE(this.film_synop)+","+VDE(this.film_budget)+","+VDE(this.film_saga)+","+this.media_id+")");
+    }
+    
+
 }

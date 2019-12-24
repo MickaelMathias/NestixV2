@@ -116,8 +116,8 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
 
         l_creation_livre_studio_production.setBounds(990,5,150,20);
         cb_creation_livre_studio_production.setModel(new DefaultComboBoxModel<>(new String[] { "Editeur"}));
-        cb_creation_livre_studio_production.setBounds(950,35,150,20);
-        b_creation_livre_creer_studio_production.setBounds(950,65,150,20);
+        cb_creation_livre_studio_production.setBounds(950,35,150,30);
+        b_creation_livre_creer_studio_production.setBounds(950,65,150,30);
 
         p_creation_livre_infos_base.add(l_creation_livre_studio_production);
         p_creation_livre_infos_base.add(cb_creation_livre_studio_production);

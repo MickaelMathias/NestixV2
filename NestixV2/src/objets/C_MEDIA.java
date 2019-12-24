@@ -88,21 +88,53 @@ public class C_MEDIA {
 
     public String VDE(String value){
         // verificationDonneesEntrees
-        if (!value.equals("")){
+        if (!value.equals("NULL")){
             value="'"+value+"'";
+        }
+        else{
+            value = "NULL";
         }
         return value;
 
     }
     public void creationMediaBdd(int statut){
-        String requete_creation_media = "INSERT INTO media (media_title, media_type, media_year, media_cover, media_link) VALUES ("+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")";
-        bdd.C_connexion.ex_Update(requete_creation_media);
-
-        String requete_recup_id = "SELECT media_id FROM media ORDER BY media_id DESC LIMIT 1";
-        this.media_id = bdd.C_requetes.rechercheId(requete_recup_id);
-
-        String requete_asv = "INSERT INTO status (media_id, asv_id, asv_date_creat, asv_date_modif) VALUES ("+this.media_id+","+statut+",CURRENT_DATE(),CURRENT_DATE())";
-        bdd.C_connexion.ex_Update(requete_asv);
+        bdd.C_connexion.ex_Update("INSERT INTO media (media_title, media_type, media_year, media_cover, media_link) VALUES ("+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")");
+        this.media_id = bdd.C_requetes.rechercheId("SELECT media_id FROM media ORDER BY media_id DESC LIMIT 1");
+        bdd.C_connexion.ex_Update("INSERT INTO status (media_id, asv_id, asv_date_creat, asv_date_modif) VALUES ("+this.media_id+","+statut+",CURRENT_DATE(),CURRENT_DATE())");
     }
-  
+
+    public void creationArtisteBdd(int metier, ArrayList <C_ARTISTE> mes_artistes){
+        for (int i=0; i < mes_artistes.size(); i++){
+            bdd.C_connexion.ex_Update("INSERT INTO take_part_in (media_id, work_id, human_id) VALUES ("+this.media_id+","+metier+","+ mes_artistes.get(i).getHuman_id()+")");
+        }
+    }
+
+    public void creationCaracteristiquesBdd(ArrayList<C_CARACTERISTIQUES> mes_caracteristiques, String champ, String table){
+        for (int i = 0; i < mes_caracteristiques.size(); i++ ){
+            bdd.C_connexion.ex_Update("INSERT INTO "+table+" (media_id, "+champ+"_id) VALUES ("+this.media_id+","+mes_caracteristiques.get(i).getCaracteristiquesId()+")");
+        }
+    }
+
+    public void creationRecompensesBdd(ArrayList<C_CARACTERISTIQUES> mes_ceremonies, ArrayList<C_CARACTERISTIQUES> mes_award, ArrayList<String> mes_annees){
+        for (int i = 0; i < mes_ceremonies.size(); i++ ){
+            bdd.C_connexion.ex_Update("INSERT INTO competed_in (media_id, award_id, ceremony_id, year) VALUES ("+this.media_id+","+mes_award.get(i).getCaracteristiquesId()+","+mes_ceremonies.get(i).getCaracteristiquesId()+","+mes_annees.get(i)+")");
+        }
+    }
+
+    public void suppressionMediaBdd(int mon_id){
+        String relations[] = {"produced_by", "competed_in", "is_associated_with", "categorized_by", "status", "appreciation", "contains", "take_part_in", "associated_with"};
+        for (int i=0; i<relations.length; i++) {
+            bdd.C_connexion.ex_Update("DELETE FROM `"+relations[i]+"` WHERE `"+relations[i]+"`.`media_id` ="+mon_id);
+        }
+        String types_de_media[] = {"movie", "book", "song"};
+        for (int i=0; i<types_de_media.length; i++) {
+            bdd.C_connexion.ex_Update("DELETE FROM `"+types_de_media[i]+"` WHERE `"+types_de_media[i]+"`.`"+types_de_media[i]+"_id` ="+mon_id);
+        }
+        bdd.C_connexion.ex_Update("DELETE FROM `media` WHERE `media`.`media_id` ="+mon_id);
+    }
+
+    public void blocageMediaBdd(int mon_id) {
+    	String requete_blocage="UPDATE `status` SET `asv_id` = '3', `asv_date_modif` = CURRENT_TIME() WHERE `status`.`media_id`="+mon_id;
+    	bdd.C_connexion.ex_Update(requete_blocage);
+    }
 }

@@ -77,7 +77,7 @@ abstract class A_panel_creation_modification extends JPanel{
         for (int i = 0; i < ma_list.getModel().getSize() ;i++){
             objets.C_ARTISTE mon_artiste = new objets.C_ARTISTE();
             mon_artiste.setArtiste_nickname(ma_list.getModel().getElementAt(i).toString());
-            mon_artiste.recupererIdParNom();
+            mon_artiste.setHuman_id(mon_artiste.recupererIdParNom());
             mes_valeurs.add(mon_artiste);
         }
         return mes_valeurs;
@@ -98,7 +98,7 @@ abstract class A_panel_creation_modification extends JPanel{
         ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
         objets.C_CARACTERISTIQUES mon_sp = new objets.C_CARACTERISTIQUES();
         mon_sp.setCaracteristiquesNom(ma_cb.getSelectedItem().toString());
-        mon_sp.setCaracteristiquesId(mon_sp.recupererIdParNom("ceremony", mon_sp.getCaracteristiquesNom()));
+        mon_sp.setCaracteristiquesId(mon_sp.recupererIdParNom("pc", mon_sp.getCaracteristiquesNom()));
         mes_valeurs.add(mon_sp);
         return mes_valeurs;
     }

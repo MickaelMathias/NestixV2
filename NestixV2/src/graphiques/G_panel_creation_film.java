@@ -104,11 +104,14 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         l_creation_film_visa.setForeground(Color.WHITE);
         tf_creation_film_visa.setBounds(80,5,150,30);
         l_creation_film_titre.setBounds(5,40,75,30);
+        l_creation_film_titre.setForeground(Color.WHITE);
         tf_creation_film_titre.setBounds(80,40,150,30);
         l_creation_film_annee.setBounds(5,75,75,30);
+        l_creation_film_annee.setForeground(Color.WHITE);
         tf_creation_film_annee.setDocument(new C_verif_format_int(4));
         tf_creation_film_annee.setBounds(80,75,150,30);
         l_creation_film_duree.setBounds(5,110,75,30);
+        l_creation_film_duree.setForeground(Color.WHITE);
         tf_creation_film_duree.setBounds(80,110,150,30);
         tf_creation_film_duree.setDocument(new C_verif_format_int(3));
         p_creation_film_infos_base.add(l_creation_film_visa);
@@ -120,12 +123,16 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         p_creation_film_infos_base.add(l_creation_film_duree);
         p_creation_film_infos_base.add(tf_creation_film_duree);
         l_creation_film_trailer.setBounds(300,5,75,30);
+        l_creation_film_trailer.setForeground(Color.WHITE);
         tf_creation_film_trailer.setBounds(380,5,150,30);
         l_creation_film_lien.setBounds(300,40,75,30);
+        l_creation_film_lien.setForeground(Color.WHITE);
         tf_creation_film_lien.setBounds(380,40,150,30);
         l_creation_film_budget.setBounds(300,75,75,30);
+        l_creation_film_budget.setForeground(Color.WHITE);
         tf_creation_film_budget.setBounds(380,75,150,30);
         l_creation_film_saga.setBounds(300,110,75,30);
+        l_creation_film_saga.setForeground(Color.WHITE);
         tf_creation_film_saga.setBounds(380,110,150,30);
         p_creation_film_infos_base.add(l_creation_film_trailer);
         p_creation_film_infos_base.add(tf_creation_film_trailer);
@@ -136,15 +143,17 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         p_creation_film_infos_base.add(l_creation_film_saga);
         p_creation_film_infos_base.add(tf_creation_film_saga);
         l_creation_film_synop.setBounds(710,5,150,20);
+        l_creation_film_synop.setForeground(Color.WHITE);
         sp_creation_film_synop.setBounds(635,30,200,100);
         sp_creation_film_synop.setViewportView(ta_creation_film_synop);
         p_creation_film_infos_base.add(l_creation_film_synop);
         p_creation_film_infos_base.add(sp_creation_film_synop);
 
         l_creation_film_studio_production.setBounds(990,5,150,20);
+        l_creation_film_studio_production.setForeground(Color.WHITE);
         cb_creation_film_studio_production.setModel(new DefaultComboBoxModel<>(new String[] { "Production"}));
-        cb_creation_film_studio_production.setBounds(950,35,150,20);
-        b_creation_film_creer_studio_production.setBounds(950,65,150,20);
+        cb_creation_film_studio_production.setBounds(950,35,150,30);
+        b_creation_film_creer_studio_production.setBounds(950,65,150,30);
 
         p_creation_film_infos_base.add(l_creation_film_studio_production);
         p_creation_film_infos_base.add(cb_creation_film_studio_production);

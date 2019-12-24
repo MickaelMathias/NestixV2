@@ -98,16 +98,16 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
         p_creation_chanson_infos_base.add(tf_creation_chanson_lien);
         l_creation_chanson_studio_production.setBounds(370,5,150,20);
         cb_creation_chanson_studio_production.setModel(new DefaultComboBoxModel<>(new String[] { "Label"}));
-        cb_creation_chanson_studio_production.setBounds(320,35,150,20);
-        b_creation_chanson_creer_studio_production.setBounds(320,65,150,20);
+        cb_creation_chanson_studio_production.setBounds(320,35,150,30);
+        b_creation_chanson_creer_studio_production.setBounds(320,65,150,30);
         p_creation_chanson_infos_base.add(l_creation_chanson_studio_production);
         p_creation_chanson_infos_base.add(cb_creation_chanson_studio_production);
         p_creation_chanson_infos_base.add(b_creation_chanson_creer_studio_production);
 
         l_creation_chanson_groupe.setBounds(550,5,150,20);
         cb_creation_chanson_groupe.setModel(new DefaultComboBoxModel<>(new String[] { "Groupe"}));
-        cb_creation_chanson_groupe.setBounds(500,35,150,20);
-        b_creation_chanson_creer_groupe.setBounds(500,65,150,20);
+        cb_creation_chanson_groupe.setBounds(500,35,150,30);
+        b_creation_chanson_creer_groupe.setBounds(500,65,150,30);
         p_creation_chanson_infos_base.add(l_creation_chanson_groupe);
         p_creation_chanson_infos_base.add(b_creation_chanson_creer_groupe);
         p_creation_chanson_infos_base.add(cb_creation_chanson_groupe);
