@@ -16,6 +16,8 @@ public class C_events_listener_affichage{
 
     G_panel_modification_film mon_panel_modification_film = new G_panel_modification_film();
 
+    objets.C_FILM mon_film_a_modifier = new objets.C_FILM();
+
     int sr_film_a_modifier = 0;
     int mon_id_film_a_modifier = 0;
     int sr_chanson_a_modifier = 0;
@@ -758,8 +760,59 @@ public void gestionClicBoutonsCreationArtiste(){
 public void gestionClicBoutonsModificationFilm(){
     mon_panel_container_modification.mon_panel_modification_film.b_modification_film_valider_modification.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            objets.C_FILM mon_film_modifie = new objets.C_FILM();
-            mon_film_modifie = mon_panel_container_modification.mon_panel_modification_film.creerFilmAvecDonneesModification(mon_id_film_a_modifier);
+            // On supprime le film qu'on veut modifier puis on le recrée avec les nouvelles infos
+            if (mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_titre.getText().equals("") || mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_annee.getText().equals("")){
+                javax.swing.JOptionPane.showMessageDialog(mon_panel_container_modification.mon_panel_modification_film, "Titre et année obligatoires.");  
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_titre.setBackground(Color.RED);
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_annee.setBackground(Color.RED);
+            }
+            else{
+                System.out.println("Modification d'un film");
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_titre.setBackground(Color.WHITE);
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_annee.setBackground(Color.WHITE);
+                mon_film_a_modifier.suppressionMediaBdd(mon_film_a_modifier.getMedia_id());
+                mon_film_a_modifier = mon_panel_container_modification.mon_panel_modification_film.creerFilmAvecDonneesModification(mon_id_film_a_modifier);
+                mon_film_a_modifier.setMedia_type("Film");
+                mon_film_a_modifier.modificationMediaBdd(1);
+                mon_film_a_modifier.creationFilmBdd();
+                mon_film_a_modifier.creationArtisteBdd(1, mon_film_a_modifier.getFilm_acteurs());
+                mon_film_a_modifier.creationArtisteBdd(4, mon_film_a_modifier.getFilm_realisateurs());
+                mon_film_a_modifier.creationArtisteBdd(5, mon_film_a_modifier.getFilm_scenaristes());
+                mon_film_a_modifier.creationCaracteristiquesBdd(mon_film_a_modifier.getFilm_genres(), "genre", "categorized_by");
+                mon_film_a_modifier.creationCaracteristiquesBdd(mon_film_a_modifier.getFilm_tags(), "tag", "is_associated_with");
+                mon_film_a_modifier.creationCaracteristiquesBdd(mon_film_a_modifier.getfilm_studio_production(), "pc", "produced_by");
+                mon_film_a_modifier.creationRecompensesBdd(mon_film_a_modifier.getFilm_ceremonies(),mon_film_a_modifier.getFilm_award(), mon_film_a_modifier.getFilm_annee_recompense());
+
+                javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Le film "+mon_film_a_modifier.getMedia_titre()+" a bien été modifié.");}
+        }
+    });
+
+    mon_panel_container_modification.mon_panel_modification_film.b_modification_film_valider_brouillon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            // On supprime le film qu'on veut modifier puis on le recrée avec les nouvelles infos
+            if (mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_titre.getText().equals("") || mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_annee.getText().equals("")){
+                javax.swing.JOptionPane.showMessageDialog(mon_panel_container_modification.mon_panel_modification_film, "Titre et année obligatoires.");  
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_titre.setBackground(Color.RED);
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_annee.setBackground(Color.RED);
+            }
+            else{
+                System.out.println("Modification d'un film puis brouillon");
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_titre.setBackground(Color.WHITE);
+                mon_panel_container_modification.mon_panel_modification_film.tf_modification_film_annee.setBackground(Color.WHITE);
+                mon_film_a_modifier.suppressionMediaBdd(mon_film_a_modifier.getMedia_id());
+                mon_film_a_modifier = mon_panel_container_modification.mon_panel_modification_film.creerFilmAvecDonneesModification(mon_id_film_a_modifier);
+                mon_film_a_modifier.setMedia_type("Film");
+                mon_film_a_modifier.modificationMediaBdd(2);
+                mon_film_a_modifier.creationFilmBdd();
+                mon_film_a_modifier.creationArtisteBdd(1, mon_film_a_modifier.getFilm_acteurs());
+                mon_film_a_modifier.creationArtisteBdd(4, mon_film_a_modifier.getFilm_realisateurs());
+                mon_film_a_modifier.creationArtisteBdd(5, mon_film_a_modifier.getFilm_scenaristes());
+                mon_film_a_modifier.creationCaracteristiquesBdd(mon_film_a_modifier.getFilm_genres(), "genre", "categorized_by");
+                mon_film_a_modifier.creationCaracteristiquesBdd(mon_film_a_modifier.getFilm_tags(), "tag", "is_associated_with");
+                mon_film_a_modifier.creationCaracteristiquesBdd(mon_film_a_modifier.getfilm_studio_production(), "pc", "produced_by");
+                mon_film_a_modifier.creationRecompensesBdd(mon_film_a_modifier.getFilm_ceremonies(),mon_film_a_modifier.getFilm_award(), mon_film_a_modifier.getFilm_annee_recompense());
+
+                javax.swing.JOptionPane.showMessageDialog(mon_panel_container_creation, "Le film "+mon_film_a_modifier.getMedia_titre()+" a bien été modifié et mis au brouillon.");}
         }
     });
     mon_panel_container_modification.mon_panel_modification_film.b_modification_film_ajouter_acteur.addActionListener(new java.awt.event.ActionListener() {
@@ -1079,9 +1132,9 @@ public void gestionClicBoutonsRechercheFilm(){
                 javax.swing.JOptionPane.showMessageDialog(mon_panel_container_recherche, "Veuillez d'abord selectionner un film");
             }
             mon_id_film_a_modifier = Integer.valueOf((String)mon_panel_container_recherche.mon_panel_recherche_film.tab_recherche_film_tab_resultats.getModel().getValueAt(sr_film_a_modifier, 0));
-            objets.C_FILM mon_film = new objets.C_FILM();
-            mon_film = mon_film.creerFilmAvecId(mon_id_film_a_modifier);
-            mon_panel_container_modification.mon_panel_modification_film.affichageFilmAModifier(mon_film);
+            
+            mon_film_a_modifier = mon_film_a_modifier.creerFilmAvecId(mon_id_film_a_modifier);
+            mon_panel_container_modification.mon_panel_modification_film.affichageFilmAModifier(mon_film_a_modifier);
         }
     });
 }

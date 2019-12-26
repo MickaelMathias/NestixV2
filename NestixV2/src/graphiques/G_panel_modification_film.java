@@ -35,7 +35,7 @@ public class G_panel_modification_film extends A_panel_creation_modification{
     JButton b_modification_film_ajouter_recompense = new JButton("Ajout récompense");
     JButton b_modification_film_suppr_recompense = new JButton("Suppr récompense");
     JButton b_modification_film_valider_modification = new JButton("Mettre à jour film");
-    JButton b_modification_film_valider_brouillon = new JButton("Brouillon");
+    JButton b_modification_film_valider_brouillon = new JButton("MAJ puis brouillon");
     JButton b_modification_film_creer_studio_production = new JButton("Créer producteur ?");
 
     JComboBox cb_modification_film_artiste = new JComboBox<>();
@@ -69,15 +69,15 @@ public class G_panel_modification_film extends A_panel_creation_modification{
     JScrollPane sp_modification_film_synop = new JScrollPane();
     JTextArea ta_modification_film_synop = new JTextArea();
     JScrollPane sp_modification_film_liste_acteurs = new JScrollPane();
-    JList li_modification_film_liste_acteurs = new JList<String>();
+    JList li_modification_film_liste_acteurs = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_modification_film_liste_realisateurs = new JScrollPane();
-    JList li_modification_film_liste_realisateurs = new JList<String>();
+    JList li_modification_film_liste_realisateurs = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_modification_film_liste_scenaristes = new JScrollPane();
-    JList li_modification_film_liste_scenaristes = new JList<String>();
+    JList li_modification_film_liste_scenaristes = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_modification_film_liste_genres = new JScrollPane();
-    JList li_modification_film_liste_genres = new JList<String>();
+    JList li_modification_film_liste_genres = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_modification_film_liste_tags = new JScrollPane();
-    JList li_modification_film_liste_tags = new JList<String>();
+    JList li_modification_film_liste_tags = new JList<String>(new DefaultListModel<>());
 
     JScrollPane sp_modification_film_tab_recompenses = new JScrollPane();
     JTable tab_modification_film_tab_recompenses = new JTable();

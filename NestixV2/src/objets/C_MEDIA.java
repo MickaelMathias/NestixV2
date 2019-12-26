@@ -102,6 +102,11 @@ public class C_MEDIA {
         bdd.C_connexion.ex_Update("INSERT INTO status (media_id, asv_id, asv_date_creat, asv_date_modif) VALUES ("+this.media_id+","+statut+",CURRENT_DATE(),CURRENT_DATE())");
     }
 
+    public void modificationMediaBdd(int statut){
+        bdd.C_connexion.ex_Update("INSERT INTO media (media_id, media_title, media_type, media_year, media_cover, media_link) VALUES ("+this.media_id+","+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")");
+        bdd.C_connexion.ex_Update("INSERT INTO status (media_id, asv_id, asv_date_creat, asv_date_modif) VALUES ("+this.media_id+","+statut+",CURRENT_DATE(),CURRENT_DATE())");
+    }
+
     public void creationArtisteBdd(int metier, ArrayList <C_ARTISTE> mes_artistes){
         for (int i=0; i < mes_artistes.size(); i++){
             bdd.C_connexion.ex_Update("INSERT INTO take_part_in (media_id, work_id, human_id) VALUES ("+this.media_id+","+metier+","+ mes_artistes.get(i).getHuman_id()+")");
