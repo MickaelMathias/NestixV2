@@ -19,4 +19,10 @@ abstract class A_panel_recherche extends JPanel{
     	mon_tableau.setModel(new DefaultTableModel(mesInfosMedia, enteteColonnes));
     }
 
+    public void AfficheInfosArtisteTableau(JTable mon_tableau){
+    	Object mesInfosHuman[][] = mes_requetes.rechercheHumanPourAffichage("SELECT * FROM human");
+    	String enteteColonnes[] = {"Id","Nom","Prenom","Date de naissance"};
+    	mon_tableau.setModel(new DefaultTableModel(mesInfosHuman, enteteColonnes));
+    }
+
 }

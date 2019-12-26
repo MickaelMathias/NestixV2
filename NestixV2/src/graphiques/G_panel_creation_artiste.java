@@ -23,11 +23,11 @@ public class G_panel_creation_artiste extends A_panel_creation_modification {
     JButton b_creation_artiste_suppr_groupe = new JButton("Suppr groupe");
     JButton b_creation_artiste_creer_ceremonie = new JButton("Creer cérémonie ?");
     JButton b_creation_artiste_creer_award = new JButton("Creer award ?");
-    JButton b_creation_artiste_ajouter_recompense = new JButton("Ajout récompense");
+    JButton b_creation_artiste_ajouter_recompense = new JButton("Ajout recompense");
     JButton b_creation_artiste_suppr_recompense = new JButton("Suppr récompense");
-    JButton b_creation_artiste_valider_creation = new JButton("Créer artiste");
+    JButton b_creation_artiste_valider_creation = new JButton("Creer artiste");
     JButton b_creation_artiste_valider_brouillon = new JButton("Brouillon");
-    JButton b_creation_artiste_creer_pays = new JButton("Cr�er pays");
+    JButton b_creation_artiste_creer_pays = new JButton("Creer pays");
 
     JComboBox cb_creation_artiste_groupe = new JComboBox<>();
     JComboBox cb_creation_artiste_ceremonie = new JComboBox<>();
@@ -37,9 +37,9 @@ public class G_panel_creation_artiste extends A_panel_creation_modification {
     JComboBox cb_creation_artiste_pays = new JComboBox<>();
 
     JLabel l_creation_artiste_nom = new JLabel("Nom : ");
-    JLabel l_creation_artiste_prenom = new JLabel("Pr�nom : ");
+    JLabel l_creation_artiste_prenom = new JLabel("Prenom : ");
     JLabel l_creation_artiste_surnom = new JLabel("Surnom : ");
-    JLabel l_creation_artiste_naissance = new JLabel("N� en : ");
+    JLabel l_creation_artiste_naissance = new JLabel("Ne en : ");
     JLabel l_creation_artiste_mort = new JLabel("Mort en : ");
     JLabel l_creation_artiste_sexe = new JLabel("Sexe : ");
     JLabel l_creation_artiste_pays = new JLabel("Pays : ");
@@ -51,7 +51,7 @@ public class G_panel_creation_artiste extends A_panel_creation_modification {
     JTextField tf_creation_artiste_mort = new JTextField();
 
     JScrollPane sp_creation_artiste_liste_groupes = new JScrollPane();
-    JList li_creation_artiste_liste_groupes = new JList<String>();
+    JList li_creation_artiste_liste_groupes = new JList<String>(new DefaultListModel<>());
 
     JScrollPane sp_creation_artiste_tab_recompenses = new JScrollPane();
     JTable tab_creation_artiste_tab_recompenses = new JTable();
@@ -160,7 +160,7 @@ public class G_panel_creation_artiste extends A_panel_creation_modification {
 
         // LISTE CEREMONIE
         tab_creation_artiste_tab_recompenses.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{null, null, null}},new String [] {"Cérémonie", "Récompense", "Année"}));
+        null,new String [] {"Cérémonie", "Récompense", "Année"}));
         sp_creation_artiste_tab_recompenses.setBounds(5,150,315,190);
         sp_creation_artiste_tab_recompenses.setViewportView(tab_creation_artiste_tab_recompenses);
         p_creation_artiste_infos_ceremonie.add(sp_creation_artiste_tab_recompenses);
@@ -175,5 +175,53 @@ public class G_panel_creation_artiste extends A_panel_creation_modification {
         mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_artiste_award);
         mes_requetes_creation_artiste_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_creation_artiste_annee_award);
     }
+
+    public String verifSurnomArtisteCreation(){
+        String valeur_retour = "";
+        if (this.tf_creation_artiste_surnom.getText().equals("")){
+            if (this.tf_creation_artiste_nom.getText().equals("")){
+                valeur_retour = this.tf_creation_artiste_prenom.getText();}
+            else if(this.tf_creation_artiste_prenom.getText().equals("")){
+                valeur_retour = this.tf_creation_artiste_nom.getText();}
+            else{
+                valeur_retour = this.tf_creation_artiste_prenom.getText()+" "+this.tf_creation_artiste_nom.getText();
+            }
+        }
+        else {
+            valeur_retour = this.tf_creation_artiste_surnom.getText();
+        }
+        return valeur_retour;
+    }
+
+    public objets.C_ARTISTE creerArtisteAvecDonneesCreation(){
+        // Crée un objet chanson et le rempli avec les informations du panel.
+        objets.C_ARTISTE mon_artiste_cree = new objets.C_ARTISTE();
+
+        mon_artiste_cree.setHuman_sexe(cb_creation_artiste_sexe.getSelectedItem().toString());
+        mon_artiste_cree.setHuman_nom(recupererValeurTF(tf_creation_artiste_nom));
+        mon_artiste_cree.setHuman_prenom(recupererValeurTF(tf_creation_artiste_prenom));
+        mon_artiste_cree.setHuman_dob(recupererValeurTF(tf_creation_artiste_naissance));
+        mon_artiste_cree.setArtiste_dod(recupererValeurTF(tf_creation_artiste_mort));
+        mon_artiste_cree.setArtiste_nickname(verifSurnomArtisteCreation());
+
+        if(!isCBVide(cb_creation_artiste_pays)){
+            mon_artiste_cree.setArtiste_pays(recupererPaysDeComboBox(cb_creation_artiste_pays));}
+        if(li_creation_artiste_liste_groupes.getModel().getSize() > 0){
+            mon_artiste_cree.setArtiste_groupes(recupererTousGroupeDeList(li_creation_artiste_liste_groupes));}
+
+        ArrayList <String>  artiste_ceremonie = recupererValeursColonneTableau(tab_creation_artiste_tab_recompenses, 0);
+        ArrayList <String>  artiste_award = recupererValeursColonneTableau(tab_creation_artiste_tab_recompenses, 1);
+        ArrayList <String>  artiste_annee_award = recupererValeursColonneTableau(tab_creation_artiste_tab_recompenses, 2);
+        if(artiste_ceremonie.size() > 0){
+            mon_artiste_cree.setArtiste_ceremonies(recupererTousCeremonieDeArrayList(artiste_ceremonie));}
+        if(artiste_award.size() > 0){
+            mon_artiste_cree.setArtiste_award(recupererTousAwardDeArrayList(artiste_award));}  
+        if(artiste_annee_award.size() > 0){
+            mon_artiste_cree.setArtiste_annee_recompense(recupererTousAnneeAwardDeArrayList(artiste_annee_award));}
+        System.out.println("Artiste cree avec données" +mon_artiste_cree.toString());
+        return mon_artiste_cree;
+    }
+
+
 
 }

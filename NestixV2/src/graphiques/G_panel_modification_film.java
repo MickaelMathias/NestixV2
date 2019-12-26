@@ -87,6 +87,8 @@ public class G_panel_modification_film extends A_panel_creation_modification{
         this.setLayout(null);
         this.setBackground(Color.GRAY);
         this.setBounds(10,50,1180,630);
+        this.setFocusable(true);
+        this.setRequestFocusEnabled(true);
         // INFORMATIONS BASES
         
         p_modification_film_infos_base.setBounds(10,10,1160,150);
@@ -133,7 +135,7 @@ public class G_panel_modification_film extends A_panel_creation_modification{
         p_modification_film_infos_base.add(sp_modification_film_synop);
 
         l_modification_film_studio_production.setBounds(990,5,150,20);
-        cb_modification_film_studio_production.setModel(new DefaultComboBoxModel<>(new String[] { "Production"}));
+        cb_modification_film_studio_production.setModel(new DefaultComboBoxModel<>(new String[] {"Production"}));
         cb_modification_film_studio_production.setBounds(950,35,150,20);
         b_modification_film_creer_studio_production.setBounds(950,65,150,20);
 
@@ -269,18 +271,18 @@ public class G_panel_modification_film extends A_panel_creation_modification{
         sp_modification_film_tab_recompenses.setBounds(5,150,315,190);
         sp_modification_film_tab_recompenses.setViewportView(tab_modification_film_tab_recompenses);
         p_modification_film_infos_ceremonie.add(sp_modification_film_tab_recompenses);
-/*
-        mon_film_a_modifier = mon_film_a_modifier.creerFilmAvecId(18);
-        this.affichageFilmAModifier(mon_film_a_modifier);*/
+
     }
 
     public void affichageComboBoxModificationFilm() throws SQLException {
-        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_film_studio_production);
+        if(cb_modification_film_studio_production.getSelectedItem().equals("Production")){
+        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_film_studio_production);}
         mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_modification_film_artiste);
         mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_modification_film_genres);
         mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_modification_film_tags);
         mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_modification_film_ceremonie);
         mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_modification_film_award);
+        mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_modification_film_annee_award);
     }
 
     public void affichageFilmAModifier(objets.C_FILM mon_film_a_afficher){
@@ -295,6 +297,7 @@ public class G_panel_modification_film extends A_panel_creation_modification{
         tf_modification_film_saga.setText(mon_film_a_afficher.getFilm_saga());
         ta_modification_film_synop.setText(mon_film_a_afficher.getFilm_synop());
         if (mon_film_a_afficher.getfilm_studio_production().size() > 0){
+            mes_requetes_modification_film_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_film_studio_production);
             cb_modification_film_studio_production.setSelectedItem(mon_film_a_afficher.getfilm_studio_production().get(0).getCaracteristiquesNom());}
         if (mon_film_a_afficher.getFilm_acteurs().size()>0){
             this.afficherTabDansList(li_modification_film_liste_acteurs,recupererTousNomsArtiste(mon_film_a_afficher.getFilm_acteurs()));}

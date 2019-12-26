@@ -87,7 +87,7 @@ public class G_panel_recherche_artiste extends A_panel_recherche {
         this.add(p_recherche_artiste_resultats);
 
         tab_recherche_artiste_tab_resultats.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{null, null, null, null, null}},new String [] {"ID", "Nom", "Prenom", "Surnom", "Pays"}));
+            null,new String [] {"ID", "Nom", "Prenom", "Surnom", "Pays"}));
         sp_recherche_artiste_tab_resultats.setBounds(5,5,1150,410);
         sp_recherche_artiste_tab_resultats.setViewportView(tab_recherche_artiste_tab_resultats);
         p_recherche_artiste_resultats.add(sp_recherche_artiste_tab_resultats);
@@ -108,10 +108,11 @@ public class G_panel_recherche_artiste extends A_panel_recherche {
 
         // AFFICHAGE TABLEAU RECHERCHE DE BASE
 
+        this.AfficheInfosArtisteTableau(tab_recherche_artiste_tab_resultats);
+
     }
 
     public void affichageComboBoxRechercheArtiste() throws SQLException {
-
         mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT DISTINCT human_sex FROM human", "human_sex", cb_recherche_artiste_sexe);
         mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT human_lastname FROM human WHERE human_id IN (SELECT human_id FROM artist)", "human_lastname", cb_recherche_artiste_nom);
         mes_requetes_recherche_artiste_combobox.rechercheValeursComboBox("SELECT human_firstname FROM human WHERE human_id IN (SELECT human_id FROM artist)", "human_firstname", cb_recherche_artiste_prenom);

@@ -56,6 +56,31 @@ public class C_requetes extends C_connexion{
         return ma_variable_retour;
     }
 
+    public static String[][] rechercheHuman(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("human_lastname");
+                tabObj[i][1] = resultat.getString("human_firstname");
+                tabObj[i][2] = resultat.getString("human_sex");
+                tabObj[i][3] = resultat.getString("human_dob");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Problème requete rechercheMedia");
+        }
+        return tabObj;
+    }
+
 	public static String[][] rechercheMedia(String requete){
 		String[][] tabObj = null;
         ResultSet resultat = ex_Query(requete);
@@ -110,6 +135,77 @@ public class C_requetes extends C_connexion{
         return tabObj;
     }
 
+    public static String[][] rechercheChanson(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("song_album");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Problème requete rechercheChanson");
+        }
+        return tabObj;
+    }
+
+    public static String[][] rechercheLivre(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("ISBN");
+                tabObj[i][1] = resultat.getString("book_synop");
+                tabObj[i][2] = resultat.getString("book_tome");
+                tabObj[i][3] = resultat.getString("book_saga");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Problème requete rechercheLivre");
+        }
+        return tabObj;
+    }
+    public static String[][] rechercheArtiste(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("artist_dod");
+                tabObj[i][1] = resultat.getString("artist_nickname");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Problème requete rechercheLivre");
+        }
+        return tabObj;
+    }
+
+
+
     public static String[][] rechercheMediaPourAffichage(String requete){
 		String[][] tabObj = null;
         ResultSet resultat = ex_Query(requete);
@@ -126,6 +222,31 @@ public class C_requetes extends C_connexion{
                 tabObj[i][2] = resultat.getString("media_year");
                 tabObj[i][3] = resultat.getString("media_cover");
                 tabObj[i][4] = resultat.getString("media_link");
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheMediaPourAffichage");
+        }
+        return tabObj;
+    }
+
+    public static String[][] rechercheHumanPourAffichage(String requete){
+		String[][] tabObj = null;
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        ResultSetMetaData rsmd = resultat.getMetaData();
+        resultat.last();
+        tabObj = new String[resultat.getRow()][rsmd.getColumnCount()+1];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i][0] = resultat.getString("human_id");
+                tabObj[i][1] = resultat.getString("human_lastname");
+                tabObj[i][2] = resultat.getString("human_firstname");
+                tabObj[i][3] = resultat.getString("human_dob");
                 i++;
             }
         }
@@ -161,6 +282,76 @@ public class C_requetes extends C_connexion{
         int[] tabObj = null;
         String requete = "SELECT "+champ+"."+champ+"_id FROM "+champ+" join "+table+" ON "+champ+"."+champ+"_id="+table+"."+champ+"_id "+
         "WHERE media_id IN ( SELECT "+table+".media_id from "+table+" JOIN media ON media.media_id="+table+".media_id WHERE media.media_id="+media_id+")";
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        resultat.last();
+        tabObj = new int[resultat.getRow()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i] = resultat.getInt(1);
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheIdsCaracteristique");
+        }
+        return tabObj;
+    }
+
+    public static int[] rechercheIdsCaracteristiqueArtiste(String champ, String table, int human_id){
+        int[] tabObj = null;
+        String requete = "SELECT "+champ+"."+champ+"_id FROM "+champ+" join "+table+" ON "+champ+"."+champ+"_id="+table+"."+champ+"_id "+
+        "WHERE human_id IN ( SELECT "+table+".human_id from "+table+" JOIN human ON human.human_id="+table+".human_id WHERE human.human_id="+human_id+")";
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        resultat.last();
+        tabObj = new int[resultat.getRow()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i] = resultat.getInt(1);
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheIdsCaracteristique");
+        }
+        return tabObj;
+    }
+
+    public static int[] rechercheIdsGroupe(int media_id){
+        int[] tabObj = null;
+        String requete = "SELECT play.band_id FROM play join song ON play.song_id=song.song_id WHERE song.song_id IN ( SELECT media.media_id from media JOIN song ON media.media_id=song.song_id WHERE media.media_id="+media_id+")";
+        
+        ResultSet resultat = ex_Query(requete);
+        try{ 
+        resultat.last();
+        tabObj = new int[resultat.getRow()];
+        resultat.beforeFirst();
+        int i = 0;
+        while(resultat.next())
+            {
+                tabObj[i] = resultat.getInt(1);
+                i++;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Probleme requete rechercheIdsCaracteristique");
+        }
+        return tabObj;
+    }
+
+    public static int[] rechercheIdsGroupeArtiste(int human_id){
+        int[] tabObj = null;
+        
+        String requete = "SELECT composed_by.band_id FROM composed_by join human ON composed_by.human_id=human.human_id WHERE composed_by.human_id IN ( SELECT human.human_id from human JOIN composed_by ON human.human_id = composed_by.human_id WHERE human.human_id="+human_id+")";
+        
         ResultSet resultat = ex_Query(requete);
         try{ 
         resultat.last();

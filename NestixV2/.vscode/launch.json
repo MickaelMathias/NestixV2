@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - maFenetre",
+            "request": "launch",
+            "mainClass": "graphiques.maFenetre",
+            "projectName": "NestixV2"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"

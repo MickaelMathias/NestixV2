@@ -3,6 +3,7 @@ package graphiques;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class G_panel_modification_chanson extends A_panel_creation_modification {
 
@@ -31,7 +32,7 @@ public class G_panel_modification_chanson extends A_panel_creation_modification 
     JButton b_modification_chanson_creer_award = new JButton("Creer award ?");
     JButton b_modification_chanson_ajouter_recompense = new JButton("Ajout récompense");
     JButton b_modification_chanson_suppr_recompense = new JButton("Suppr récompense");
-    JButton b_modification_chanson_valider_modification = new JButton("Créer chanson");
+    JButton b_modification_chanson_valider_modification = new JButton("Mettre à jour chanson");
     JButton b_modification_chanson_valider_brouillon = new JButton("Brouillon");
     JButton b_modification_chanson_creer_studio_production = new JButton("Créer producteur ?");
 
@@ -58,13 +59,13 @@ public class G_panel_modification_chanson extends A_panel_creation_modification 
     JTextField tf_modification_chanson_lien = new JTextField();
 
     JScrollPane sp_modification_chanson_liste_groupes = new JScrollPane();
-    JList li_modification_chanson_liste_groupes = new JList<String>();
+    JList li_modification_chanson_liste_groupes = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_modification_chanson_liste_interpretes = new JScrollPane();
-    JList li_modification_chanson_liste_interpretes = new JList<String>();
+    JList li_modification_chanson_liste_interpretes = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_modification_chanson_liste_genres = new JScrollPane();
-    JList li_modification_chanson_liste_genres = new JList<String>();
+    JList li_modification_chanson_liste_genres = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_modification_chanson_liste_tags = new JScrollPane();
-    JList li_modification_chanson_liste_tags = new JList<String>();
+    JList li_modification_chanson_liste_tags = new JList<String>(new DefaultListModel<>());
 
     JScrollPane sp_modification_chanson_tab_recompenses = new JScrollPane();
     JTable tab_modification_chanson_tab_recompenses = new JTable();
@@ -97,17 +98,17 @@ public class G_panel_modification_chanson extends A_panel_creation_modification 
         p_modification_chanson_infos_base.add(l_modification_chanson_lien);
         p_modification_chanson_infos_base.add(tf_modification_chanson_lien);
         l_modification_chanson_studio_production.setBounds(370,5,150,20);
-        cb_modification_chanson_studio_production.setModel(new DefaultComboBoxModel<>(new String[] { "Label"}));
-        cb_modification_chanson_studio_production.setBounds(320,35,150,20);
-        b_modification_chanson_creer_studio_production.setBounds(320,65,150,20);
+        cb_modification_chanson_studio_production.setModel(new DefaultComboBoxModel<>(new String[] {"Label"}));
+        cb_modification_chanson_studio_production.setBounds(320,35,150,30);
+        b_modification_chanson_creer_studio_production.setBounds(320,65,150,30);
         p_modification_chanson_infos_base.add(l_modification_chanson_studio_production);
         p_modification_chanson_infos_base.add(cb_modification_chanson_studio_production);
         p_modification_chanson_infos_base.add(b_modification_chanson_creer_studio_production);
 
         l_modification_chanson_groupe.setBounds(550,5,150,20);
-        cb_modification_chanson_groupe.setModel(new DefaultComboBoxModel<>(new String[] { "Groupe"}));
-        cb_modification_chanson_groupe.setBounds(500,35,150,20);
-        b_modification_chanson_creer_groupe.setBounds(500,65,150,20);
+        cb_modification_chanson_groupe.setModel(new DefaultComboBoxModel<>(new String[] {"Groupe"}));
+        cb_modification_chanson_groupe.setBounds(500,35,150,30);
+        b_modification_chanson_creer_groupe.setBounds(500,65,150,30);
         p_modification_chanson_infos_base.add(l_modification_chanson_groupe);
         p_modification_chanson_infos_base.add(b_modification_chanson_creer_groupe);
         p_modification_chanson_infos_base.add(cb_modification_chanson_groupe);
@@ -217,19 +218,78 @@ public class G_panel_modification_chanson extends A_panel_creation_modification 
 
         // LISTE CEREMONIE
         tab_modification_chanson_tab_recompenses.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{null, null, null}},new String [] {"Cérémonie", "Récompense", "Année"}));
+            null,new String [] {"Cérémonie", "Récompense", "Année"}));
         sp_modification_chanson_tab_recompenses.setBounds(5,150,315,190);
         sp_modification_chanson_tab_recompenses.setViewportView(tab_modification_chanson_tab_recompenses);
         p_modification_chanson_infos_ceremonie.add(sp_modification_chanson_tab_recompenses);
     }
 
     public void affichageComboBoxModificationChanson() throws SQLException {
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_chanson_studio_production);
-        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_modification_chanson_groupe);
+        if(cb_modification_chanson_studio_production.getSelectedItem().equals("Label")){
+        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_chanson_studio_production);}
+        if(cb_modification_chanson_groupe.getSelectedItem().equals("Groupe")){
+        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_modification_chanson_groupe);}
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT artist_nickname FROM artist", "artist_nickname", cb_modification_chanson_artiste);
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_modification_chanson_genres);
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_modification_chanson_tags);
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_modification_chanson_ceremonie);
         mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_modification_chanson_award);
+        mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_modification_chanson_annee_award);
+    }
+
+    public void affichageChansonAModifier(objets.C_CHANSON ma_chanson_a_afficher){
+        // Rempli les composants avec les infos d'une chanson
+ 
+        tf_modification_chanson_titre.setText(ma_chanson_a_afficher.getMedia_titre());
+        tf_modification_chanson_annee.setText(ma_chanson_a_afficher.getMedia_annee());
+        tf_modification_chanson_lien.setText(ma_chanson_a_afficher.getMedia_lien());
+        tf_modification_chanson_album.setText(ma_chanson_a_afficher.getChansonAlbum());
+
+        if (ma_chanson_a_afficher.getChanson_studio_production().size() > 0){
+            mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT pc_name FROM pc", "pc_name", cb_modification_chanson_studio_production);
+            cb_modification_chanson_studio_production.setSelectedItem(ma_chanson_a_afficher.getChanson_studio_production().get(0).getCaracteristiquesNom());}
+        if (ma_chanson_a_afficher.getChanson_groupe().size() > 0){
+            mes_requetes_modification_chanson_combobox.rechercheValeursComboBox("SELECT band_name FROM band", "band_name", cb_modification_chanson_groupe);
+            cb_modification_chanson_groupe.setSelectedItem(ma_chanson_a_afficher.getChanson_groupe().get(0).getCaracteristiquesNom());}
+        if (ma_chanson_a_afficher.getChanson_interpretes().size()>0){
+            this.afficherTabDansList(li_modification_chanson_liste_interpretes,recupererTousNomsArtiste(ma_chanson_a_afficher.getChanson_interpretes()));}
+        if (ma_chanson_a_afficher.getChanson_genres().size()>0){
+            this.afficherTabDansList(li_modification_chanson_liste_genres,recupererTousNomsCaracteristique(ma_chanson_a_afficher.getChanson_genres()));}
+        if (ma_chanson_a_afficher.getChanson_tags().size()>0){
+            this.afficherTabDansList(li_modification_chanson_liste_tags,recupererTousNomsCaracteristique(ma_chanson_a_afficher.getChanson_tags()));}
+        if (ma_chanson_a_afficher.getChanson_ceremonies().size()>0){
+        Object [][] mes_recompenses = this.creerDonnesCeremonies(ma_chanson_a_afficher.getChanson_ceremonies(), ma_chanson_a_afficher.getChanson_award(), ma_chanson_a_afficher.getChanson_annees_recompenses());
+        this.ajouterDonneesDansTabRecompenses(mes_recompenses, tab_modification_chanson_tab_recompenses);}
+    }
+
+    public objets.C_CHANSON creerChansonAvecDonneesModification(int id){
+        // Crée un objet chanson et le rempli avec les informations du panel.
+        objets.C_CHANSON ma_chanson_modifiee = new objets.C_CHANSON();
+        ma_chanson_modifiee.setMedia_type("Chanson");
+        ma_chanson_modifiee.setChansonAlbum(recupererValeurTF(tf_modification_chanson_album));
+        ma_chanson_modifiee.setMedia_titre(recupererValeurTF(tf_modification_chanson_titre));
+        ma_chanson_modifiee.setMedia_annee(recupererValeurTF(tf_modification_chanson_annee));
+        ma_chanson_modifiee.setMedia_lien(recupererValeurTF(tf_modification_chanson_lien));
+        if(!isCBVide(cb_modification_chanson_studio_production)){
+            ma_chanson_modifiee.setChanson_studio_production(recupererStudioProductionDeComboBox(cb_modification_chanson_studio_production));}
+        if(!isCBVide(cb_modification_chanson_groupe)){
+            ma_chanson_modifiee.setChanson_groupe(recupererGroupeDeComboBox(cb_modification_chanson_groupe));}
+        if(li_modification_chanson_liste_interpretes.getModel().getSize() > 0){
+            ma_chanson_modifiee.setChanson_interpretes(recupererTousArtistDeList(li_modification_chanson_liste_interpretes));}
+        if(li_modification_chanson_liste_genres.getModel().getSize() > 0){
+            ma_chanson_modifiee.setChanson_genres(recupererTousGenreDeList(li_modification_chanson_liste_genres));}
+        if(li_modification_chanson_liste_tags.getModel().getSize() > 0){
+            ma_chanson_modifiee.setChanson_tags(recupererTousTagDeList(li_modification_chanson_liste_tags));}
+        ArrayList <String>  chanson_ceremonie = recupererValeursColonneTableau(tab_modification_chanson_tab_recompenses, 0);
+        ArrayList <String>  chanson_award = recupererValeursColonneTableau(tab_modification_chanson_tab_recompenses, 1);
+        ArrayList <String>  chanson_annee_award = recupererValeursColonneTableau(tab_modification_chanson_tab_recompenses, 2);
+        if(chanson_ceremonie.size() > 0){
+            ma_chanson_modifiee.setChanson_ceremonies(recupererTousCeremonieDeArrayList(chanson_ceremonie));}
+        if(chanson_award.size() > 0){
+            ma_chanson_modifiee.setChanson_award(recupererTousAwardDeArrayList(chanson_award));}  
+        if(chanson_annee_award.size() > 0){
+            ma_chanson_modifiee.setChanson_annees_recompenses(recupererTousAnneeAwardDeArrayList(chanson_annee_award));}
+        System.out.println("Chanson modifiee cree avec données" +ma_chanson_modifiee.toString());
+        return ma_chanson_modifiee;
     }
 }

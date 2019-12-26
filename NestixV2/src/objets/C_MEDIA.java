@@ -95,7 +95,6 @@ public class C_MEDIA {
             value = "NULL";
         }
         return value;
-
     }
     public void creationMediaBdd(int statut){
         bdd.C_connexion.ex_Update("INSERT INTO media (media_title, media_type, media_year, media_cover, media_link) VALUES ("+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")");
@@ -114,7 +113,6 @@ public class C_MEDIA {
             bdd.C_connexion.ex_Update("INSERT INTO "+table+" (media_id, "+champ+"_id) VALUES ("+this.media_id+","+mes_caracteristiques.get(i).getCaracteristiquesId()+")");
         }
     }
-
     public void creationRecompensesBdd(ArrayList<C_CARACTERISTIQUES> mes_ceremonies, ArrayList<C_CARACTERISTIQUES> mes_award, ArrayList<String> mes_annees){
         for (int i = 0; i < mes_ceremonies.size(); i++ ){
             bdd.C_connexion.ex_Update("INSERT INTO competed_in (media_id, award_id, ceremony_id, year) VALUES ("+this.media_id+","+mes_award.get(i).getCaracteristiquesId()+","+mes_ceremonies.get(i).getCaracteristiquesId()+","+mes_annees.get(i)+")");

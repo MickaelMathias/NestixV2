@@ -3,6 +3,7 @@ package graphiques;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class G_panel_creation_livre extends A_panel_creation_modification {
 
@@ -59,11 +60,11 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
     JScrollPane sp_creation_livre_synop = new JScrollPane();
     JTextArea ta_creation_livre_synop = new JTextArea();
     JScrollPane sp_creation_livre_liste_ecrivains = new JScrollPane();
-    JList li_creation_livre_liste_ecrivains = new JList<String>();
+    JList li_creation_livre_liste_ecrivains = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_creation_livre_liste_genres = new JScrollPane();
-    JList li_creation_livre_liste_genres = new JList<String>();
+    JList li_creation_livre_liste_genres = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_creation_livre_liste_tags = new JScrollPane();
-    JList li_creation_livre_liste_tags = new JList<String>();
+    JList li_creation_livre_liste_tags = new JList<String>(new DefaultListModel<>());
 
     JScrollPane sp_creation_livre_tab_recompenses = new JScrollPane();
     JTable tab_creation_livre_tab_recompenses = new JTable();
@@ -82,12 +83,15 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
 
         l_creation_livre_ISBN.setBounds(5,5,75,30);
         tf_creation_livre_ISBN.setBounds(80,5,150,30);
+        tf_creation_livre_ISBN.setDocument(new C_verif_format_int(13));
         l_creation_livre_titre.setBounds(5,40,75,30);
         tf_creation_livre_titre.setBounds(80,40,150,30);
         l_creation_livre_tome.setBounds(5,75,75,30);
         tf_creation_livre_tome.setBounds(80,75,150,30);
+        tf_creation_livre_tome.setDocument(new C_verif_format_int(2));
         l_creation_livre_annee.setBounds(5,110,75,30);
         tf_creation_livre_annee.setBounds(80,110,150,30);
+        tf_creation_livre_annee.setDocument(new C_verif_format_int(4));
 
         l_creation_livre_saga.setBounds(5,110,75,30);
         tf_creation_livre_saga.setBounds(80,110,150,30);
@@ -228,7 +232,7 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
 
         // LISTE CEREMONIE
         tab_creation_livre_tab_recompenses.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{null, null, null}},new String [] {"Cérémonie", "Récompense", "Année"}));
+            null,new String [] {"Cérémonie", "Récompense", "Année"}));
         sp_creation_livre_tab_recompenses.setBounds(5,150,315,190);
         sp_creation_livre_tab_recompenses.setViewportView(tab_creation_livre_tab_recompenses);
         p_creation_livre_infos_ceremonie.add(sp_creation_livre_tab_recompenses);
@@ -240,7 +244,39 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT genre_name FROM genre", "genre_name", cb_creation_livre_genres);
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT tag_name FROM tag", "tag_name", cb_creation_livre_tags);
         mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_creation_livre_ceremonie);
-        mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_livre_award);
-        
+        mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_livre_award);   
+        mes_requetes_creation_livre_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_creation_livre_annee_award);
+    }
+
+    public objets.C_LIVRE creerLivreAvecDonneesCreation(){
+        // Crée un objet chanson et le rempli avec les informations du panel.
+        objets.C_LIVRE mon_livre_cree = new objets.C_LIVRE();
+        mon_livre_cree.setMedia_type("Livre");
+        mon_livre_cree.setLivre_isbn(recupererValeurTF(tf_creation_livre_ISBN));
+        mon_livre_cree.setMedia_titre(recupererValeurTF(tf_creation_livre_titre));
+        mon_livre_cree.setLivre_tome(recupererValeurTF(tf_creation_livre_tome));
+        mon_livre_cree.setMedia_annee(recupererValeurTF(tf_creation_livre_annee));
+        mon_livre_cree.setMedia_lien(recupererValeurTF(tf_creation_livre_lien));
+        mon_livre_cree.setLivre_saga(recupererValeurTF(tf_creation_livre_saga));
+        mon_livre_cree.setLivre_synop(recupererValeurTA(ta_creation_livre_synop));
+        if(!isCBVide(cb_creation_livre_studio_production)){
+            mon_livre_cree.setLivre_studio_production(recupererStudioProductionDeComboBox(cb_creation_livre_studio_production));}
+        if(li_creation_livre_liste_ecrivains.getModel().getSize() > 0){
+            mon_livre_cree.setLivre_ecrivains(recupererTousArtistDeList(li_creation_livre_liste_ecrivains));}
+        if(li_creation_livre_liste_genres.getModel().getSize() > 0){
+            mon_livre_cree.setLivre_genres(recupererTousGenreDeList(li_creation_livre_liste_genres));}
+        if(li_creation_livre_liste_tags.getModel().getSize() > 0){
+            mon_livre_cree.setLivre_tags(recupererTousTagDeList(li_creation_livre_liste_tags));}
+        ArrayList <String>  livre_ceremonie = recupererValeursColonneTableau(tab_creation_livre_tab_recompenses, 0);
+        ArrayList <String>  livre_award = recupererValeursColonneTableau(tab_creation_livre_tab_recompenses, 1);
+        ArrayList <String>  livre_annee_award = recupererValeursColonneTableau(tab_creation_livre_tab_recompenses, 2);
+        if(livre_ceremonie.size() > 0){
+            mon_livre_cree.setLivre_ceremonies(recupererTousCeremonieDeArrayList(livre_ceremonie));}
+        if(livre_award.size() > 0){
+            mon_livre_cree.setLivre_award(recupererTousAwardDeArrayList(livre_award));}  
+        if(livre_annee_award.size() > 0){
+            mon_livre_cree.setLivre_annees_recompenses(recupererTousAnneeAwardDeArrayList(livre_annee_award));}
+        System.out.println("Livre cree avec données" +mon_livre_cree.toString());
+        return mon_livre_cree;
     }
 }

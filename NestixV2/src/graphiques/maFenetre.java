@@ -22,7 +22,7 @@ public class maFenetre extends JPanel{
         mes_events_listener_affichage.mon_panel_container_creation = mon_panel_container_creation;
         mes_events_listener_affichage.mon_panel_container_recherche = mon_panel_container_recherche;
         mes_events_listener_affichage.mon_panel_container_modification = mon_panel_container_modification;
-        mes_events_listener_affichage.initEventListenerAffichage();
+        mes_events_listener_affichage.initGeneral();
 
         mon_panel_general.add(mon_panel_menu);
             mon_panel_container_creation.setVisible(false);

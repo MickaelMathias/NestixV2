@@ -5,7 +5,7 @@ import java.util.*;
 public class C_HUMAN{
 
     int human_id;
-    String human_nom, human_prenom, human_sexe, human_doc, human_cover;
+    String human_nom, human_prenom, human_sexe, human_dob, human_cover;
 
     public C_HUMAN(){
         this.human_cover = "NULL";
@@ -13,7 +13,7 @@ public class C_HUMAN{
 
     @Override
     public String toString() {
-        return "C_HUMAN{" + "human_id=" + human_id + ", human_nom=" + human_nom + ", human_prenom=" + human_prenom + ", human_sexe=" + human_sexe + ", human_doc=" + human_doc + ", human_cover=" + human_cover + '}';
+        return "C_HUMAN{" + "human_id=" + human_id + ", human_nom=" + human_nom + ", human_prenom=" + human_prenom + ", human_sexe=" + human_sexe + ", human_dob=" + human_dob + ", human_cover=" + human_cover + '}';
     }
 
     public int getHuman_id() {
@@ -44,11 +44,11 @@ public class C_HUMAN{
         this.human_sexe = human_sexe;
     }
 
-    public String getHuman_doc() {
-        return human_doc;
+    public String getHuman_dob() {
+        return human_dob;
     }
-    public void setHuman_doc(String human_doc) {
-        this.human_doc = human_doc;
+    public void setHuman_dob(String human_dob) {
+        this.human_dob = human_dob;
     }
 
     public String getHuman_cover() {
@@ -57,4 +57,35 @@ public class C_HUMAN{
     public void setHuman_cover(String human_cover) {
         this.human_cover = human_cover;
     }    
+
+    protected ArrayList <C_CARACTERISTIQUES> creerTableauCaracteristiques(int [] mes_id, String champ){
+        ArrayList <C_CARACTERISTIQUES> mes_caracteristiques = new ArrayList<>();
+        for (int i = 0; i < mes_id.length; i++){
+            C_CARACTERISTIQUES ma_carac = new C_CARACTERISTIQUES(mes_id[i]);
+            ma_carac.setCaracteristiquesNom(ma_carac.recupererNomParId(champ, ma_carac.getCaracteristiquesId()));
+            mes_caracteristiques.add(ma_carac);
+        }
+        return mes_caracteristiques;
+    }
+
+    public String VDE(String value){
+        // verificationDonneesEntrees
+        if (!value.equals("NULL")){
+            value="'"+value+"'";
+        }
+        else{
+            value = "NULL";
+        }
+        return value;
+    }
+    public void creationHumanBdd(){
+        bdd.C_connexion.ex_Update("INSERT INTO human (human_lastname, human_firstname, human_sex, human_dob, human_pic) VALUES ("+VDE(this.human_nom)+","+VDE(this.human_prenom)+","+VDE(this.human_sexe)+","+VDE(this.human_dob)+", NULL)");
+        this.human_id = bdd.C_requetes.rechercheId("SELECT human_id FROM human ORDER BY human_id DESC LIMIT 1");
+    }
+
+    public void creationRecompensesBdd(ArrayList<C_CARACTERISTIQUES> mes_ceremonies, ArrayList<C_CARACTERISTIQUES> mes_award, ArrayList<String> mes_annees){
+        for (int i = 0; i < mes_ceremonies.size(); i++ ){
+            bdd.C_connexion.ex_Update("INSERT INTO awarded (human_id, award_id, ceremony_id, year) VALUES ("+this.human_id+","+mes_award.get(i).getCaracteristiquesId()+","+mes_ceremonies.get(i).getCaracteristiquesId()+","+mes_annees.get(i)+")");
+        }
+    }
 }

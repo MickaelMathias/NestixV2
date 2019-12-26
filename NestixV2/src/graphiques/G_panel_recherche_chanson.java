@@ -93,7 +93,7 @@ public class G_panel_recherche_chanson extends A_panel_recherche {
         this.add(p_recherche_chanson_resultats);
 
         tab_recherche_chanson_tab_resultats.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{null, null, null, null, null}},new String [] {"ID", "Titre", "Interprete", "Annee", "Album"}));
+            null,new String [] {"ID", "Titre", "Interprete", "Annee", "Album"}));
         sp_recherche_chanson_tab_resultats.setBounds(5,5,1150,410);
         sp_recherche_chanson_tab_resultats.setViewportView(tab_recherche_chanson_tab_resultats);
         p_recherche_chanson_resultats.add(sp_recherche_chanson_tab_resultats);

@@ -1,5 +1,7 @@
 package graphiques;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -94,11 +96,40 @@ abstract class A_panel_creation_modification extends JPanel{
         return mes_valeurs;
     }
 
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererTousGroupeDeList(JList ma_list){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
+        for (int i = 0; i < ma_list.getModel().getSize() ;i++){
+            objets.C_CARACTERISTIQUES mon_genre = new objets.C_CARACTERISTIQUES();
+            mon_genre.setCaracteristiquesNom(ma_list.getModel().getElementAt(i).toString());
+            mon_genre.setCaracteristiquesId(mon_genre.recupererIdParNom("band", mon_genre.getCaracteristiquesNom()));
+            mes_valeurs.add(mon_genre);
+        }
+        return mes_valeurs;
+    }
+
     protected ArrayList<objets.C_CARACTERISTIQUES> recupererStudioProductionDeComboBox(JComboBox ma_cb){
         ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
         objets.C_CARACTERISTIQUES mon_sp = new objets.C_CARACTERISTIQUES();
         mon_sp.setCaracteristiquesNom(ma_cb.getSelectedItem().toString());
         mon_sp.setCaracteristiquesId(mon_sp.recupererIdParNom("pc", mon_sp.getCaracteristiquesNom()));
+        mes_valeurs.add(mon_sp);
+        return mes_valeurs;
+    }
+
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererGroupeDeComboBox(JComboBox ma_cb){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
+        objets.C_CARACTERISTIQUES mon_sp = new objets.C_CARACTERISTIQUES();
+        mon_sp.setCaracteristiquesNom(ma_cb.getSelectedItem().toString());
+        mon_sp.setCaracteristiquesId(mon_sp.recupererIdParNom("band", mon_sp.getCaracteristiquesNom()));
+        mes_valeurs.add(mon_sp);
+        return mes_valeurs;
+    }
+
+    protected ArrayList<objets.C_CARACTERISTIQUES> recupererPaysDeComboBox(JComboBox ma_cb){
+        ArrayList<objets.C_CARACTERISTIQUES> mes_valeurs = new ArrayList<>();
+        objets.C_CARACTERISTIQUES mon_sp = new objets.C_CARACTERISTIQUES();
+        mon_sp.setCaracteristiquesNom(ma_cb.getSelectedItem().toString());
+        mon_sp.setCaracteristiquesId(mon_sp.recupererIdParNom("country", mon_sp.getCaracteristiquesNom()));
         mes_valeurs.add(mon_sp);
         return mes_valeurs;
     }
@@ -253,5 +284,19 @@ abstract class A_panel_creation_modification extends JPanel{
         }
         return valeur_retour;
     }
-    
+
+    public static String verifDate(JTextField tf) {
+        String retour = tf.getText();
+        if (tf.getText().equals("NULL") || !tf.getText().matches("\\d{4}-[01]\\d-[0-3]\\d"))
+            retour = "NULL";
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setLenient(false);
+        if(!tf.getText().equals("NULL")){
+        try {
+                df.parse(tf.getText());
+        } catch (ParseException ex) {
+            javax.swing.JOptionPane.showMessageDialog(new JPanel(), "Problème de format de date");
+        }}
+        return retour;
+    }  
 }

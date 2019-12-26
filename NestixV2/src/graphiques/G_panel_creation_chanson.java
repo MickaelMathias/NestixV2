@@ -1,8 +1,11 @@
 package graphiques;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.sql.*;
+import java.util.*;
 
 public class G_panel_creation_chanson extends A_panel_creation_modification {
 
@@ -58,16 +61,17 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
     JTextField tf_creation_chanson_lien = new JTextField();
 
     JScrollPane sp_creation_chanson_liste_groupes = new JScrollPane();
-    JList li_creation_chanson_liste_groupes = new JList<String>();
+    JList li_creation_chanson_liste_groupes = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_creation_chanson_liste_interpretes = new JScrollPane();
-    JList li_creation_chanson_liste_interpretes = new JList<String>();
+    JList li_creation_chanson_liste_interpretes = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_creation_chanson_liste_genres = new JScrollPane();
-    JList li_creation_chanson_liste_genres = new JList<String>();
+    JList li_creation_chanson_liste_genres = new JList<String>(new DefaultListModel<>());
     JScrollPane sp_creation_chanson_liste_tags = new JScrollPane();
-    JList li_creation_chanson_liste_tags = new JList<String>();
+    JList li_creation_chanson_liste_tags = new JList<String>(new DefaultListModel<>());
 
     JScrollPane sp_creation_chanson_tab_recompenses = new JScrollPane();
     JTable tab_creation_chanson_tab_recompenses = new JTable();
+    Object[][] o_creation_chanson_donnees_recompenses = null;
 
     public G_panel_creation_chanson() {
 
@@ -84,6 +88,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
         tf_creation_chanson_titre.setBounds(80,5,150,30);
         l_creation_chanson_annee.setBounds(5,40,75,30);
         tf_creation_chanson_annee.setBounds(80,40,150,30);
+        tf_creation_chanson_annee.setDocument(new C_verif_format_int(3));
         l_creation_chanson_album.setBounds(5,75,75,30);
         tf_creation_chanson_album.setBounds(80,75,150,30);
         l_creation_chanson_lien.setBounds(5,110,75,30);
@@ -216,8 +221,8 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
         p_creation_chanson_infos_tags.add(sp_creation_chanson_liste_tags);
 
         // LISTE CEREMONIE
-        tab_creation_chanson_tab_recompenses.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {{}},new String [] {"Cérémonie", "Récompense", "Année"}));
+        tab_creation_chanson_tab_recompenses.setModel(new DefaultTableModel(
+            o_creation_chanson_donnees_recompenses,new String [] {"Cérémonie", "Récompense", "Année"}));
         sp_creation_chanson_tab_recompenses.setBounds(5,150,315,190);
         sp_creation_chanson_tab_recompenses.setViewportView(tab_creation_chanson_tab_recompenses);
         p_creation_chanson_infos_ceremonie.add(sp_creation_chanson_tab_recompenses);
@@ -232,5 +237,36 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT ceremony_name FROM ceremony", "ceremony_name", cb_creation_chanson_ceremonie);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT award_name FROM award", "award_name", cb_creation_chanson_award);
         mes_requetes_creation_chanson_combobox.rechercheValeursComboBox("SELECT annee FROM annee", "annee", cb_creation_chanson_annee_award);
+    }
+
+    public objets.C_CHANSON creerChansonAvecDonneesCreation(){
+        // Crée un objet chanson et le rempli avec les informations du panel.
+        objets.C_CHANSON ma_chanson_cree = new objets.C_CHANSON();
+        ma_chanson_cree.setMedia_type("Chanson");
+        ma_chanson_cree.setChansonAlbum(recupererValeurTF(tf_creation_chanson_album));
+        ma_chanson_cree.setMedia_titre(recupererValeurTF(tf_creation_chanson_titre));
+        ma_chanson_cree.setMedia_annee(recupererValeurTF(tf_creation_chanson_annee));
+        ma_chanson_cree.setMedia_lien(recupererValeurTF(tf_creation_chanson_lien));
+        if(!isCBVide(cb_creation_chanson_studio_production)){
+            ma_chanson_cree.setChanson_studio_production(recupererStudioProductionDeComboBox(cb_creation_chanson_studio_production));}
+        if(!isCBVide(cb_creation_chanson_groupe)){
+            ma_chanson_cree.setChanson_studio_production(recupererGroupeDeComboBox(cb_creation_chanson_groupe));}
+        if(li_creation_chanson_liste_interpretes.getModel().getSize() > 0){
+            ma_chanson_cree.setChanson_interpretes(recupererTousArtistDeList(li_creation_chanson_liste_interpretes));}
+        if(li_creation_chanson_liste_genres.getModel().getSize() > 0){
+            ma_chanson_cree.setChanson_genres(recupererTousGenreDeList(li_creation_chanson_liste_genres));}
+        if(li_creation_chanson_liste_tags.getModel().getSize() > 0){
+            ma_chanson_cree.setChanson_tags(recupererTousTagDeList(li_creation_chanson_liste_tags));}
+        ArrayList <String>  chanson_ceremonie = recupererValeursColonneTableau(tab_creation_chanson_tab_recompenses, 0);
+        ArrayList <String>  chanson_award = recupererValeursColonneTableau(tab_creation_chanson_tab_recompenses, 1);
+        ArrayList <String>  chanson_annee_award = recupererValeursColonneTableau(tab_creation_chanson_tab_recompenses, 2);
+        if(chanson_ceremonie.size() > 0){
+            ma_chanson_cree.setChanson_ceremonies(recupererTousCeremonieDeArrayList(chanson_ceremonie));}
+        if(chanson_award.size() > 0){
+            ma_chanson_cree.setChanson_award(recupererTousAwardDeArrayList(chanson_award));}  
+        if(chanson_annee_award.size() > 0){
+            ma_chanson_cree.setChanson_annees_recompenses(recupererTousAnneeAwardDeArrayList(chanson_annee_award));}
+        System.out.println("Chanson cree avec données" +ma_chanson_cree.toString());
+        return ma_chanson_cree;
     }
 }
