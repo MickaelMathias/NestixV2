@@ -265,6 +265,7 @@ public class G_panel_modification_chanson extends A_panel_creation_modification 
     public objets.C_CHANSON creerChansonAvecDonneesModification(int id){
         // Crée un objet chanson et le rempli avec les informations du panel.
         objets.C_CHANSON ma_chanson_modifiee = new objets.C_CHANSON();
+        ma_chanson_modifiee.setMedia_id(id);
         ma_chanson_modifiee.setMedia_type("Chanson");
         ma_chanson_modifiee.setChansonAlbum(recupererValeurTF(tf_modification_chanson_album));
         ma_chanson_modifiee.setMedia_titre(recupererValeurTF(tf_modification_chanson_titre));

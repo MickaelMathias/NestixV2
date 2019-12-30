@@ -1,6 +1,10 @@
 package objets;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
+
+import javax.swing.JPanel;
 
 public class C_MEDIA {
 

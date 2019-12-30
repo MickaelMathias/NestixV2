@@ -33,7 +33,7 @@ public class G_panel_creation_artiste extends A_panel_creation_modification {
     JComboBox cb_creation_artiste_ceremonie = new JComboBox<>();
     JComboBox cb_creation_artiste_award = new JComboBox<>();
     JComboBox cb_creation_artiste_annee_award = new JComboBox<>();
-    JComboBox cb_creation_artiste_sexe = new JComboBox<>(new String[]{"Homme", "Femme","Non Binaire"});
+    JComboBox cb_creation_artiste_sexe = new JComboBox<>(new String[]{"Non Binaire", "Femme","Homme"});
     JComboBox cb_creation_artiste_pays = new JComboBox<>();
 
     JLabel l_creation_artiste_nom = new JLabel("Nom : ");

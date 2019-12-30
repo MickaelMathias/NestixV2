@@ -86,7 +86,6 @@ public class C_ARTISTE extends C_HUMAN{
         this.artiste_pays = artiste_pays;
     }
 
-
     public ArrayList<String> getArtiste_annee_recompense() {
         return artiste_annees_recompenses;
     }
@@ -142,25 +141,8 @@ public class C_ARTISTE extends C_HUMAN{
 
     public void creationGroupeArtisteBDD(){
         if(this.getArtiste_groupes().size() > 0)
-        bdd.C_connexion.ex_Update("INSERT INTO composed_by (human_id, band_id) VALUES ("+this.human_id+","+this.getArtiste_groupes().get(0).getCaracteristiquesId()+")");
+        for (int i = 0; i < this.getArtiste_groupes().size(); i++){
+        bdd.C_connexion.ex_Update("INSERT INTO composed_by (human_id, band_id) VALUES ("+this.human_id+","+this.getArtiste_groupes().get(i).getCaracteristiquesId()+")");}
     }
-
-
-    public void suppressionMediaBdd(int mon_id){
-        String relations[] = {"composed_by", "come_from", "appreciation", "awarded", "collection", "associated_with", "take_part_in", "users"};
-        for (int i=0; i<relations.length; i++) {
-            bdd.C_connexion.ex_Update("DELETE FROM `"+relations[i]+"` WHERE `"+relations[i]+"`.`human_id` ="+mon_id);
-        }
-
-        bdd.C_connexion.ex_Update("DELETE FROM `human` WHERE `human`.`human_id` ="+mon_id);
-    }
-
-    public void blocageMediaBdd(int mon_id) {
-    	String requete_blocage="UPDATE `status` SET `asv_id` = '3', `asv_date_modif` = CURRENT_TIME() WHERE `status`.`human_id`="+mon_id;
-    	bdd.C_connexion.ex_Update(requete_blocage);
-    }
-
-
-
     
 }

@@ -1,5 +1,6 @@
 package graphiques;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -14,18 +15,36 @@ import objets.C_GENRE;
 abstract class A_panel_creation_modification extends JPanel{
     private static final long serialVersionUID = -2313359782920101526L;
 
+    bdd.C_requetes mes_requetes_pour_panel = new bdd.C_requetes();
+
+    /**
+     * Fonction pour ajouter un élément à une JLIST
+     * @param list
+     * @param valeur
+     */
+    
     protected void ajouterElementList(JList list, String valeur) {
         DefaultListModel mon_model = (DefaultListModel)list.getModel();
         mon_model.addElement(valeur);
         list.setModel(mon_model);
     }
 
+    /**
+     * Fonction pour retirer un élément à une JLIST
+     * @param list
+     * @param index
+     */
     protected void retirerElementList(JList list, int index){
         DefaultListModel<String> mon_model = (DefaultListModel)list.getModel();
         mon_model.remove(index);
         list.setModel(mon_model);
     }
 
+    /**
+     * Fonction pour récupérer tous les noms d'artiste d'une liste d'objet C_ARTISTE
+     * @param mes_artistes
+     * @return ArrayList des noms d'artistes
+     */
     protected ArrayList <String> recupererTousNomsArtiste(ArrayList<C_ARTISTE> mes_artistes){
         ArrayList <String> mes_noms = new ArrayList<>();
         for (int i=0; i < mes_artistes.size(); i++){
@@ -239,7 +258,6 @@ abstract class A_panel_creation_modification extends JPanel{
         mon_tableau.setModel(new DefaultTableModel(mes_donnees_a_ajouter, nom_colonnes));
     }
 
-
     protected String recupererValeurTF(JTextField tf){
         String valeur = tf.getText();
         // Si rien n'est rentré dans le TextField
@@ -299,4 +317,13 @@ abstract class A_panel_creation_modification extends JPanel{
         }}
         return retour;
     }  
+
+    public void creerCaracteristiqueVolee(String champ, String nom){
+        mes_requetes_pour_panel.ex_Update("INSERT into "+champ+" ("+champ+"_name) VALUES ('"+nom+"')");
+    }
+    public void creerArtisteVolee(String nickname){
+        mes_requetes_pour_panel.ex_Update("INSERT INTO human (human_pic) VALUES (NULL)");
+        int id = mes_requetes_pour_panel.rechercheId("SELECT human_id FROM human ORDER BY human_id DESC LIMIT 1");
+        mes_requetes_pour_panel.ex_Update("INSERT INTO artist (human_id, artist_nickname, asv_id) VALUES ("+id+",'"+nickname+"',2)");
+    }
 }

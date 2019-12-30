@@ -276,6 +276,7 @@ public class G_panel_modification_livre extends A_panel_creation_modification {
         // Crée un objet livre et le rempli avec les informations du panel.
         objets.C_LIVRE mon_livre_modifiee = new objets.C_LIVRE();
   
+        mon_livre_modifiee.setMedia_id(id);
         mon_livre_modifiee.setMedia_type("Livre");
         mon_livre_modifiee.setLivre_isbn(recupererValeurTF(tf_modification_livre_ISBN));
         mon_livre_modifiee.setMedia_titre(recupererValeurTF(tf_modification_livre_titre));

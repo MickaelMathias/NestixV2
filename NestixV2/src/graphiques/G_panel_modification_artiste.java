@@ -30,7 +30,7 @@ public class G_panel_modification_artiste extends A_panel_creation_modification 
     JComboBox cb_modification_artiste_ceremonie = new JComboBox<>();
     JComboBox cb_modification_artiste_award = new JComboBox<>();
     JComboBox cb_modification_artiste_annee_award = new JComboBox<>();
-    JComboBox cb_modification_artiste_sexe = new JComboBox<>();
+    JComboBox cb_modification_artiste_sexe =  new JComboBox<>();
     JComboBox cb_modification_artiste_pays = new JComboBox<>();
 
     JLabel l_modification_artiste_nom = new JLabel("Nom : ");
@@ -89,8 +89,8 @@ public class G_panel_modification_artiste extends A_panel_creation_modification 
         p_modification_artiste_infos_base.add(tf_modification_artiste_naissance);
         p_modification_artiste_infos_base.add(l_modification_artiste_mort);
         p_modification_artiste_infos_base.add(tf_modification_artiste_mort);
-        cb_modification_artiste_sexe.setModel(new DefaultComboBoxModel<>(new String[] { "Sexe"}));
-        cb_modification_artiste_pays.setModel(new DefaultComboBoxModel<>(new String[] { "Pays"}));
+        cb_modification_artiste_sexe.setModel(new DefaultComboBoxModel<>(new String[] {"Non Binaire", "Femme", "Homme"}));
+        cb_modification_artiste_pays.setModel(new DefaultComboBoxModel<>(new String[] {"Pays"}));
         p_modification_artiste_infos_base.add(l_modification_artiste_sexe);
         p_modification_artiste_infos_base.add(cb_modification_artiste_sexe);
         p_modification_artiste_infos_base.add(l_modification_artiste_pays);
@@ -207,8 +207,10 @@ public class G_panel_modification_artiste extends A_panel_creation_modification 
         if (mon_artiste_a_afficher.getArtiste_pays().size() > 0){
             mes_requetes_modification_artiste_combobox.rechercheValeursComboBox("SELECT country_name FROM country", "country_name", cb_modification_artiste_pays);
             cb_modification_artiste_pays.setSelectedItem(mon_artiste_a_afficher.getArtiste_pays().get(0).getCaracteristiquesNom());}
+
         if (mon_artiste_a_afficher.getArtiste_groupes().size()>0){
             this.afficherTabDansList(li_modification_artiste_liste_groupes,recupererTousNomsCaracteristique(mon_artiste_a_afficher.getArtiste_groupes()));}
+            
         if (mon_artiste_a_afficher.getArtiste_ceremonies().size()>0){
         Object [][] mes_recompenses = this.creerDonnesCeremonies(mon_artiste_a_afficher.getArtiste_ceremonies(), mon_artiste_a_afficher.getArtiste_award(), mon_artiste_a_afficher.getArtiste_annee_recompense());
         this.ajouterDonneesDansTabRecompenses(mes_recompenses, tab_modification_artiste_tab_recompenses);}
@@ -218,6 +220,7 @@ public class G_panel_modification_artiste extends A_panel_creation_modification 
         // Crée un objet artiste et le rempli avec les informations du panel.
         objets.C_ARTISTE mon_artiste_modifie = new objets.C_ARTISTE();
 
+        mon_artiste_modifie.setHuman_id(id);
         mon_artiste_modifie.setHuman_sexe(cb_modification_artiste_sexe.getSelectedItem().toString());
         mon_artiste_modifie.setHuman_nom(recupererValeurTF(tf_modification_artiste_nom));
         mon_artiste_modifie.setHuman_prenom(recupererValeurTF(tf_modification_artiste_prenom));
