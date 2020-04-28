@@ -105,10 +105,13 @@ public class C_MEDIA {
     	count=bdd.C_requetes.rechercheId("SELECT media_id FROM media WHERE media_year="+this.media_annee+" AND media_title='"+this.media_titre+"'");
     	return count;
     }
-    public void creationMediaBdd(int statut){
-        bdd.C_connexion.ex_Update("INSERT INTO media (media_title, media_type, media_year, media_cover, media_link) VALUES ("+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")");
+    public int creationMediaBdd(int statut){
+        int i = bdd.C_connexion.ex_Update("INSERT INTO media (media_title, media_type, media_year, media_cover, media_link) "
+        		+ "VALUES ("+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")");
         this.media_id = bdd.C_requetes.rechercheId("SELECT media_id FROM media ORDER BY media_id DESC LIMIT 1");
         bdd.C_connexion.ex_Update("INSERT INTO status (media_id, asv_id, asv_date_creat, asv_date_modif) VALUES ("+this.media_id+","+statut+",CURRENT_DATE(),CURRENT_DATE())");	
+        
+        return i;
     }
 
     public void modificationMediaBdd(int statut){
