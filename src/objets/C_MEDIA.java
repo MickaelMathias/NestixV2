@@ -136,7 +136,7 @@ public class C_MEDIA {
         }
     }
 
-    public void suppressionMediaBdd(int mon_id){
+    public int suppressionMediaBdd(int mon_id){
         String relations[] = {"produced_by", "competed_in", "is_associated_with", "categorized_by", "status", "appreciation", "contains", "take_part_in", "associated_with"};
         for (int i=0; i<relations.length; i++) {
             bdd.C_connexion.ex_Update("DELETE FROM `"+relations[i]+"` WHERE `"+relations[i]+"`.`media_id` ="+mon_id);
@@ -145,7 +145,9 @@ public class C_MEDIA {
         for (int i=0; i<types_de_media.length; i++) {
             bdd.C_connexion.ex_Update("DELETE FROM `"+types_de_media[i]+"` WHERE `"+types_de_media[i]+"`.`"+types_de_media[i]+"_id` ="+mon_id);
         }
-        bdd.C_connexion.ex_Update("DELETE FROM `media` WHERE `media`.`media_id` ="+mon_id);
+        int i = bdd.C_connexion.ex_Update("DELETE FROM `media` WHERE `media`.`media_id` ="+mon_id);
+    
+        return i;
     }
 
     public void blocageMediaBdd(int mon_id) {
