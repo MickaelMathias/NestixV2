@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class C_connexion {
     private static Connection connection = null;
     protected static Statement statement = null;
-    private static String url = "jdbc:mysql://localhost:3306/nestix?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static String url = "jdbc:mysql://localhost:3306/nestix_test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static String user = "root";
     private static String password = "";
 

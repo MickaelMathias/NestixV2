@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/BDD3"/>
-	<classpathentry kind="src" path="NestixV2/src"/>
-	<classpathentry kind="output" path="NestixV2/bin"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="src/bdd/mysql-connector-java-8.0.18.jar"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
