@@ -34,13 +34,13 @@ public class G_panel_creation_film extends A_panel_creation_modification {
     JButton b_creation_film_creer_tag = new JButton("Creer un tag ?");
     JButton b_creation_film_ajouter_tag = new JButton("Ajout tag");
     JButton b_creation_film_suppr_tag = new JButton("Suppr tag");
-    JButton b_creation_film_creer_ceremonie = new JButton("Creer c√©r√©monie ?");
+    JButton b_creation_film_creer_ceremonie = new JButton("Creer cÈrÈmonie ?");
     JButton b_creation_film_creer_award = new JButton("Creer award ?");
-    JButton b_creation_film_ajouter_recompense = new JButton("Ajout r√©compense");
-    JButton b_creation_film_suppr_recompense = new JButton("Suppr r√©compense");
-    JButton b_creation_film_valider_creation = new JButton("Cr√©er film");
+    JButton b_creation_film_ajouter_recompense = new JButton("Ajout rÈcompense");
+    JButton b_creation_film_suppr_recompense = new JButton("Suppr rÈcompense");
+    JButton b_creation_film_valider_creation = new JButton("CrÈer film");
     JButton b_creation_film_valider_brouillon = new JButton("Brouillon");
-    JButton b_creation_film_creer_studio_production = new JButton("Cr√©er producteur ?");
+    JButton b_creation_film_creer_studio_production = new JButton("CrÈer producteur ?");
 
     JComboBox cb_creation_film_artiste = new JComboBox<>();
     JComboBox cb_creation_film_genres = new JComboBox<>();
@@ -52,8 +52,8 @@ public class G_panel_creation_film extends A_panel_creation_modification {
 
     JLabel l_creation_film_visa = new JLabel("Visa : ");
     JLabel l_creation_film_titre = new JLabel("Titre : ");
-    JLabel l_creation_film_annee = new JLabel("Ann√©e : ");
-    JLabel l_creation_film_duree = new JLabel("Dur√©e : ");
+    JLabel l_creation_film_annee = new JLabel("AnnÈe : ");
+    JLabel l_creation_film_duree = new JLabel("DurÈe : ");
     JLabel l_creation_film_trailer = new JLabel("Trailer : ");
     JLabel l_creation_film_budget = new JLabel("Budget : ");
     JLabel l_creation_film_lien = new JLabel("Lien : ");
@@ -228,7 +228,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
 
         cb_creation_film_ceremonie.setModel(new DefaultComboBoxModel<>(new String[] { "Ceremonie"}));
         cb_creation_film_award.setModel(new DefaultComboBoxModel<>(new String[] { "Award"}));
-        cb_creation_film_annee_award.setModel(new DefaultComboBoxModel<>(new String[] { "Ann√©e"}));
+        cb_creation_film_annee_award.setModel(new DefaultComboBoxModel<>(new String[] { "AnnÈe"}));
         cb_creation_film_ceremonie.setBounds(10,10,150,30);
         p_creation_film_infos_ceremonie.add(cb_creation_film_ceremonie); 
         cb_creation_film_award.setBounds(10,45,150,30);
@@ -284,7 +284,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         // LISTE CEREMONIE
         tab_creation_film_tab_recompenses.setModel(new DefaultTableModel(
             o_creation_film_donnees_recompenses,
-            new String [] {"C√©r√©monie", "R√©compense", "Ann√©e"}));
+            new String [] {"CÈrÈmonie", "RÈcompense", "AnnÈe"}));
         sp_creation_film_tab_recompenses.setBounds(5,150,315,190);
         
         sp_creation_film_tab_recompenses.setViewportView(tab_creation_film_tab_recompenses);
@@ -303,7 +303,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
     }
 
     public objets.C_FILM creerFilmAvecDonneesCreation(){
-        // Cr√©e un objet film et le rempli avec les informations du panel.
+        // CrÈe un objet film et le rempli avec les informations du panel.
         objets.C_FILM mon_film_cree = new objets.C_FILM();
         mon_film_cree.setMedia_type("Film");
 
@@ -338,7 +338,7 @@ public class G_panel_creation_film extends A_panel_creation_modification {
         if(film_annee_award.size() > 0){
             mon_film_cree.setFilm_annee_recompense(recupererTousAnneeAwardDeArrayList(film_annee_award));}
 
-        System.out.println("Film cree avec donn√©es" +mon_film_cree.toString());
+        System.out.println("Film cree avec donnÈes" +mon_film_cree.toString());
         return mon_film_cree;
     }
 }

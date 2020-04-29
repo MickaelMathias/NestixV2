@@ -25,13 +25,13 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
     JButton b_creation_livre_creer_tag = new JButton("Creer un tag ?");
     JButton b_creation_livre_ajouter_tag = new JButton("Ajout tag");
     JButton b_creation_livre_suppr_tag = new JButton("Suppr tag");
-    JButton b_creation_livre_creer_ceremonie = new JButton("Creer c√©r√©monie ?");
+    JButton b_creation_livre_creer_ceremonie = new JButton("Creer cÈrÈmonie ?");
     JButton b_creation_livre_creer_award = new JButton("Creer award ?");
-    JButton b_creation_livre_ajouter_recompense = new JButton("Ajout r√©compense");
-    JButton b_creation_livre_suppr_recompense = new JButton("Suppr r√©compense");
-    JButton b_creation_livre_valider_creation = new JButton("Cr√©er livre");
+    JButton b_creation_livre_ajouter_recompense = new JButton("Ajout rÈcompense");
+    JButton b_creation_livre_suppr_recompense = new JButton("Suppr rÈcompense");
+    JButton b_creation_livre_valider_creation = new JButton("CrÈer livre");
     JButton b_creation_livre_valider_brouillon = new JButton("Brouillon");
-    JButton b_creation_livre_creer_studio_production = new JButton("Cr√©er √©diteur ?");
+    JButton b_creation_livre_creer_studio_production = new JButton("CrÈer Èditeur ?");
 
     JComboBox cb_creation_livre_artiste = new JComboBox<>();
     JComboBox cb_creation_livre_genres = new JComboBox<>();
@@ -45,7 +45,7 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
     JLabel l_creation_livre_titre = new JLabel("Titre : ");
     JLabel l_creation_livre_tome = new JLabel("Tome : ");
     JLabel l_creation_livre_saga = new JLabel("Saga : ");
-    JLabel l_creation_livre_annee = new JLabel("Ann√©e : ");
+    JLabel l_creation_livre_annee = new JLabel("AnnÈe : ");
     JLabel l_creation_livre_lien = new JLabel("Lien : ");
     JLabel l_creation_livre_synop = new JLabel("Synopsis : ");
     JLabel l_creation_livre_studio_production = new JLabel("Editeur : ");
@@ -82,18 +82,23 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
         this.add(p_creation_livre_infos_base);
 
         l_creation_livre_ISBN.setBounds(5,5,75,30);
+        l_creation_livre_ISBN.setForeground(Color.WHITE);
         tf_creation_livre_ISBN.setBounds(80,5,150,30);
         tf_creation_livre_ISBN.setDocument(new C_verif_format_int(13));
         l_creation_livre_titre.setBounds(5,40,75,30);
+        l_creation_livre_titre.setForeground(Color.WHITE);
         tf_creation_livre_titre.setBounds(80,40,150,30);
         l_creation_livre_tome.setBounds(5,75,75,30);
+        l_creation_livre_tome.setForeground(Color.WHITE);
         tf_creation_livre_tome.setBounds(80,75,150,30);
         tf_creation_livre_tome.setDocument(new C_verif_format_int(2));
         l_creation_livre_annee.setBounds(5,110,75,30);
+        l_creation_livre_annee.setForeground(Color.WHITE);
         tf_creation_livre_annee.setBounds(80,110,150,30);
         tf_creation_livre_annee.setDocument(new C_verif_format_int(4));
 
         l_creation_livre_saga.setBounds(5,110,75,30);
+        l_creation_livre_saga.setForeground(Color.WHITE);
         tf_creation_livre_saga.setBounds(80,110,150,30);
         p_creation_livre_infos_base.add(l_creation_livre_ISBN);
         p_creation_livre_infos_base.add(tf_creation_livre_ISBN);
@@ -105,20 +110,24 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
         p_creation_livre_infos_base.add(tf_creation_livre_saga);
 
         l_creation_livre_lien.setBounds(300,5,75,30);
+        l_creation_livre_lien.setForeground(Color.WHITE);
         tf_creation_livre_lien.setBounds(380,5,150,30);
         l_creation_livre_saga.setBounds(300,40,75,30);
+        l_creation_livre_saga.setForeground(Color.WHITE);
         tf_creation_livre_saga.setBounds(380,40,150,30);
         p_creation_livre_infos_base.add(l_creation_livre_annee);
         p_creation_livre_infos_base.add(tf_creation_livre_annee);
         p_creation_livre_infos_base.add(l_creation_livre_lien);
         p_creation_livre_infos_base.add(tf_creation_livre_lien);
         l_creation_livre_synop.setBounds(710,5,150,20);
+        l_creation_livre_synop.setForeground(Color.WHITE);
         sp_creation_livre_synop.setBounds(635,30,200,100);
         sp_creation_livre_synop.setViewportView(ta_creation_livre_synop);
         p_creation_livre_infos_base.add(l_creation_livre_synop);
         p_creation_livre_infos_base.add(sp_creation_livre_synop);
 
         l_creation_livre_studio_production.setBounds(990,5,150,20);
+        l_creation_livre_studio_production.setForeground(Color.WHITE);
         cb_creation_livre_studio_production.setModel(new DefaultComboBoxModel<>(new String[] { "Editeur"}));
         cb_creation_livre_studio_production.setBounds(950,35,150,30);
         b_creation_livre_creer_studio_production.setBounds(950,65,150,30);
@@ -187,7 +196,7 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
 
         cb_creation_livre_ceremonie.setModel(new DefaultComboBoxModel<>(new String[] { "Ceremonie"}));
         cb_creation_livre_award.setModel(new DefaultComboBoxModel<>(new String[] { "Award"}));
-        cb_creation_livre_annee_award.setModel(new DefaultComboBoxModel<>(new String[] { "Ann√©e"}));
+        cb_creation_livre_annee_award.setModel(new DefaultComboBoxModel<>(new String[] { "AnnÈe"}));
         cb_creation_livre_ceremonie.setBounds(10,10,150,30);
         p_creation_livre_infos_ceremonie.add(cb_creation_livre_ceremonie); 
         cb_creation_livre_award.setBounds(10,45,150,30);
@@ -232,7 +241,7 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
 
         // LISTE CEREMONIE
         tab_creation_livre_tab_recompenses.setModel(new javax.swing.table.DefaultTableModel(
-            null,new String [] {"C√©r√©monie", "R√©compense", "Ann√©e"}));
+            null,new String [] {"CÈrÈmonie", "RÈcompense", "AnnÈe"}));
         sp_creation_livre_tab_recompenses.setBounds(5,150,315,190);
         sp_creation_livre_tab_recompenses.setViewportView(tab_creation_livre_tab_recompenses);
         p_creation_livre_infos_ceremonie.add(sp_creation_livre_tab_recompenses);
@@ -249,7 +258,7 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
     }
 
     public objets.C_LIVRE creerLivreAvecDonneesCreation(){
-        // Cr√©e un objet chanson et le rempli avec les informations du panel.
+        // CrÈe un objet chanson et le rempli avec les informations du panel.
         objets.C_LIVRE mon_livre_cree = new objets.C_LIVRE();
         mon_livre_cree.setMedia_type("Livre");
         mon_livre_cree.setLivre_isbn(recupererValeurTF(tf_creation_livre_ISBN));
@@ -276,7 +285,7 @@ public class G_panel_creation_livre extends A_panel_creation_modification {
             mon_livre_cree.setLivre_award(recupererTousAwardDeArrayList(livre_award));}  
         if(livre_annee_award.size() > 0){
             mon_livre_cree.setLivre_annees_recompenses(recupererTousAnneeAwardDeArrayList(livre_annee_award));}
-        System.out.println("Livre cree avec donn√©es" +mon_livre_cree.toString());
+        System.out.println("Livre cree avec donnÈes" +mon_livre_cree.toString());
         return mon_livre_cree;
     }
 }

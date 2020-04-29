@@ -21,7 +21,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
     JButton b_creation_chanson_creer_artiste = new JButton("Creer un artiste ?");
     JButton b_creation_chanson_creer_groupe = new JButton("Creer un groupe ?");
     JButton b_creation_chanson_ajouter_groupe = new JButton("Ajout groupe");
-    JButton b_creation_chanson_ajouter_interprete = new JButton("Ajout intepr√®te");
+    JButton b_creation_chanson_ajouter_interprete = new JButton("Ajout inteprËte");
     JButton b_creation_chanson_suppr_groupe = new JButton("Suppr groupe");
     JButton b_creation_chanson_suppr_interprete = new JButton("Suppr interprete");
     JButton b_creation_chanson_creer_genre = new JButton("Creer un genre ?");
@@ -30,13 +30,13 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
     JButton b_creation_chanson_creer_tag = new JButton("Creer un tag ?");
     JButton b_creation_chanson_ajouter_tag = new JButton("Ajout tag");
     JButton b_creation_chanson_suppr_tag = new JButton("Suppr tag");
-    JButton b_creation_chanson_creer_ceremonie = new JButton("Creer c√©r√©monie ?");
+    JButton b_creation_chanson_creer_ceremonie = new JButton("Creer cÈrÈmonie ?");
     JButton b_creation_chanson_creer_award = new JButton("Creer award ?");
-    JButton b_creation_chanson_ajouter_recompense = new JButton("Ajout r√©compense");
-    JButton b_creation_chanson_suppr_recompense = new JButton("Suppr r√©compense");
-    JButton b_creation_chanson_valider_creation = new JButton("Cr√©er chanson");
+    JButton b_creation_chanson_ajouter_recompense = new JButton("Ajout rÈcompense");
+    JButton b_creation_chanson_suppr_recompense = new JButton("Suppr rÈcompense");
+    JButton b_creation_chanson_valider_creation = new JButton("CrÈer chanson");
     JButton b_creation_chanson_valider_brouillon = new JButton("Brouillon");
-    JButton b_creation_chanson_creer_studio_production = new JButton("Cr√©er label ?");
+    JButton b_creation_chanson_creer_studio_production = new JButton("CrÈer label ?");
 
 
     JComboBox cb_creation_chanson_artiste = new JComboBox<>();
@@ -49,7 +49,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
     JComboBox cb_creation_chanson_studio_production = new JComboBox<>();
 
     JLabel l_creation_chanson_titre = new JLabel("Titre : ");
-    JLabel l_creation_chanson_annee = new JLabel("Ann√©e : ");
+    JLabel l_creation_chanson_annee = new JLabel("AnnÈe : ");
     JLabel l_creation_chanson_album = new JLabel("Album : ");
     JLabel l_creation_chanson_lien = new JLabel("Lien : ");
     JLabel l_creation_chanson_studio_production = new JLabel("Label : ");
@@ -85,13 +85,17 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
         this.add(p_creation_chanson_infos_base);
 
         l_creation_chanson_titre.setBounds(5,5,75,30);
+        l_creation_chanson_titre.setForeground(Color.WHITE);
         tf_creation_chanson_titre.setBounds(80,5,150,30);
         l_creation_chanson_annee.setBounds(5,40,75,30);
+        l_creation_chanson_annee.setForeground(Color.WHITE);
         tf_creation_chanson_annee.setBounds(80,40,150,30);
         tf_creation_chanson_annee.setDocument(new C_verif_format_int(3));
         l_creation_chanson_album.setBounds(5,75,75,30);
+        l_creation_chanson_album.setForeground(Color.WHITE);
         tf_creation_chanson_album.setBounds(80,75,150,30);
         l_creation_chanson_lien.setBounds(5,110,75,30);
+        l_creation_chanson_lien.setForeground(Color.WHITE);
         tf_creation_chanson_lien.setBounds(80,110,150,30);
         p_creation_chanson_infos_base.add(l_creation_chanson_titre);
         p_creation_chanson_infos_base.add(tf_creation_chanson_titre);
@@ -102,6 +106,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
         p_creation_chanson_infos_base.add(l_creation_chanson_lien);
         p_creation_chanson_infos_base.add(tf_creation_chanson_lien);
         l_creation_chanson_studio_production.setBounds(370,5,150,20);
+        l_creation_chanson_studio_production.setForeground(Color.WHITE);
         cb_creation_chanson_studio_production.setModel(new DefaultComboBoxModel<>(new String[] { "Label"}));
         cb_creation_chanson_studio_production.setBounds(320,35,150,30);
         b_creation_chanson_creer_studio_production.setBounds(320,65,150,30);
@@ -110,6 +115,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
         p_creation_chanson_infos_base.add(b_creation_chanson_creer_studio_production);
 
         l_creation_chanson_groupe.setBounds(550,5,150,20);
+        l_creation_chanson_groupe.setForeground(Color.WHITE);
         cb_creation_chanson_groupe.setModel(new DefaultComboBoxModel<>(new String[] { "Groupe"}));
         cb_creation_chanson_groupe.setBounds(500,35,150,30);
         b_creation_chanson_creer_groupe.setBounds(500,65,150,30);
@@ -176,7 +182,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
 
         cb_creation_chanson_ceremonie.setModel(new DefaultComboBoxModel<>(new String[] { "Ceremonie"}));
         cb_creation_chanson_award.setModel(new DefaultComboBoxModel<>(new String[] { "Award"}));
-        cb_creation_chanson_annee_award.setModel(new DefaultComboBoxModel<>(new String[] { "Ann√©e"}));
+        cb_creation_chanson_annee_award.setModel(new DefaultComboBoxModel<>(new String[] { "AnnÈe"}));
         cb_creation_chanson_ceremonie.setBounds(10,10,150,30);
         p_creation_chanson_infos_ceremonie.add(cb_creation_chanson_ceremonie); 
         cb_creation_chanson_award.setBounds(10,45,150,30);
@@ -222,7 +228,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
 
         // LISTE CEREMONIE
         tab_creation_chanson_tab_recompenses.setModel(new DefaultTableModel(
-            o_creation_chanson_donnees_recompenses,new String [] {"C√©r√©monie", "R√©compense", "Ann√©e"}));
+            o_creation_chanson_donnees_recompenses,new String [] {"CÈrÈmonie", "RÈcompense", "AnnÈe"}));
         sp_creation_chanson_tab_recompenses.setBounds(5,150,315,190);
         sp_creation_chanson_tab_recompenses.setViewportView(tab_creation_chanson_tab_recompenses);
         p_creation_chanson_infos_ceremonie.add(sp_creation_chanson_tab_recompenses);
@@ -240,7 +246,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
     }
 
     public objets.C_CHANSON creerChansonAvecDonneesCreation(){
-        // Cr√©e un objet chanson et le rempli avec les informations du panel.
+        // CrÈe un objet chanson et le rempli avec les informations du panel.
         objets.C_CHANSON ma_chanson_cree = new objets.C_CHANSON();
         ma_chanson_cree.setMedia_type("Chanson");
         ma_chanson_cree.setChansonAlbum(recupererValeurTF(tf_creation_chanson_album));
@@ -266,7 +272,7 @@ public class G_panel_creation_chanson extends A_panel_creation_modification {
             ma_chanson_cree.setChanson_award(recupererTousAwardDeArrayList(chanson_award));}  
         if(chanson_annee_award.size() > 0){
             ma_chanson_cree.setChanson_annees_recompenses(recupererTousAnneeAwardDeArrayList(chanson_annee_award));}
-        System.out.println("Chanson cree avec donn√©es" +ma_chanson_cree.toString());
+        System.out.println("Chanson cree avec donnÈes" +ma_chanson_cree.toString());
         return ma_chanson_cree;
     }
 }
