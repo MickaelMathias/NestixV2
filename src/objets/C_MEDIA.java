@@ -100,11 +100,18 @@ public class C_MEDIA {
         }
         return value;
     }
+    
     public int verifExistenceMedia() {
     	int count;
     	count=bdd.C_requetes.rechercheId("SELECT media_id FROM media WHERE media_year="+this.media_annee+" AND media_title='"+this.media_titre+"'");
     	return count;
     }
+    
+    /**
+     * Insère le média en BDD avec le statut choisi et retourne le nombre de ligne ajoutée
+     * @param statut
+     * @return int
+     */
     public int creationMediaBdd(int statut){
         int i = bdd.C_connexion.ex_Update("INSERT INTO media (media_title, media_type, media_year, media_cover, media_link) "
         		+ "VALUES ("+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")");
@@ -136,6 +143,11 @@ public class C_MEDIA {
         }
     }
 
+    /**
+     * Supprime un media selon son id et retourne le nombre de ligne supprimée
+     * @param mon_id
+     * @return
+     */
     public int suppressionMediaBdd(int mon_id){
         String relations[] = {"produced_by", "competed_in", "is_associated_with", "categorized_by", "status", "appreciation", "contains", "take_part_in", "associated_with"};
         for (int i=0; i<relations.length; i++) {
@@ -150,8 +162,15 @@ public class C_MEDIA {
         return i;
     }
 
-    public void blocageMediaBdd(int mon_id) {
+    /**
+     * Modifie le statut d'un user vers "Bloqué"
+     * @param int mon_id
+     * @return int nombre de ligne modifiée
+     */
+    public int blocageMediaBdd(int mon_id) {
     	String requete_blocage="UPDATE `status` SET `asv_id` = '3', `asv_date_modif` = CURRENT_TIME() WHERE `status`.`media_id`="+mon_id;
-    	bdd.C_connexion.ex_Update(requete_blocage);
+    	int i = bdd.C_connexion.ex_Update(requete_blocage);
+    	
+    	return i;
     }
 }
