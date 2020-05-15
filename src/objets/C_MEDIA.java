@@ -84,6 +84,12 @@ public class C_MEDIA {
         return mes_artistes;
     }
 
+    /**
+     * Produit un tableau de caractéristiques à partir d'un tableau d'id et de la caractéristique
+     * @param mes_id
+     * @param champ
+     * @return ArrayList <C_CARACTERISTIQUES>
+     */
     public ArrayList <C_CARACTERISTIQUES> creerTableauCaracteristiques(int [] mes_id, String champ){
         ArrayList <C_CARACTERISTIQUES> mes_caracteristiques = new ArrayList<>();
         for (int i = 0; i < mes_id.length; i++){
@@ -94,7 +100,11 @@ public class C_MEDIA {
         return mes_caracteristiques;
     }
 
-
+    /**
+     * Vérification des données NULL et transformation en String
+     * @param value
+     * @return String
+     */
     public String VDE(String value){
         // verificationDonneesEntrees
         if (!value.equals("NULL")){
@@ -106,6 +116,10 @@ public class C_MEDIA {
         return value;
     }
     
+    /**
+     * Vérifie si un media existe dans la BDD
+     * @return int
+     */
     public int verifExistenceMedia() {
     	int count;
     	count=bdd.C_requetes.rechercheId("SELECT media_id FROM media WHERE media_year="+this.media_annee+" AND media_title='"+this.media_titre+"'");
@@ -126,22 +140,44 @@ public class C_MEDIA {
         return i;
     }
 
+    /**
+     * Modifie un media dans la BDD
+     * @param statut
+     */
     public void modificationMediaBdd(int statut){
         bdd.C_connexion.ex_Update("INSERT INTO media (media_id, media_title, media_type, media_year, media_cover, media_link) VALUES ("+this.media_id+","+VDE(this.media_titre)+","+VDE(this.media_type)+","+VDE(this.media_annee)+", NULL,"+VDE(this.media_lien)+")");
         bdd.C_connexion.ex_Update("INSERT INTO status (media_id, asv_id, asv_date_creat, asv_date_modif) VALUES ("+this.media_id+","+statut+",CURRENT_DATE(),CURRENT_DATE())");
     }
 
+    /**
+     * Création d'un artiste dans la BDD
+     * @param metier
+     * @param mes_artistes
+     */
     public void creationArtisteBdd(int metier, ArrayList <C_ARTISTE> mes_artistes){
         for (int i=0; i < mes_artistes.size(); i++){
             bdd.C_connexion.ex_Update("INSERT INTO take_part_in (media_id, work_id, human_id) VALUES ("+this.media_id+","+metier+","+ mes_artistes.get(i).getHuman_id()+")");
         }
     }
 
+    /**
+     * Création d'une caractéristique dans la BDD
+     * @param mes_caracteristiques
+     * @param champ
+     * @param table
+     */
     public void creationCaracteristiquesBdd(ArrayList<C_CARACTERISTIQUES> mes_caracteristiques, String champ, String table){
         for (int i = 0; i < mes_caracteristiques.size(); i++ ){
             bdd.C_connexion.ex_Update("INSERT INTO "+table+" (media_id, "+champ+"_id) VALUES ("+this.media_id+","+mes_caracteristiques.get(i).getCaracteristiquesId()+")");
         }
     }
+    
+    /**
+     * Création d'une récompense dans la BDD
+     * @param mes_ceremonies
+     * @param mes_award
+     * @param mes_annees
+     */
     public void creationRecompensesBdd(ArrayList<C_CARACTERISTIQUES> mes_ceremonies, ArrayList<C_CARACTERISTIQUES> mes_award, ArrayList<String> mes_annees){
         for (int i = 0; i < mes_ceremonies.size(); i++ ){
             bdd.C_connexion.ex_Update("INSERT INTO competed_in (media_id, award_id, ceremony_id, year) VALUES ("+this.media_id+","+mes_award.get(i).getCaracteristiquesId()+","+mes_ceremonies.get(i).getCaracteristiquesId()+","+mes_annees.get(i)+")");
