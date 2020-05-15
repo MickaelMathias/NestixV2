@@ -1,11 +1,16 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import objets.C_LIVRE;
 
@@ -24,7 +29,7 @@ class C_LIVRETest {
 	}
 	
 	@Test
-	//Création et suppression d'un livre
+	//Crï¿½ation et suppression d'un livre
 	public void testCreationLivreBdd()
 	{
 		C_LIVRE livre = new C_LIVRE();
@@ -52,7 +57,7 @@ class C_LIVRETest {
 		livre.setMedia_lien("unLien");
 		
 		livre.setLivre_isbn("9782266152174");
-		livre.setLivre_synop("Le malheureux Cyrano de Bergerac, un poète et bretteur affublé d\\'un nez démesurément grand, aime secrètement sa ravissante cousine Roxane. Se jugeant laid, il n\\'ose lui déclarer sa flamme. La jeune femme lui confie bientôt sa passion pour un jeune cadet de Gascogne, le séduisant mais insipide Christian de Neuvillette. Quand Roxane lui fait promettre de prendre son bien-aimé sous sa protection, Cyrano accepte de se sacrifier. Il impose silence à son cœur et met son esprit et sa verve au service de son rival. Cyrano propose de lui rédiger ses mots d’amour.");
+		livre.setLivre_synop("Le malheureux Cyrano de Bergerac, un poï¿½te et bretteur affublï¿½ d\\'un nez dï¿½mesurï¿½ment grand, aime secrï¿½tement sa ravissante cousine Roxane. Se jugeant laid, il n\\'ose lui dï¿½clarer sa flamme. La jeune femme lui confie bientï¿½t sa passion pour un jeune cadet de Gascogne, le sï¿½duisant mais insipide Christian de Neuvillette. Quand Roxane lui fait promettre de prendre son bien-aimï¿½ sous sa protection, Cyrano accepte de se sacrifier. Il impose silence ï¿½ son cï¿½ur et met son esprit et sa verve au service de son rival. Cyrano propose de lui rï¿½diger ses mots dï¿½amour.");
 		
 		int i = livre.creationMediaBdd(2);
 		assertEquals(1, i);
@@ -66,7 +71,7 @@ class C_LIVRETest {
 	}
 	
 	@Test
-	//Création d'un livre par son id, on teste si l'ISBN du livre est le même que celui de la BDD
+	//Crï¿½ation d'un livre par son id, on teste si l'ISBN du livre est le mï¿½me que celui de la BDD
 	public void testCreerLivreAvecId()
 	{
 		C_LIVRE livre = new C_LIVRE().creerLivreAvecId(106);
