@@ -69,6 +69,11 @@ public class C_MEDIA {
         this.media_asv = media_asv;
     }
 
+    /**
+     * Produit un tableau d'artiste à partir d'un tableau d'id
+     * @param mes_id
+     * @return ArrayList <C_ARTISTE>
+     */
     public ArrayList <C_ARTISTE> creerTableauArtistes(int [] mes_id){
         ArrayList <C_ARTISTE> mes_artistes = new ArrayList<>();
         for (int i = 0; i < mes_id.length; i++){
