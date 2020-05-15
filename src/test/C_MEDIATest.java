@@ -10,7 +10,6 @@ import objets.C_MEDIA;
 
 public class C_MEDIATest {
 	
-	
 
 	@Before
 	public void setUp() throws Exception {
