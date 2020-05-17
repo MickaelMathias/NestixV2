@@ -26,7 +26,7 @@ public class C_MEDIATest {
 	 */
 	public void testcreationMediaBdd() {
 		C_MEDIA media = new C_MEDIA();
-		media.setMedia_annee("2002");
+		media.setMedia_annee("2005");
 		media.setMedia_titre("TitreDeTest");
 		media.setMedia_type("Film");
 		media.setMedia_lien("blabla");
@@ -34,11 +34,19 @@ public class C_MEDIATest {
 		int i = media.creationMediaBdd(2);
 		assertEquals(1, i);
 		
-		int media_id = bdd.C_requetes.rechercheId("SELECT media_id FROM media ORDER BY media_id DESC LIMIT 1");		
+		int media_id = bdd.C_requetes.rechercheId("SELECT media_id FROM media ORDER BY media_id DESC LIMIT 1");	
+		
+		String[][] mediaRecup = bdd.C_requetes.rechercheMedia("SELECT * FROM media WHERE media_id="+media_id);
+		assertEquals("TitreDeTest", mediaRecup[0][1]);
+		assertEquals("Film", mediaRecup[0][2]);
+		assertEquals("2005", mediaRecup[0][3]);
+		assertEquals("blabla", mediaRecup[0][5]);
+		assertNull(mediaRecup[0][4]);
+		
 		int j = media.suppressionMediaBdd(media_id);
 		assertEquals(1, j);
-		
 	}
+	
 	
 	@Test
 	/**
@@ -83,6 +91,10 @@ public class C_MEDIATest {
 		
 		int k = media.suppressionMediaBdd(media_id);
 		assertEquals(1, k);
+	}
+	
+	public void testVerifExistenceMedia() {
+		
 	}
 	
 	/*
