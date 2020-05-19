@@ -21,7 +21,7 @@ public class C_MEDIATest {
 	}
 
 	@Test
-	//Création et suppression de media
+	//Crï¿½ation et suppression de media
 	public void testcreationMediaBdd() {
 		C_MEDIA media = new C_MEDIA();
 		media.setMedia_annee("2002");
@@ -39,7 +39,7 @@ public class C_MEDIATest {
 	}
 	
 	@Test
-	//Pas de doublons année/titre/type
+	//Pas de doublons annï¿½e/titre/type
 	public void testcreationMediaBddDoublon() {
 		C_MEDIA media = new C_MEDIA();
 		media.setMedia_annee("2003");
@@ -80,10 +80,10 @@ public class C_MEDIATest {
 	
 	/*
 	@Test
-	//Vérification de la concaténation de media_link pour ne pas dépasser 255 caractères
+	//Vï¿½rification de la concatï¿½nation de media_link pour ne pas dï¿½passer 255 caractï¿½res
 	public void testLength() {
 		String str = "abcde";
-		String longStr = str.repeat(53); //5*53 = 265 caractères
+		String longStr = str.repeat(53); //5*53 = 265 caractï¿½res
 		int length = longStr.length();
 		assertEquals(265, length);
 		

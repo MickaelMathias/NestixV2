@@ -78,13 +78,15 @@ public class C_HUMAN{
         }
         return value;
     }
-    public void creationHumanBdd(){
-        bdd.C_connexion.ex_Update("INSERT INTO human (human_lastname, human_firstname, human_sex, human_dob, human_pic) VALUES ("+VDE(this.human_nom)+","+VDE(this.human_prenom)+","+VDE(this.human_sexe)+","+VDE(this.human_dob)+", NULL)");
+    public int creationHumanBdd(){
+        int i = bdd.C_connexion.ex_Update("INSERT INTO human (human_lastname, human_firstname, human_sex, human_dob, human_pic) VALUES ("+VDE(this.human_nom)+","+VDE(this.human_prenom)+","+VDE(this.human_sexe)+","+VDE(this.human_dob)+", NULL)");
         this.human_id = bdd.C_requetes.rechercheId("SELECT human_id FROM human ORDER BY human_id DESC LIMIT 1");
+        return i;
     }
 
-    public void modificationHumanBdd(){
-        bdd.C_connexion.ex_Update("INSERT INTO human (human_id, human_lastname, human_firstname, human_sex, human_dob, human_pic) VALUES ("+this.human_id+","+VDE(this.human_nom)+","+VDE(this.human_prenom)+","+VDE(this.human_sexe)+","+VDE(this.human_dob)+", NULL)");
+    public int modificationHumanBdd(){
+        int i = bdd.C_connexion.ex_Update("INSERT INTO human (human_id, human_lastname, human_firstname, human_sex, human_dob, human_pic) VALUES ("+this.human_id+","+VDE(this.human_nom)+","+VDE(this.human_prenom)+","+VDE(this.human_sexe)+","+VDE(this.human_dob)+", NULL)");
+        return i;
     }
 
 
@@ -94,17 +96,20 @@ public class C_HUMAN{
         }
     }
 
-    public void suppressionHumanBdd(int mon_id){
+    public int suppressionHumanBdd(int mon_id){
         String relations[] = {"composed_by", "come_from", "appreciation", "awarded", "collection", "take_part_in", "users"};
         for (int i=0; i<relations.length; i++) {
             bdd.C_connexion.ex_Update("DELETE FROM `"+relations[i]+"` WHERE `"+relations[i]+"`.`human_id` ="+mon_id);
         }
+        bdd.C_connexion.ex_Update("DELETE FROM `status_artist` WHERE `status_artist`.`artist_id` ="+mon_id);
         bdd.C_connexion.ex_Update("DELETE FROM `artist` WHERE `artist`.`human_id` ="+mon_id);
-        bdd.C_connexion.ex_Update("DELETE FROM `human` WHERE `human`.`human_id` ="+mon_id);
+        int i = bdd.C_connexion.ex_Update("DELETE FROM `human` WHERE `human`.`human_id` ="+mon_id);
+        return i;
     }
 
-    public void blocageHumanBdd(int mon_id) {
-    	String requete_blocage="UPDATE `status` SET `asv_id` = '3', `asv_date_modif` = CURRENT_TIME() WHERE `status`.`human_id`="+mon_id;
-    	bdd.C_connexion.ex_Update(requete_blocage);
+    public int blocageHumanBdd(int mon_id) {
+    	String requete_blocage="UPDATE `status_artist` SET `asv_id` = '3', `asv_date_modif` = CURRENT_TIME() WHERE `status_artist`.`artist_id`="+mon_id;
+        int i = bdd.C_connexion.ex_Update(requete_blocage);
+        return i;
     }
 }

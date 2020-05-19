@@ -135,9 +135,10 @@ public class C_ARTISTE extends C_HUMAN{
         return mon_artiste_cree_avec_id;
     }
 
-    public void creationArtisteBdd(int statut){
-        bdd.C_connexion.ex_Update("INSERT INTO artist (human_id, artist_dod, artist_nickname) VALUES ("+this.human_id+","+VDE(this.artiste_dod)+","+VDE(this.artiste_nickname)+")");
-        bdd.C_connexion.ex_Update("INSERT INTO status_artist (artist_id, asv_id, asv_date_creat, asv_date_modif, user_id) VALUES ("+this.human_id+","+statut+", NOW(), NOW(), 62)"); //62 à modifier en fct de votre id d'admin
+    public int creationArtisteBdd(int statut){
+        int i = bdd.C_connexion.ex_Update("INSERT INTO artist (human_id, artist_dod, artist_nickname) VALUES ("+this.human_id+","+VDE(this.artiste_dod)+","+VDE(this.artiste_nickname)+")");
+         bdd.C_connexion.ex_Update("INSERT INTO status_artist (artist_id, asv_id, asv_date_creat, asv_date_modif, user_id) VALUES ("+this.human_id+","+statut+", NOW(), NOW(), 318)"); //62 ï¿½ modifier en fct de votre id d'admin
+        return i;
     }
 
     public void creationGroupeArtisteBDD(){
