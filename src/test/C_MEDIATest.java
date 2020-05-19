@@ -20,7 +20,10 @@ public class C_MEDIATest {
 	}
 
 	@Test
-	//Création et suppression de media
+	/**
+	 * Création et suppression de media
+	 * Test de creationMediaBdd() et suppressionMediaBdd()
+	 */
 	public void testcreationMediaBdd() {
 		C_MEDIA media = new C_MEDIA();
 		media.setMedia_annee("2002");
@@ -38,7 +41,9 @@ public class C_MEDIATest {
 	}
 	
 	@Test
-	//Pas de doublons année/titre/type
+	/**
+	 * Vérifie qu'il est impossible d'avoir un doublon année/titre/type
+	 */
 	public void testcreationMediaBddDoublon() {
 		C_MEDIA media = new C_MEDIA();
 		media.setMedia_annee("2003");
@@ -58,7 +63,10 @@ public class C_MEDIATest {
 	}
 	
 	@Test
-	//Modification de statut
+	/**
+	 * Modification de statut
+	 * Test de blocageMediaBdd()
+	 */
 	public void testModifStatut() {
 		C_MEDIA media = new C_MEDIA();
 		media.setMedia_annee("2003");
